@@ -1,0 +1,28 @@
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
+import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
+
+const BackArrow = (props: any) => {
+
+  return (
+    <View style={styles.view}>
+        <TouchableOpacity onPress={props.onButtonClick}>
+            <SimpleLineIcon style={styles.iconView} name="list" size={25} color="#000"/>
+        </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  view: {
+    margin: 0,
+  },
+  iconView: {
+    margin: 0,
+    marginTop: 50,
+    marginRight: 60,
+    marginLeft: 0
+  }
+});
+
+export default BackArrow;
