@@ -92,7 +92,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
 const styles = StyleSheet.create({
   searchView: {
     margin: 0,
-    marginTop: 60,
+    marginTop: 20,
     marginRight: 20,
     marginLeft: 60
   },
