@@ -1,0 +1,9 @@
+# Expo
+.expo
+.expo-shared
+
+# Mac
+.DS_Store
+
+# Node
+node_modules

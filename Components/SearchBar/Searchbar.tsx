@@ -68,17 +68,17 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
       <View style={styles.inline}>
         <View style={styles.searchView}>
           <SearchBar
-          placeholder="Search..."
-          onChangeText={updateSearch}
-          value={search}
-          clearIcon
-          lightTheme
-          platform={Platform.OS}
-          onCancel={clearSearch}
-          onClear={clearSearch}
-          searchIcon = {showBackArrow ? 
-                        <BackArrow onButtonClick={onBackArrowClick}/>
-                        : searchIcon}/>
+            placeholder="Search..."
+            onChangeText={updateSearch}
+            value={search}
+            clearIcon
+            lightTheme
+            platform={Platform.OS}
+            onCancel={clearSearch}
+            onClear={clearSearch}
+            searchIcon = {showBackArrow ? 
+                          <BackArrow onButtonClick={onBackArrowClick}/>
+                          : searchIcon}/>
           </View>
           <View>
             {pageType == "home" && <MapIcon onButtonClick={switchToMapPage}/>}
