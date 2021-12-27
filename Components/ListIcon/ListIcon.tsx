@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   iconView: {
     margin: 0,
-    marginTop: 50,
+    marginTop: 20,
     marginRight: 60,
     marginLeft: 0
   }
