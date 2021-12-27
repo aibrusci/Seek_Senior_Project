@@ -68,17 +68,17 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
       <View style={styles.inline}>
         <View style={styles.searchView}>
           <SearchBar
-            placeholder="Search..."
-            onChangeText={updateSearch}
-            value={search}
-            clearIcon
-            lightTheme
-            platform={Platform.OS}
-            onCancel={clearSearch}
-            onClear={clearSearch}
-            searchIcon = {showBackArrow ? 
-                          <BackArrow onButtonClick={onBackArrowClick}/>
-                          : searchIcon}/>
+          placeholder="Search..."
+          onChangeText={updateSearch}
+          value={search}
+          clearIcon
+          lightTheme
+          platform={Platform.OS}
+          onCancel={clearSearch}
+          onClear={clearSearch}
+          searchIcon = {showBackArrow ? 
+                        <BackArrow onButtonClick={onBackArrowClick}/>
+                        : searchIcon}/>
           </View>
           <View>
             {pageType == "home" && <MapIcon onButtonClick={switchToMapPage}/>}
@@ -92,7 +92,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
 const styles = StyleSheet.create({
   searchView: {
     margin: 0,
-    marginTop: 20,
+    marginTop: 60,
     marginRight: 20,
     marginLeft: 60
   },
