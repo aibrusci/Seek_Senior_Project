@@ -40,14 +40,17 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
 const styles = StyleSheet.create({
   fullCard: {
     width: 160,
-    height: 240,
+    height: 260,
     backgroundColor: '#FFFFFF',
     borderRadius: 5,
+    margin: 10,
+    marginLeft: 0,
   },
   cardText: {
     paddingLeft: 5,
     display: 'flex',
     flexDirection: 'column',
+    flexShrink: 1,
   },
   CardFooter: {
     display: 'flex',
