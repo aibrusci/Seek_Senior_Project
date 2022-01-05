@@ -5,6 +5,7 @@ import Searchbar from './Components/SearchBar/Searchbar';
 import SearchBar  from 'react-native-elements';
 import Logo from './Components/Logo/Logo';
 import HomePage from './Pages/HomePage';
+import SearchPage from './Pages/SearchPage';
 
 
 export default function App() {
@@ -15,7 +16,8 @@ export default function App() {
       <Searchbar pageType="home"/>
       <StatusBar style="auto" />
       <View > 
-        <HomePage/>
+        {/* <HomePage/> */}
+        <SearchPage/>
       </View>
     </View>
   );
