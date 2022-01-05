@@ -21,7 +21,7 @@ const cardsExample = [{id: 1, category: "Happy Hour", cards: [
   {id: 5, title:"COYA Taco Night", date:"Tuesday Nights 5-9pm", image:"https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg", savedIcon:false },
 ]}]
 
-export default function App() {
+export default function HomePage() {
 
   return (
     <SafeAreaView style={styles.container}>
