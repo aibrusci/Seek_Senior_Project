@@ -10,6 +10,7 @@ import ListIcon from "../ListIcon/ListIcon"
 
 type SearchBarComponentProps = {
     pageType: String
+    updateCards: Function
 };
 
 const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
@@ -25,6 +26,9 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
 
     if(search == "" && pageType == "home") {
       clearSearch()
+    }
+    else{
+      props.updateCards(search);
     }
   };
 
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
     margin: 0,
     marginTop: 20,
     marginRight: 20,
-    marginLeft: 60
+    marginLeft: 35
   },
 
   inline: {

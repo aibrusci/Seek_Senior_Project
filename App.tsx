@@ -13,7 +13,6 @@ export default function App() {
   return (
     <View>
       <Logo/>
-      <Searchbar pageType="home"/>
       <StatusBar style="auto" />
       <View > 
         {/* <HomePage/> */}

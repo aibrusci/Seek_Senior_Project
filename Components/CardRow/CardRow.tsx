@@ -6,7 +6,7 @@ import ActivityCard from '../../Components/ActivityCard/ActivityCard';
 
 type CardRowProps = {
     category: String;
-    cards: [];
+    cards: any;
   }
 type ActivityCardType = {
     title: String;
@@ -17,8 +17,7 @@ type ActivityCardType = {
 
 
 const CardRow: React.FC<CardRowProps> = (props) => {
-    _renderViews = (views: ActivityCardType[]): JSX.Element[] => {
-    const { cardStyle } = styles
+    const _renderViews = (views: ActivityCardType[]): JSX.Element[] => {
 
     return views.map(card => {
       return (

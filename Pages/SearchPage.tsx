@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, ScrollView, View, FlatList, SafeAreaView } from 'react-native';
 import ActivityCard from '../Components/ActivityCard/ActivityCard';
 import CardRow from '../Components/CardRow/CardRow';
+import Searchbar from '../Components/SearchBar/Searchbar';
 
 const cardsExample = [
   {id: 1, title:"COYA Taco Night", date:"Tuesday Nights 5-9pm", image:"https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg", savedIcon:false },
@@ -17,9 +18,24 @@ const cardsExample = [
 ]
 
 export default function SearchPage() {
-
+  
+    const [filteredCards, setFilteredCards] = useState(cardsExample);
+  
+    function updateCards( search : string ){
+      setFilteredCards(cardsExample.filter((item : any) => {
+        if (item.title.toLowerCase().includes(search.toLowerCase())){
+          return item;
+        }
+      }))
+      // console.log("ACTIVITYCARDS")
+      // console.log(filteredCards);
+      // console.log(search);
+      // console.log("BREAK");
+    }
+  
   return (
     <SafeAreaView style={styles.container}>
+      <Searchbar pageType={"home"} updateCards={updateCards}></Searchbar>
         <ScrollView
                 pagingEnabled 
                 showsVerticalScrollIndicator={false}
@@ -30,7 +46,7 @@ export default function SearchPage() {
                   
                 }}
             >
-                    {cardsExample.map(c => {
+                    {filteredCards.map(c => {
                         return (
                           <View style={styles.card}>
                             <ActivityCard title={c.title} date={c.date} savedIcon={false} image={c.image} />
@@ -47,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginLeft: 24,
     backgroundColor: '#fff',
-    maxHeight: 550, 
+    maxHeight: 700, 
   },
   card: {
     
