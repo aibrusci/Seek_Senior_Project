@@ -22,15 +22,11 @@ export default function SearchPage() {
     const [filteredCards, setFilteredCards] = useState(cardsExample);
   
     function updateCards( search : string ){
-      setFilteredCards(cardsExample.filter((item : any) => {
-        if (item.title.toLowerCase().includes(search.toLowerCase())){
-          return item;
-        }
-      }))
-      // console.log("ACTIVITYCARDS")
-      // console.log(filteredCards);
-      // console.log(search);
-      // console.log("BREAK");
+        setFilteredCards(cardsExample.filter((item : any) => {
+          if (item.title.toLowerCase().includes(search.toLowerCase())){
+            return item;
+          }
+        }))
     }
   
   return (

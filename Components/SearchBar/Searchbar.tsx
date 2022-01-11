@@ -25,7 +25,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
     setBackArrow(true)
 
     if(search == "" && pageType == "home") {
-      clearSearch()
+      clearSearch();
     }
     else{
       props.updateCards(search);
@@ -41,7 +41,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
       }
     }
     else {
-      clearSearch()
+      clearSearch();
     }
   }
 
@@ -49,6 +49,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
     if(pageType == "home") {
       switchToSearchIcon()
     }
+    props.updateCards("");
     setSearch("");
   }
 
@@ -65,8 +66,8 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
   }
 
   const switchToSearchIcon = () => {
-    setBackArrow(false)
-    setSearchIcon(true)
+    setBackArrow(false);
+    setSearchIcon(true);
   }
 
   return (
