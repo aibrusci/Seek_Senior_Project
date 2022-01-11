@@ -10,6 +10,7 @@ import ListIcon from "../ListIcon/ListIcon"
 
 type SearchBarComponentProps = {
     pageType: String
+    updateCards: Function
 };
 
 const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
@@ -24,7 +25,10 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
     setBackArrow(true)
 
     if(search == "" && pageType == "home") {
-      clearSearch()
+      clearSearch();
+    }
+    else{
+      props.updateCards(search);
     }
   };
 
@@ -37,7 +41,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
       }
     }
     else {
-      clearSearch()
+      clearSearch();
     }
   }
 
@@ -45,6 +49,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
     if(pageType == "home") {
       switchToSearchIcon()
     }
+    props.updateCards("");
     setSearch("");
   }
 
@@ -61,8 +66,8 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
   }
 
   const switchToSearchIcon = () => {
-    setBackArrow(false)
-    setSearchIcon(true)
+    setBackArrow(false);
+    setSearchIcon(true);
   }
 
   return (
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
     margin: 0,
     marginTop: 20,
     marginRight: 20,
-    marginLeft: 60
+    marginLeft: 35
   },
 
   inline: {
