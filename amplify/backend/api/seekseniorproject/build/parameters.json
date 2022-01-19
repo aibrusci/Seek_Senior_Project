@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "seekseniorproject",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authseekseniorproject9d7d403a",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-seekseniorproject-dev-152527-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/1b6aa1c6bcba8268445fc0047337bd3b59874b2e"
+}

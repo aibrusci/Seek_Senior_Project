@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "seekseniorproject",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authseekseniorproject9d7d403a",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2022-01-14T20:57:46.541Z"
+}

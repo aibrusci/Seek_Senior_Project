@@ -1,0 +1,15 @@
+projects:
+  seekseniorproject:
+    schemaPath: amplify/backend/api/seekseniorproject/build/schema.graphql
+    includes:
+      - 'n'
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
+        docsFilePath: .
+extensions:
+  amplify:
+    version: 3

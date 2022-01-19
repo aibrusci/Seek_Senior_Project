@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "seekseniorproject",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/ameliabruscia/seniorProject/Seek_Senior_Project/amplify/backend/api/seekseniorproject/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authseekseniorproject9d7d403a"
+    },
+    "additionalAuthTypes": [],
+    "conflictResolution": {}
+  }
+}

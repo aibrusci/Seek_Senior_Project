@@ -3,6 +3,9 @@ import React from 'react';
 import { StyleSheet, Text, ScrollView, View, FlatList, SafeAreaView } from 'react-native';
 import ActivityCard from './../Components/ActivityCard/ActivityCard';
 import CardRow from './../Components/CardRow/CardRow';
+import Amplify , {API, graphqlOperation, Auth} from 'aws-amplify';
+import { createEvent } from '../src/graphql/mutations';
+import { listEvents } from '../src/graphql/queries';
 
 const cardsExample = [{id: 1, category: "Happy Hour", cards: [
   {id: 1, title:"COYA Taco Night", date:"Tuesday Nights 5-9pm", image:"https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg", savedIcon:false },
@@ -20,6 +23,21 @@ const cardsExample = [{id: 1, category: "Happy Hour", cards: [
   {id: 2, title:"Libertine Comedy Night", date:"Wednesday Nights 5-9pm", image:"https://c8.alamy.com/comp/K70N7F/inside-the-libertine-brewing-companys-brew-pub-in-san-luis-obispo-K70N7F.jpg", savedIcon:true },
   {id: 5, title:"COYA Taco Night", date:"Tuesday Nights 5-9pm", image:"https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg", savedIcon:false },
 ]}]
+
+const addEvent = async () => {
+  try {
+      const user = await Auth.currentAuthenticatedUser();
+      const apiData = await API.graphql(graphqlOperation(listEvents))
+      console.log(apiData);
+      // const response = await API.graphql(graphqlOperation(createEvent, {input: {title:"COYA Taco Night"}}))
+      // console.log('Response :\n');
+      // console.log(response);
+      //console.log(user);
+    } catch (e) {
+      console.log(e.message);
+    }
+}
+
 
 export default function App() {
 
