@@ -7,11 +7,14 @@ export const onCreateEvent = /* GraphQL */ `
     onCreateEvent(owner: $owner) {
       id
       title
+      date
+      image
+      savedIcon
       description
-      day
       time
       filterCategories
       location
+      category
       createdAt
       updatedAt
       owner
@@ -23,11 +26,14 @@ export const onUpdateEvent = /* GraphQL */ `
     onUpdateEvent(owner: $owner) {
       id
       title
+      date
+      image
+      savedIcon
       description
-      day
       time
       filterCategories
       location
+      category
       createdAt
       updatedAt
       owner
@@ -39,11 +45,14 @@ export const onDeleteEvent = /* GraphQL */ `
     onDeleteEvent(owner: $owner) {
       id
       title
+      date
+      image
+      savedIcon
       description
-      day
       time
       filterCategories
       location
+      category
       createdAt
       updatedAt
       owner

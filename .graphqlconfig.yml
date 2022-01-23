@@ -1,15 +1,15 @@
 projects:
-  seekseniorproject:
-    schemaPath: amplify/backend/api/seekseniorproject/build/schema.graphql
+  SeekProject:
+    schemaPath: src/graphql/schema.json
     includes:
-      - 'n'
+      - src/graphql/**/*.js
     excludes:
       - ./amplify/**
     extensions:
       amplify:
-        codeGenTarget: typescript
-        generatedFileName: src/API.ts
-        docsFilePath: .
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
 extensions:
   amplify:
     version: 3

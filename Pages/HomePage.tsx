@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, ScrollView, View, FlatList, SafeAreaView } from 'react-native';
 import ActivityCard from './../Components/ActivityCard/ActivityCard';
 import CardRow from './../Components/CardRow/CardRow';
@@ -24,22 +24,10 @@ const cardsExample = [{id: 1, category: "Happy Hour", cards: [
   {id: 5, title:"COYA Taco Night", date:"Tuesday Nights 5-9pm", image:"https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg", savedIcon:false },
 ]}]
 
-const addEvent = async () => {
-  try {
-      const user = await Auth.currentAuthenticatedUser();
-      const apiData = await API.graphql(graphqlOperation(listEvents))
-      console.log(apiData);
-      // const response = await API.graphql(graphqlOperation(createEvent, {input: {title:"COYA Taco Night"}}))
-      // console.log('Response :\n');
-      // console.log(response);
-      //console.log(user);
-    } catch (e) {
-      console.log(e.message);
-    }
-}
 
 
-export default function App() {
+
+export default function HomePage() {
 
   return (
     <SafeAreaView style={styles.container}>

@@ -43,7 +43,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/auth/seekseniorproject9d7d403a-cloudformation-template.json",
         "logicalId": "authseekseniorproject9d7d403a"
       },
-      "lastPushTimeStamp": "2022-01-17T22:45:15.832Z",
+      "lastPushTimeStamp": "2022-01-20T04:30:43.675Z",
       "output": {
         "UserPoolId": "us-east-1_8SVQe8Kv5",
         "AppClientIDWeb": "43mtm37q0mpvnkeq1pia7a4f8n",
@@ -57,7 +57,7 @@
     }
   },
   "api": {
-    "seekseniorproject": {
+    "SeekProject": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -70,16 +70,15 @@
           },
           "additionalAuthenticationProviders": []
         },
-        "GraphQLAPIIdOutput": "cdrfiktpazc4jn57pzdzmpin7a",
-        "GraphQLAPIEndpointOutput": "https://fj4r25p2rrayxloz7npq6ka7yi.appsync-api.us-east-1.amazonaws.com/graphql"
+        "GraphQLAPIIdOutput": "u7feavso5farjoabz4o66kyshu",
+        "GraphQLAPIEndpointOutput": "https://z3qoiavykzcjbmnaid3whgzhxi.appsync-api.us-east-1.amazonaws.com/graphql"
       },
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "logicalId": "apiseekseniorproject"
+        "logicalId": "apiSeekProject"
       },
-      "lastPushTimeStamp": "2022-01-17T22:45:18.002Z",
-      "lastPushDirHash": "dVXI5lQrWNFycHGqS/50BStliXc=",
-      "testMode": true
+      "lastPushTimeStamp": "2022-01-20T04:30:45.515Z",
+      "lastPushDirHash": "WT/cne8Xf8ReonT0wxmRHyQKn04="
     }
   }
 }

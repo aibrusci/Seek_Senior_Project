@@ -29,7 +29,7 @@
     }
   },
   "api": {
-    "seekseniorproject": {
+    "SeekProject": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {

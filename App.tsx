@@ -10,6 +10,7 @@ import { withAuthenticator } from 'aws-amplify-react-native';
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 import { createEvent } from './src/graphql/mutations'
 import { listEvents, getEvent } from './src/graphql/queries'
+import SearchPage from './Pages/SearchPage';
 
 //import '@aws-amplify/ui-react/styles.css';
 
@@ -28,23 +29,33 @@ async function signOut() {
     }
 }
 
+const getEvents = async () => {
+  try {
+      //const user = await Auth.currentAuthenticatedUser();
+      const apiData = await API.graphql(graphqlOperation(listEvents))
+      console.log(apiData);
+      //const response = await API.graphql(graphqlOperation(createEvent, {input: {title:"COYA Taco Night"}}))
+      // console.log('Response :\n');
+      // console.log(response);
+      //console.log(user);
+    } catch (e) {
+      console.log(e.message);
+    }
+}
 
 function App (){
   return (
-      <View>
-        <View style={styles.topRow}>
+    <View>
+      <StatusBar style="auto" />
+      <View > 
+      <View style={styles.topRow}>
           <Logo/>
           <Pressable style={styles.button} onPress={() => signOut()}> 
             <Text style={styles.buttonText}>Sign out</Text>
           </Pressable>
         </View>
-        {/* <Pressable style={styles.button} onPress={() => addEvent()}> 
-            <Text style={styles.buttonText}>add Event</Text>
-          </Pressable> */}
-      <Searchbar pageType="home"/>
-      <StatusBar style="auto" />
-      <View > 
-        <HomePage/>
+        {/* <HomePage/> */}
+        <SearchPage/>
       </View>
     </View>
 
