@@ -13,7 +13,6 @@ export default function tabs (){
         screenOptions={{
             tabBarShowLabel:false,
             headerShown:false,
-            
             tabBarStyle: {
                 position: 'abolute',
                 elevation: 0,
