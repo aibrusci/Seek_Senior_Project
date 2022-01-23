@@ -6,19 +6,16 @@ import SearchBar  from 'react-native-elements';
 import Logo from './Components/Logo/Logo';
 import HomePage from './Pages/HomePage';
 import SearchPage from './Pages/SearchPage';
+import Tabs from './navigation/tabs';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 export default function App() {
 
   return (
-    <View>
-      <Logo/>
-      <StatusBar style="auto" />
-      <View > 
-        {/* <HomePage/> */}
-        <SearchPage/>
-      </View>
-    </View>
+    <NavigationContainer>
+        <Tabs/>
+    </NavigationContainer>
   );
 }
 
