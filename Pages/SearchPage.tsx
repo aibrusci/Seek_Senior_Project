@@ -32,10 +32,14 @@ export default function SearchPage() {
 
   const getEvents = async () => {
     try {
-        //const user = await Auth.currentAuthenticatedUser();
+        const user = await Auth.currentAuthenticatedUser();
+        await Auth.updateUserAttributes(user, {
+          "custom:saved": "true" //custom attribute
+          })
         const apiData = await API.graphql(graphqlOperation(listEvents))
         const cardData = apiData.data.listEvents.items
         setCards(cardData)
+        console.log(user)
       } catch (e) {
         console.log(e.message);
       }
