@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native';
 import Searchbar from './Components/SearchBar/Searchbar';
 import Logo from './Components/Logo/Logo';
-import HomePage from './Pages/HomePage';
 import Amplify , {API, graphqlOperation, Auth} from 'aws-amplify';
 import awsConfig from './src/aws-exports';
 import { withAuthenticator } from 'aws-amplify-react-native';
@@ -11,8 +10,6 @@ import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 import { createEvent } from './src/graphql/mutations'
 import { listEvents, getEvent } from './src/graphql/queries'
 import SearchPage from './Pages/SearchPage';
-
-//import '@aws-amplify/ui-react/styles.css';
 
 Amplify.configure({
   ...awsConfig,
@@ -29,19 +26,16 @@ async function signOut() {
     }
 }
 
-const getEvents = async () => {
-  try {
-      //const user = await Auth.currentAuthenticatedUser();
-      const apiData = await API.graphql(graphqlOperation(listEvents))
-      console.log(apiData);
-      //const response = await API.graphql(graphqlOperation(createEvent, {input: {title:"COYA Taco Night"}}))
-      // console.log('Response :\n');
-      // console.log(response);
-      //console.log(user);
-    } catch (e) {
-      console.log(e.message);
-    }
-}
+// const getEvents = async () => {
+//   try {
+//       //const user = await Auth.currentAuthenticatedUser();
+//       const apiData = await API.graphql(graphqlOperation(listEvents))
+//       console.log(apiData);
+//       //const response = await API.graphql(graphqlOperation(createEvent, {input: {title:"COYA Taco Night"}}))
+//     } catch (e) {
+//       console.log(e.message);
+//     }
+// }
 
 function App (){
   return (
@@ -54,7 +48,6 @@ function App (){
             <Text style={styles.buttonText}>Sign out</Text>
           </Pressable>
         </View>
-        {/* <HomePage/> */}
         <SearchPage/>
       </View>
     </View>
