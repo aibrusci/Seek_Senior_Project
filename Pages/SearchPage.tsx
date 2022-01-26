@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { StyleSheet, ScrollView, View, SafeAreaView } from 'react-native';
 import ActivityCard from '../Components/ActivityCard/ActivityCard';
 import CardRow from '../Components/CardRow/CardRow';
@@ -11,47 +11,66 @@ import FilterRow from "../Components/Filter/FilterRow";
 import FilterMenu from "../Components/Filter/FilterMenu";
 
 type CardType = {
+    id: String;
     title: string;
     date: string;
     image: string;
     savedIcon: boolean;
+    description: String;
+    time: String;
     filterCategories: string[];
+    location: String;
 };
 
 
 export default function SearchPage() {
-    const [filteredCards, setFilteredCards] = useState(cardsExample);
+    const [filteredCards, setFilteredCards] = useState([]);
     const [activeFilters, setactiveFilters] = useState(Array());
     const [showBackArrow, setBackArrow] = useState(false);
-    const [filters, setFilters] = useState(_getAllFilters(cardsExample));
+    const [filters, setFilters] = useState([]);
     const refRBSheet = useRef();
     const [cards, setCards] = useState([]);
+    let cardData: any;
+
+      const getEvents = async () => {
+        try {
+            // const user = await Auth.currentAuthenticatedUser();
+            // await Auth.updateUserAttributes(user, {
+            //   "custom:saved": "true" //custom attribute
+            //   })
+            const apiData = await API.graphql(graphqlOperation(listEvents))
+            cardData = apiData.data.listEvents.items
+            //setCards(apiData.data.listEvents.items)
+            //setFilteredCards(cardData)
+            //await setCards(cardData)
+            //await setFilteredCards(cardData)
+            //setCards(cardData)
+            // setFilters(_getAllFilters(cardData))
+            //console.log("data")
+            //console.log(cardData)
+            console.log("cards")
+            console.log(cardData)
+          } catch (e) {
+            console.log(e.message);
+          }
+      }
 
     // useEffect(() => {
-    //   getEvents()
-    //   }, [])
+    //     //getEvents()
+    //     console.log(cards)
+    //     }, [])
+
+    // useEffect(() => {
+    //         setCards(cardData)
+    //         setactiveFilters
+    //         console.log(cards)
+    //         }, [])
 
     useEffect(() => {
-        getEvents()
         if (!showBackArrow) {
             clearSelectedFilters();
         }
     }, [showBackArrow]);
-  
-    const getEvents = async () => {
-      try {
-          const user = await Auth.currentAuthenticatedUser();
-          await Auth.updateUserAttributes(user, {
-            "custom:saved": "true" //custom attribute
-            })
-          const apiData = await API.graphql(graphqlOperation(listEvents))
-          const cardData = apiData.data.listEvents.items
-          setCards(cardData)
-          console.log(apiData)
-        } catch (e) {
-          console.log(e.message);
-        }
-    }
 
     function updateCards(search: string) {
         setFilteredCards(
@@ -83,7 +102,13 @@ export default function SearchPage() {
             cards.filter((item: any) => {
                 if (
                     activeFilters.every((val) => {
-                        return item.filterCategories.includes(val);
+                        if(item.filterCategories){
+                          return item.filterCategories.includes(val);
+                        }
+                        else{
+                          return false
+                        }
+                        
                     })
                 ) {
                     return item;
@@ -147,15 +172,16 @@ export default function SearchPage() {
                         flexWrap: "wrap"
                     }}
                 >
-                    {filteredCards.map((c) => {
+                    {filteredCards.map((c: any) => {
                         return (
                             <View style={styles.card}>
-                                <ActivityCard
+                                {console.log(c)}
+                                {/* <ActivityCard
                                     title={c.title}
                                     date={c.date}
                                     savedIcon={false}
                                     image={c.image}
-                                />
+                                /> */}
                             </View>
                         );
                     })}
@@ -167,17 +193,27 @@ export default function SearchPage() {
                     showsHorizontalScrollIndicator={false}
                 >
                     <View style={styles.card}>
+                     {console.log("WHAT THE FUCKKKKKK")}
+                     
+                     {/* {console.log("filteredCards")}
+                      {console.log(filteredCards)} */}
+                      {console.log()}
+                     
                         {filters.map((category) => {
                             return (
                                 <CardRow
                                     cards={cards.filter((item: any) => {
-                                        if (
-                                            item.filterCategories.includes(
-                                                category
-                                            )
-                                        ) {
-                                            return item;
-                                        }
+                                        // if(item.filterCategories){
+                                        //   if (
+                                        //     item.filterCategories.includes(
+                                        //         category
+                                        //     )
+                                        // ) {
+                                        //     return item;
+                                        // }
+                                        // }
+                                        return item;
+                                       
                                     })}
                                     category={String(category)}
                                 />
