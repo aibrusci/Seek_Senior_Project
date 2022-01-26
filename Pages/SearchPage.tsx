@@ -20,6 +20,7 @@ type CardType = {
     time: String;
     filterCategories: string[];
     location: String;
+    category: String;
 };
 
 
@@ -53,16 +54,18 @@ export default function SearchPage() {
     //         console.log(e.message);
     //       }
     //   }
-
+      //let cardData: any = [];
       useEffect(() => {
         //useEffect function must return a cleanup function or nothing
         (async () => {
-          const apiData = await API.graphql(graphqlOperation(listEvents));
-          const cardData = apiData.data.listEvents.items;
-          setCards(cardData);
+         const apiData = await API.graphql(graphqlOperation(listEvents));
+         const cardData = apiData.data.listEvents.items;
+         setCards(cardData);
         //   setFilteredCards(cardData);
         //   setFilters(cardData);
+          console.log("cards");
           console.log(cards);
+          //console.log(cardData)
         })();
     
       }, [])
@@ -203,7 +206,8 @@ export default function SearchPage() {
                      
                      {/* {console.log("filteredCards")}
                       {console.log(filteredCards)} */}
-                      {console.log()}
+                      {console.log("cards")}
+                      {console.log(cards)}
                      
                         {filters.map((category) => {
                             return (
