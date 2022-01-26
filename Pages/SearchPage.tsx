@@ -30,40 +30,46 @@ export default function SearchPage() {
     const [filters, setFilters] = useState([]);
     const refRBSheet = useRef();
     const [cards, setCards] = useState([]);
-    let cardData: any;
 
-      const getEvents = async () => {
-        try {
-            // const user = await Auth.currentAuthenticatedUser();
-            // await Auth.updateUserAttributes(user, {
-            //   "custom:saved": "true" //custom attribute
-            //   })
-            const apiData = await API.graphql(graphqlOperation(listEvents))
-            cardData = apiData.data.listEvents.items
-            //setCards(apiData.data.listEvents.items)
-            //setFilteredCards(cardData)
-            //await setCards(cardData)
-            //await setFilteredCards(cardData)
-            //setCards(cardData)
-            // setFilters(_getAllFilters(cardData))
-            //console.log("data")
-            //console.log(cardData)
-            console.log("cards")
-            console.log(cardData)
-          } catch (e) {
-            console.log(e.message);
-          }
-      }
+    //   const getEvents = async () => {
+    //     try {
+    //         // const user = await Auth.currentAuthenticatedUser();
+    //         // await Auth.updateUserAttributes(user, {
+    //         //   "custom:saved": "true" //custom attribute
+    //         //   })
+    //         const apiData = await API.graphql(graphqlOperation(listEvents))
+    //         const cardData =  apiData.data.listEvents.items;
+    //         //setCards(apiData.data.listEvents.items)
+    //         //setFilteredCards(cardData)
+    //         //await setCards(cardData)
+    //         //await setFilteredCards(cardData)
+    //         //setCards(cardData)
+    //         // setFilters(_getAllFilters(cardData))
+    //         //console.log("data")
+    //         //console.log(cardData)
+    //         console.log("cards")
+    //         //console.log(cardData)
+    //       } catch (e) {
+    //         console.log(e.message);
+    //       }
+    //   }
+
+      useEffect(() => {
+        //useEffect function must return a cleanup function or nothing
+        (async () => {
+          const apiData = await API.graphql(graphqlOperation(listEvents));
+          const cardData = apiData.data.listEvents.items;
+          setCards(cardData);
+        //   setFilteredCards(cardData);
+        //   setFilters(cardData);
+          console.log(cards);
+        })();
+    
+      }, [])
 
     // useEffect(() => {
-    //     //getEvents()
-    //     console.log(cards)
-    //     }, [])
-
-    // useEffect(() => {
-    //         setCards(cardData)
-    //         setactiveFilters
-    //         console.log(cards)
+    //         setCards(cardData);
+    //         console.log(cardData);
     //         }, [])
 
     useEffect(() => {
