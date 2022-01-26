@@ -10,70 +10,36 @@ import { listEvents } from '../src/graphql/queries';
 import FilterRow from "../Components/Filter/FilterRow";
 import FilterMenu from "../Components/Filter/FilterMenu";
 
-type CardType = {
-    id: String;
-    title: string;
-    date: string;
-    image: string;
-    savedIcon: boolean;
-    description: String;
-    time: String;
-    filterCategories: string[];
-    location: String;
-    category: String;
-};
-
 
 export default function SearchPage() {
     const [filteredCards, setFilteredCards] = useState([]);
     const [activeFilters, setactiveFilters] = useState(Array());
     const [showBackArrow, setBackArrow] = useState(false);
-    const [filters, setFilters] = useState([]);
+    const [filters, setFilters] = useState(Array());
     const refRBSheet = useRef();
     const [cards, setCards] = useState([]);
 
-    //   const getEvents = async () => {
-    //     try {
-    //         // const user = await Auth.currentAuthenticatedUser();
-    //         // await Auth.updateUserAttributes(user, {
-    //         //   "custom:saved": "true" //custom attribute
-    //         //   })
-    //         const apiData = await API.graphql(graphqlOperation(listEvents))
-    //         const cardData =  apiData.data.listEvents.items;
-    //         //setCards(apiData.data.listEvents.items)
-    //         //setFilteredCards(cardData)
-    //         //await setCards(cardData)
-    //         //await setFilteredCards(cardData)
-    //         //setCards(cardData)
-    //         // setFilters(_getAllFilters(cardData))
-    //         //console.log("data")
-    //         //console.log(cardData)
-    //         console.log("cards")
-    //         //console.log(cardData)
-    //       } catch (e) {
-    //         console.log(e.message);
-    //       }
-    //   }
-      //let cardData: any = [];
-      useEffect(() => {
-        //useEffect function must return a cleanup function or nothing
+
+    useEffect(() => {
         (async () => {
+         const user = await Auth.currentAuthenticatedUser();
          const apiData = await API.graphql(graphqlOperation(listEvents));
          const cardData = apiData.data.listEvents.items;
          setCards(cardData);
-        //   setFilteredCards(cardData);
-        //   setFilters(cardData);
-          console.log("cards");
-          console.log(cards);
-          //console.log(cardData)
+         setFilteredCards(cardData);
+         
+         const newFilters = new Set();
+         cardData.forEach((card) =>
+             card.filterCategories.forEach((category) =>
+                 newFilters.add(category)
+             )
+         );
+         setFilters(Array.from(newFilters));
+
         })();
     
       }, [])
 
-    // useEffect(() => {
-    //         setCards(cardData);
-    //         console.log(cardData);
-    //         }, [])
 
     useEffect(() => {
         if (!showBackArrow) {
@@ -146,16 +112,6 @@ export default function SearchPage() {
         return activeFilters;
     };
 
-    function _getAllFilters(cardInput: CardType[]) {
-        const newFilters = new Set();
-        cardInput.forEach((card) =>
-            card.filterCategories.forEach((category) =>
-                newFilters.add(category)
-            )
-        );
-        return Array.from(newFilters);
-    }
-
     return (
         <SafeAreaView style={styles.container}>
             <Searchbar
@@ -185,12 +141,12 @@ export default function SearchPage() {
                         return (
                             <View style={styles.card}>
                                 {console.log(c)}
-                                {/* <ActivityCard
+                                <ActivityCard
                                     title={c.title}
                                     date={c.date}
                                     savedIcon={false}
                                     image={c.image}
-                                /> */}
+                                />
                             </View>
                         );
                     })}
@@ -202,28 +158,19 @@ export default function SearchPage() {
                     showsHorizontalScrollIndicator={false}
                 >
                     <View style={styles.card}>
-                     {console.log("WHAT THE FUCKKKKKK")}
-                     
-                     {/* {console.log("filteredCards")}
-                      {console.log(filteredCards)} */}
-                      {console.log("cards")}
-                      {console.log(cards)}
-                     
                         {filters.map((category) => {
                             return (
                                 <CardRow
                                     cards={cards.filter((item: any) => {
-                                        // if(item.filterCategories){
-                                        //   if (
-                                        //     item.filterCategories.includes(
-                                        //         category
-                                        //     )
-                                        // ) {
-                                        //     return item;
-                                        // }
-                                        // }
-                                        return item;
-                                       
+                                        if(item.filterCategories){
+                                          if (
+                                            item.filterCategories.includes(
+                                                category
+                                            )
+                                        ) {
+                                            return item;
+                                        }
+                                        }                                       
                                     })}
                                     category={String(category)}
                                 />
@@ -252,120 +199,3 @@ const styles = StyleSheet.create({
     },
     card: {}
 });
-
-const cardsExample = [
-    {
-        id: 1,
-        title: "COYA Taco Night",
-        date: "Tuesday Nights 5-9pm",
-        image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
-        savedIcon: false,
-        filterCategories: [
-            "Family Friendly",
-            "All Ages",
-            "Peruvian",
-            "Food",
-            "Deal"
-        ]
-    },
-    {
-        id: 2,
-        title: "Libertine Comedy Night",
-        date: "Wednesday Nights 5-9pm",
-        image: "https://c8.alamy.com/comp/K70N7F/inside-the-libertine-brewing-companys-brew-pub-in-san-luis-obispo-K70N7F.jpg",
-        savedIcon: true,
-        filterCategories: ["Food", "Comedy", "Night Life", "Downtown"]
-    },
-    {
-        id: 3,
-        title: "Woodstock's Trivia Night",
-        date: "Monday Nights 9-11pm",
-        image: "https://slochamber.org/wp-content/uploads/2018/08/Woodstocks-Pizza-Backyard-3_1024.png",
-        savedIcon: true,
-        filterCategories: [
-            "Family Friendly",
-            "All Ages",
-            "Trivia",
-            "Night Life",
-            "Downtown"
-        ]
-    },
-    {
-        id: 4,
-        title: "Libertine Comedy Night",
-        date: "Wednesday Nights 5-9pm",
-        image: "https://c8.alamy.com/comp/K70N7F/inside-the-libertine-brewing-companys-brew-pub-in-san-luis-obispo-K70N7F.jpg",
-        savedIcon: true,
-        filterCategories: ["Food", "Comedy", "Night Life", "Downtown"]
-    },
-    {
-        id: 5,
-        title: "Woodstock's Trivia Night",
-        date: "Monday Nights 9-11pm",
-        image: "https://slochamber.org/wp-content/uploads/2018/08/Woodstocks-Pizza-Backyard-3_1024.png",
-        savedIcon: true,
-        filterCategories: [
-            "Family Friendly",
-            "All Ages",
-            "Trivia",
-            "Night Life",
-            "Downtown"
-        ]
-    },
-    {
-        id: 6,
-        title: "COYA Taco Night",
-        date: "Tuesday Nights 5-9pm",
-        image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
-        savedIcon: false,
-        filterCategories: [
-            "Family Friendly",
-            "All Ages",
-            "Peruvian",
-            "Food",
-            "Deal"
-        ]
-    },
-    {
-        id: 6,
-        title: "COYA Taco Night",
-        date: "Tuesday Nights 5-9pm",
-        image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
-        savedIcon: false,
-        filterCategories: [
-            "Family Friendly",
-            "All Ages",
-            "Peruvian",
-            "Food",
-            "Deal"
-        ]
-    },
-    {
-        id: 6,
-        title: "COYA Taco Night",
-        date: "Tuesday Nights 5-9pm",
-        image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
-        savedIcon: false,
-        filterCategories: [
-            "Family Friendly",
-            "All Ages",
-            "Peruvian",
-            "Food",
-            "Deal"
-        ]
-    },
-    {
-        id: 6,
-        title: "COYA Taco Night",
-        date: "Tuesday Nights 5-9pm",
-        image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
-        savedIcon: false,
-        filterCategories: [
-            "Family Friendly",
-            "All Ages",
-            "Peruvian",
-            "Food",
-            "Deal"
-        ]
-    }
-];
