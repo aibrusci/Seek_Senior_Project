@@ -5,13 +5,22 @@ import CardRow from "../Components/CardRow/CardRow";
 import FilterRow from "../Components/Filter/FilterRow";
 import Searchbar from "../Components/SearchBar/Searchbar";
 import FilterMenu from "../Components/Filter/FilterMenu";
+import Logo from "../Components/Logo/Logo";
 
 type CardType = {
-    title: string;
-    date: string;
+    id: String;
+    title: String;
+    date: String;
     image: string;
-    savedIcon: boolean;
-    filterCategories: string[];
+    savedIcon: Boolean;
+    description: String;
+    time: String;
+    filterCategories: [String];
+    location: String;
+    category: String;
+    price: string;
+    website: string;
+    rating: [number];
 };
 
 export default function SearchPage() {
@@ -97,8 +106,10 @@ export default function SearchPage() {
 
     return (
         <View style={styles.viewContainer}>
+            <Logo style={styles.Logo}></Logo>
             <SafeAreaView style={styles.container}>
                 <View style={styles.viewContainer}></View>
+
                 <Searchbar
                     showBackArrow={showBackArrow}
                     setBackArrow={setBackArrow}
@@ -145,15 +156,17 @@ export default function SearchPage() {
                             {filters.map((category) => {
                                 return (
                                     <CardRow
-                                        cards={cardsExample.filter((item: any) => {
-                                            if (
-                                                item.filterCategories.includes(
-                                                    category
-                                                )
-                                            ) {
-                                                return item;
+                                        cards={cardsExample.filter(
+                                            (item: any) => {
+                                                if (
+                                                    item.filterCategories.includes(
+                                                        category
+                                                    )
+                                                ) {
+                                                    return item;
+                                                }
                                             }
-                                        })}
+                                        )}
                                         category={String(category)}
                                     />
                                 );
@@ -178,19 +191,23 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginLeft: 24,
         backgroundColor: "#fff",
-        maxHeight: 800,
+        maxHeight: 800
     },
     viewContainer: {
         backgroundColor: "#fff"
     },
-    card: {}
+    card: {},
+    Logo: {
+        margin: -240,
+        padding: -24
+    }
 });
 
 const cardsExample = [
     {
         id: 1,
         title: "COYA Taco Night",
-        date: "Tuesday Nights 5-9pm",
+        date: "Tuesday Nights",
         image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
         savedIcon: false,
         filterCategories: [
@@ -199,7 +216,15 @@ const cardsExample = [
             "Peruvian",
             "Food",
             "Deal"
-        ]
+        ],
+        description:
+            "SLO Comedy Undergrounds comes to you live with an awesome lineup on October 6th with headliner: Sam Goldstein! Tickets are already selling out so buy them while you can!\nTickets are $5 each and can be purchased",
+        location: "123 Higuera St",
+        category: "Food",
+        price: "$",
+        time: "5-9pm",
+        website: "https://www.instagram.com/coyaperuvianfood/?hl=en",
+        rating: [5, 3, 5, 4]
     },
     {
         id: 2,
@@ -207,12 +232,20 @@ const cardsExample = [
         date: "Wednesday Nights 5-9pm",
         image: "https://c8.alamy.com/comp/K70N7F/inside-the-libertine-brewing-companys-brew-pub-in-san-luis-obispo-K70N7F.jpg",
         savedIcon: true,
-        filterCategories: ["Food", "Comedy", "Night Life", "Downtown"]
+        filterCategories: ["Food", "Comedy", "Night Life", "Downtown"],
+        description: "Food",
+        location: "123 Higuera St",
+        category:
+            "SLO Comedy Undergrounds comes to you live with an awesome lineup on October 6th with headliner: Sam Goldstein! Tickets are already selling out so buy them while you can!\nTickets are $5 each and can be purchased",
+        price: "$",
+        time: "5-9pm",
+        website: "http://libertinebrewing.com/libertine-event-calendar/",
+        rating: [5, 3, 5, 4]
     },
     {
         id: 3,
         title: "Woodstock's Trivia Night",
-        date: "Monday Nights 9-11pm",
+        date: "Monday Nights",
         image: "https://slochamber.org/wp-content/uploads/2018/08/Woodstocks-Pizza-Backyard-3_1024.png",
         savedIcon: true,
         filterCategories: [
@@ -221,20 +254,36 @@ const cardsExample = [
             "Trivia",
             "Night Life",
             "Downtown"
-        ]
+        ],
+        description:
+            "SLO Comedy Undergrounds comes to you live with an awesome lineup on October 6th with headliner: Sam Goldstein! Tickets are already selling out so buy them while you can!\nTickets are $5 each and can be purchased",
+        location: "123 Higuera St",
+        category: "Food",
+        price: "$",
+        time: "9-11pm",
+        website: "https://woodstocksslo.com/events/",
+        rating: [5, 3, 5, 4]
     },
     {
         id: 4,
         title: "Libertine Comedy Night",
-        date: "Wednesday Nights 5-9pm",
+        date: "Wednesday Nights",
         image: "https://c8.alamy.com/comp/K70N7F/inside-the-libertine-brewing-companys-brew-pub-in-san-luis-obispo-K70N7F.jpg",
         savedIcon: true,
-        filterCategories: ["Food", "Comedy", "Night Life", "Downtown"]
+        filterCategories: ["Food", "Comedy", "Night Life", "Downtown"],
+        description:
+            "SLO Comedy Undergrounds comes to you live with an awesome lineup on October 6th with headliner: Sam Goldstein! Tickets are already selling out so buy them while you can!\nTickets are $5 each and can be purchased",
+        location: "123 Higuera St",
+        category: "Food",
+        price: "$",
+        time: "5-9pm",
+        website: "http://libertinebrewing.com/libertine-event-calendar/",
+        rating: [5, 3, 5, 4]
     },
     {
         id: 5,
         title: "Woodstock's Trivia Night",
-        date: "Monday Nights 9-11pm",
+        date: "Tuesday Nights",
         image: "https://slochamber.org/wp-content/uploads/2018/08/Woodstocks-Pizza-Backyard-3_1024.png",
         savedIcon: true,
         filterCategories: [
@@ -243,12 +292,20 @@ const cardsExample = [
             "Trivia",
             "Night Life",
             "Downtown"
-        ]
+        ],
+        description:
+            "SLO Comedy Undergrounds comes to you live with an awesome lineup on October 6th with headliner: Sam Goldstein! Tickets are already selling out so buy them while you can!\nTickets are $5 each and can be purchased",
+        location: "123 Higuera St",
+        category: "Food",
+        price: "$",
+        time: "9-11pm",
+        website: "https://woodstocksslo.com/events/",
+        rating: [5, 3, 5, 4]
     },
     {
         id: 6,
         title: "COYA Taco Night",
-        date: "Tuesday Nights 5-9pm",
+        date: "Tuesday Nights",
         image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
         savedIcon: false,
         filterCategories: [
@@ -257,12 +314,21 @@ const cardsExample = [
             "Peruvian",
             "Food",
             "Deal"
-        ]
+        ],
+        description:
+            "SLO Comedy Undergrounds comes to you live with an awesome lineup on October 6th with headliner: Sam Goldstein! Tickets are already selling out so buy them while you can!\nTickets are $5 each and can be purchased",
+        location: "123 Higuera St",
+        category: "Food",
+        price: "$",
+        time: "5-9pm",
+        website: "https://www.instagram.com/coyaperuvianfood/?hl=en",
+        rating: [5, 3, 5, 4]
     },
     {
         id: 6,
         title: "COYA Taco Night",
-        date: "Tuesday Nights 5-9pm",
+        date: "Tuesday Nights",
+        time: "5-9pm",
         image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
         savedIcon: false,
         filterCategories: [
@@ -271,12 +337,20 @@ const cardsExample = [
             "Peruvian",
             "Food",
             "Deal"
-        ]
+        ],
+        description:
+            "SLO Comedy Undergrounds comes to you live with an awesome lineup on October 6th with headliner: Sam Goldstein! Tickets are already selling out so buy them while you can!\nTickets are $5 each and can be purchased",
+        location: "123 Higuera St",
+        category: "Food",
+        price: "$",
+        website: "https://www.instagram.com/coyaperuvianfood/?hl=en",
+        rating: [5, 3, 5, 4]
     },
     {
         id: 6,
         title: "COYA Taco Night",
-        date: "Tuesday Nights 5-9pm",
+        date: "Tuesday Nights",
+        time: "5-9pm",
         image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
         savedIcon: false,
         filterCategories: [
@@ -285,12 +359,20 @@ const cardsExample = [
             "Peruvian",
             "Food",
             "Deal"
-        ]
+        ],
+        description:
+            "SLO Comedy Undergrounds comes to you live with an awesome lineup on October 6th with headliner: Sam Goldstein! Tickets are already selling out so buy them while you can!\nTickets are $5 each and can be purchased",
+        location: "123 Higuera St",
+        category: "Food",
+        price: "$",
+        website: "https://www.instagram.com/coyaperuvianfood/?hl=en",
+        rating: [5, 3, 5, 4]
     },
     {
         id: 6,
         title: "COYA Taco Night",
-        date: "Tuesday Nights 5-9pm",
+        date: "Tuesday Nights",
+        time: "5-9pm",
         image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
         savedIcon: false,
         filterCategories: [
@@ -299,6 +381,13 @@ const cardsExample = [
             "Peruvian",
             "Food",
             "Deal"
-        ]
+        ],
+        description:
+            "SLO Comedy Undergrounds comes to you live with an awesome lineup on October 6th with headliner: Sam Goldstein! Tickets are already selling out so buy them while you can!\nTickets are $5 each and can be purchased",
+        location: "123 Higuera St",
+        category: "Food",
+        price: "$",
+        website: "https://www.instagram.com/coyaperuvianfood/?hl=en",
+        rating: [5, 3, 5, 4]
     }
 ];

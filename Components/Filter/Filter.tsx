@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: "#000000",
         padding: 5,
-        zIndex: 999
+        zIndex: 999,
+        fontFamily: "WorkSans-Regular"
     }
 });
 export default Filter;

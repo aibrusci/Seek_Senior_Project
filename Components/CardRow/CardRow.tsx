@@ -7,10 +7,19 @@ type CardRowProps = {
     cards: any;
 };
 type ActivityCardType = {
-    title: string;
-    date: string;
+    id: String;
+    title: String;
+    date: String;
     image: string;
-    savedIcon: boolean;
+    savedIcon: Boolean;
+    description: String;
+    time: String;
+    filterCategories: [String];
+    location: String;
+    category: String;
+    price: string;
+    website: string;
+    rating: [number];
 };
 
 const CardRow: React.FC<CardRowProps> = (props) => {
@@ -19,10 +28,19 @@ const CardRow: React.FC<CardRowProps> = (props) => {
             return (
                 <View style={styles.cardStyle}>
                     <ActivityCard
+                        id={card.id}
                         title={card.title}
                         date={card.date}
-                        savedIcon={false}
                         image={card.image}
+                        savedIcon={card.savedIcon}
+                        description={card.description}
+                        time={card.time}
+                        filterCategories={card.filterCategories}
+                        location={card.location}
+                        category={card.category}
+                        price={card.price}
+                        website={card.website}
+                        rating={card.rating}
                     />
                 </View>
             );
@@ -56,7 +74,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         fontWeight: "500",
-        fontSize: 16
+        fontSize: 16,
+        fontFamily: "WorkSans-Regular"
     }
 });
 export default CardRow;
