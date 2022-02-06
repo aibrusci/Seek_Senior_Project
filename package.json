@@ -10,7 +10,14 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^2.1.8",
+    "@react-native-async-storage/async-storage": "github:react-native-async-storage/async-storage",
+    "@react-native-community/netinfo": "^7.1.7",
+    "@react-native-picker/picker": "^2.2.1",
+    "amazon-cognito-identity-js": "^5.2.4",
     "ansi-styles": "^4.3.0",
+    "aws-amplify": "^4.3.12",
+    "aws-amplify-react-native": "^6.0.2",
     "bootstrap": "^5.1.3",
     "expo": "~43.0.2",
     "expo-status-bar": "~1.1.0",
