@@ -7,9 +7,11 @@ import Amplify , {API, graphqlOperation, Auth} from 'aws-amplify';
 import awsConfig from './src/aws-exports';
 import { withAuthenticator } from 'aws-amplify-react-native';
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
-import { createEvent } from './src/graphql/mutations'
-import { listEvents, getEvent } from './src/graphql/queries'
 import SearchPage from './Pages/SearchPage';
+import { StyleSheet, Text, View } from 'react-native';
+import SearchBar  from 'react-native-elements';
+import Tabs from './navigation/tabs';
+import { NavigationContainer } from '@react-navigation/native';
 
 Amplify.configure({
   ...awsConfig,
@@ -26,32 +28,16 @@ async function signOut() {
     }
 }
 
-// const getEvents = async () => {
-//   try {
-//       //const user = await Auth.currentAuthenticatedUser();
-//       const apiData = await API.graphql(graphqlOperation(listEvents))
-//       console.log(apiData);
-//       //const response = await API.graphql(graphqlOperation(createEvent, {input: {title:"COYA Taco Night"}}))
-//     } catch (e) {
-//       console.log(e.message);
-//     }
-// }
 
-function App (){
+function App() {
+
   return (
-    <View>
-      <StatusBar style="auto" />
-      <View > 
-      <View style={styles.topRow}>
-          <Logo/>
-          <Pressable style={styles.button} onPress={() => signOut()}> 
+    <NavigationContainer>
+        <Pressable style={styles.button} onPress={() => signOut()}> 
             <Text style={styles.buttonText}>Sign out</Text>
-          </Pressable>
-        </View>
-        <SearchPage/>
-      </View>
-    </View>
-
+         </Pressable>
+        <Tabs/>
+    </NavigationContainer>
   );
 }
 

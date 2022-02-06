@@ -176,17 +176,42 @@ export default function SearchPage() {
                                 />
                             );
                         })}
-                    </View>
-                </ScrollView>
-            )}
-            <FilterMenu
-                refRBSheet={refRBSheet}
-                filters={filters}
-                activeFilters={activeFilters}
-                onFilterClick={onFilterClick}
-                clearSelectedFilters={clearSelectedFilters}
-            ></FilterMenu>
-        </SafeAreaView>
+                    </ScrollView>
+                ) : (
+                    <ScrollView
+                        pagingEnabled
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                    >
+                        <View style={styles.card}>
+                            {filters.map((category) => {
+                                return (
+                                    <CardRow
+                                        cards={cardsExample.filter((item: any) => {
+                                            if (
+                                                item.filterCategories.includes(
+                                                    category
+                                                )
+                                            ) {
+                                                return item;
+                                            }
+                                        })}
+                                        category={String(category)}
+                                    />
+                                );
+                            })}
+                        </View>
+                    </ScrollView>
+                )}
+                <FilterMenu
+                    refRBSheet={refRBSheet}
+                    filters={filters}
+                    activeFilters={activeFilters}
+                    onFilterClick={onFilterClick}
+                    clearSelectedFilters={clearSelectedFilters}
+                ></FilterMenu>
+            </SafeAreaView>
+        </View>
     );
 }
 
@@ -195,7 +220,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginLeft: 24,
         backgroundColor: "#fff",
-        maxHeight: 700
+        maxHeight: 800,
+    },
+    viewContainer: {
+        backgroundColor: "#fff"
     },
     card: {}
 });
