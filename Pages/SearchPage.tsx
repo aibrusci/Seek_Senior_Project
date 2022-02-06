@@ -114,105 +114,80 @@ export default function SearchPage() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Searchbar
-                showBackArrow={showBackArrow}
-                setBackArrow={setBackArrow}
-                pageType={"home"}
-                updateCards={updateCards}
-            ></Searchbar>
-            <FilterRow
-                filters={filters}
-                activeFilters={activeFilters}
-                onFilterClick={onFilterClick}
-                clearSelectedFilters={clearSelectedFilters}
-                openMenu={() => refRBSheet.current.open()}
-            ></FilterRow>
-            {showBackArrow ? (
-                <ScrollView
-                    pagingEnabled
-                    showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{
-                        flexDirection: "row",
-                        flexWrap: "wrap"
-                    }}
-                >
-                    {filteredCards.map((c: any) => {
+        <Searchbar
+            showBackArrow={showBackArrow}
+            setBackArrow={setBackArrow}
+            pageType={"home"}
+            updateCards={updateCards}
+        ></Searchbar>
+        <FilterRow
+            filters={filters}
+            activeFilters={activeFilters}
+            onFilterClick={onFilterClick}
+            clearSelectedFilters={clearSelectedFilters}
+            openMenu={() => refRBSheet.current.open()}
+        ></FilterRow>
+        {showBackArrow ? (
+            <ScrollView
+                pagingEnabled
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+                    flexDirection: "row",
+                    flexWrap: "wrap"
+                }}
+            >
+                {filteredCards.map((c: any) => {
+                    return (
+                        <View style={styles.card}>
+                            {console.log(c)}
+                            <ActivityCard
+                                title={c.title}
+                                date={c.date}
+                                savedIcon={false}
+                                image={c.image}
+                            />
+                        </View>
+                    );
+                })}
+            </ScrollView>
+        ) : (
+            <ScrollView
+                pagingEnabled
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+            >
+                <View style={styles.card}>
+                    {filters.map((category) => {
                         return (
-                            <View style={styles.card}>
-                                {console.log(c)}
-                                <ActivityCard
-                                    title={c.title}
-                                    date={c.date}
-                                    savedIcon={false}
-                                    image={c.image}
-                                />
-                            </View>
+                            <CardRow
+                                cards={cards.filter((item: any) => {
+                                    if(item.filterCategories){
+                                      if (
+                                        item.filterCategories.includes(
+                                            category
+                                        )
+                                    ) {
+                                        return item;
+                                    }
+                                    }                                       
+                                })}
+                                category={String(category)}
+                            />
                         );
                     })}
-                </ScrollView>
-            ) : (
-                <ScrollView
-                    pagingEnabled
-                    showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                >
-                    <View style={styles.card}>
-                        {filters.map((category) => {
-                            return (
-                                <CardRow
-                                    cards={cards.filter((item: any) => {
-                                        if(item.filterCategories){
-                                          if (
-                                            item.filterCategories.includes(
-                                                category
-                                            )
-                                        ) {
-                                            return item;
-                                        }
-                                        }                                       
-                                    })}
-                                    category={String(category)}
-                                />
-                            );
-                        })}
-                    </ScrollView>
-                ) : (
-                    <ScrollView
-                        pagingEnabled
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                    >
-                        <View style={styles.card}>
-                            {filters.map((category) => {
-                                return (
-                                    <CardRow
-                                        cards={cardsExample.filter((item: any) => {
-                                            if (
-                                                item.filterCategories.includes(
-                                                    category
-                                                )
-                                            ) {
-                                                return item;
-                                            }
-                                        })}
-                                        category={String(category)}
-                                    />
-                                );
-                            })}
-                        </View>
-                    </ScrollView>
-                )}
-                <FilterMenu
-                    refRBSheet={refRBSheet}
-                    filters={filters}
-                    activeFilters={activeFilters}
-                    onFilterClick={onFilterClick}
-                    clearSelectedFilters={clearSelectedFilters}
-                ></FilterMenu>
-            </SafeAreaView>
-        </View>
-    );
+                </View>
+            </ScrollView>
+        )}
+        <FilterMenu
+            refRBSheet={refRBSheet}
+            filters={filters}
+            activeFilters={activeFilters}
+            onFilterClick={onFilterClick}
+            clearSelectedFilters={clearSelectedFilters}
+        ></FilterMenu>
+    </SafeAreaView>
+);
 }
 
 const styles = StyleSheet.create({

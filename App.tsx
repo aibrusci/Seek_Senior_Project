@@ -8,7 +8,6 @@ import awsConfig from './src/aws-exports';
 import { withAuthenticator } from 'aws-amplify-react-native';
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 import SearchPage from './Pages/SearchPage';
-import { StyleSheet, Text, View } from 'react-native';
 import SearchBar  from 'react-native-elements';
 import Tabs from './navigation/tabs';
 import { NavigationContainer } from '@react-navigation/native';
