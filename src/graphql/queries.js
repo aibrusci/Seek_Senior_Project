@@ -8,12 +8,14 @@ export const getEvent = /* GraphQL */ `
       title
       date
       image
-      savedIcon
+      savedUsers
       description
       time
       filterCategories
       location
       category
+      website
+      savedIcon
       createdAt
       updatedAt
     }
@@ -31,12 +33,14 @@ export const listEvents = /* GraphQL */ `
         title
         date
         image
-        savedIcon
+        savedUsers
         description
         time
         filterCategories
         location
         category
+        website
+        savedIcon
         createdAt
         updatedAt
       }

@@ -3,12 +3,14 @@ type Event {
   title: String
   date: String
   image: String
-  savedIcon: Boolean
+  savedUsers: [String]
   description: String
   time: String
   filterCategories: [String]
   location: String
   category: String
+  website: String
+  savedIcon: Boolean
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -109,12 +111,14 @@ input ModelEventFilterInput {
   title: ModelStringInput
   date: ModelStringInput
   image: ModelStringInput
-  savedIcon: ModelBooleanInput
+  savedUsers: ModelStringInput
   description: ModelStringInput
   time: ModelStringInput
   filterCategories: ModelStringInput
   location: ModelStringInput
   category: ModelStringInput
+  website: ModelStringInput
+  savedIcon: ModelBooleanInput
   and: [ModelEventFilterInput]
   or: [ModelEventFilterInput]
   not: ModelEventFilterInput
@@ -143,12 +147,14 @@ input CreateEventInput {
   title: String
   date: String
   image: String
-  savedIcon: Boolean
+  savedUsers: [String]
   description: String
   time: String
   filterCategories: [String]
   location: String
   category: String
+  website: String
+  savedIcon: Boolean
 }
 
 input UpdateEventInput {
@@ -156,12 +162,14 @@ input UpdateEventInput {
   title: String
   date: String
   image: String
-  savedIcon: Boolean
+  savedUsers: [String]
   description: String
   time: String
   filterCategories: [String]
   location: String
   category: String
+  website: String
+  savedIcon: Boolean
 }
 
 input DeleteEventInput {
@@ -172,12 +180,14 @@ input ModelEventConditionInput {
   title: ModelStringInput
   date: ModelStringInput
   image: ModelStringInput
-  savedIcon: ModelBooleanInput
+  savedUsers: ModelStringInput
   description: ModelStringInput
   time: ModelStringInput
   filterCategories: ModelStringInput
   location: ModelStringInput
   category: ModelStringInput
+  website: ModelStringInput
+  savedIcon: ModelBooleanInput
   and: [ModelEventConditionInput]
   or: [ModelEventConditionInput]
   not: ModelEventConditionInput
