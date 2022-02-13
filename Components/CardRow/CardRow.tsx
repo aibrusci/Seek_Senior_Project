@@ -10,7 +10,7 @@ type ActivityCardType = {
     id: String;
     title: String;
     date: String;
-    image: string;
+    image: string[];
     savedIcon: Boolean;
     description: String;
     time: String;

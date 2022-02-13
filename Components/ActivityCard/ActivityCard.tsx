@@ -8,7 +8,7 @@ type ActivityCardProps = {
     id: String;
     title: String;
     date: String;
-    image: string;
+    image: string[];
     savedIcon: Boolean;
     description: String;
     time: String;
@@ -39,7 +39,10 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
                 })
             }
         >
-            <Image style={styles.image} source={{ uri: props.image }}></Image>
+            <Image
+                style={styles.image}
+                source={{ uri: props.image[0] }}
+            ></Image>
             <View style={styles.CardFooter}>
                 <View style={styles.cardText}>
                     <Text style={styles.activityName}>{props.title}</Text>

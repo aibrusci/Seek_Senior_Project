@@ -11,7 +11,7 @@ type CardType = {
     id: String;
     title: String;
     date: String;
-    image: string;
+    image: string[];
     savedIcon: Boolean;
     description: String;
     time: String;
@@ -208,7 +208,9 @@ const cardsExample = [
         id: 1,
         title: "COYA Taco Night",
         date: "Tuesday Nights",
-        image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
+        image: [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg"
+        ],
         savedIcon: false,
         filterCategories: [
             "Family Friendly",
@@ -230,7 +232,9 @@ const cardsExample = [
         id: 2,
         title: "Libertine Comedy Night",
         date: "Wednesday Nights 5-9pm",
-        image: "https://c8.alamy.com/comp/K70N7F/inside-the-libertine-brewing-companys-brew-pub-in-san-luis-obispo-K70N7F.jpg",
+        image: [
+            "https://c8.alamy.com/comp/K70N7F/inside-the-libertine-brewing-companys-brew-pub-in-san-luis-obispo-K70N7F.jpg"
+        ],
         savedIcon: true,
         filterCategories: ["Food", "Comedy", "Night Life", "Downtown"],
         description: "Food",
@@ -246,7 +250,9 @@ const cardsExample = [
         id: 3,
         title: "Woodstock's Trivia Night",
         date: "Monday Nights",
-        image: "https://slochamber.org/wp-content/uploads/2018/08/Woodstocks-Pizza-Backyard-3_1024.png",
+        image: [
+            "https://slochamber.org/wp-content/uploads/2018/08/Woodstocks-Pizza-Backyard-3_1024.png"
+        ],
         savedIcon: true,
         filterCategories: [
             "Family Friendly",
@@ -268,7 +274,9 @@ const cardsExample = [
         id: 4,
         title: "Libertine Comedy Night",
         date: "Wednesday Nights",
-        image: "https://c8.alamy.com/comp/K70N7F/inside-the-libertine-brewing-companys-brew-pub-in-san-luis-obispo-K70N7F.jpg",
+        image: [
+            "https://c8.alamy.com/comp/K70N7F/inside-the-libertine-brewing-companys-brew-pub-in-san-luis-obispo-K70N7F.jpg"
+        ],
         savedIcon: true,
         filterCategories: ["Food", "Comedy", "Night Life", "Downtown"],
         description:
@@ -284,7 +292,9 @@ const cardsExample = [
         id: 5,
         title: "Woodstock's Trivia Night",
         date: "Tuesday Nights",
-        image: "https://slochamber.org/wp-content/uploads/2018/08/Woodstocks-Pizza-Backyard-3_1024.png",
+        image: [
+            "https://slochamber.org/wp-content/uploads/2018/08/Woodstocks-Pizza-Backyard-3_1024.png"
+        ],
         savedIcon: true,
         filterCategories: [
             "Family Friendly",
@@ -306,7 +316,9 @@ const cardsExample = [
         id: 6,
         title: "COYA Taco Night",
         date: "Tuesday Nights",
-        image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
+        image: [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg"
+        ],
         savedIcon: false,
         filterCategories: [
             "Family Friendly",
@@ -329,7 +341,9 @@ const cardsExample = [
         title: "COYA Taco Night",
         date: "Tuesday Nights",
         time: "5-9pm",
-        image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
+        image: [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg"
+        ],
         savedIcon: false,
         filterCategories: [
             "Family Friendly",
@@ -351,7 +365,9 @@ const cardsExample = [
         title: "COYA Taco Night",
         date: "Tuesday Nights",
         time: "5-9pm",
-        image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
+        image: [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg"
+        ],
         savedIcon: false,
         filterCategories: [
             "Family Friendly",
@@ -373,7 +389,9 @@ const cardsExample = [
         title: "COYA Taco Night",
         date: "Tuesday Nights",
         time: "5-9pm",
-        image: "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg",
+        image: [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/kkR5Sb3WeGAAVRLC6dAIOQ/o.jpg"
+        ],
         savedIcon: false,
         filterCategories: [
             "Family Friendly",

@@ -5,17 +5,19 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    Modal
 } from "react-native";
 import { Button, Divider } from "react-native-elements";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Linking, Platform } from "react-native";
+import ImageViewer from "react-native-image-zoom-viewer";
 
 type Event = {
     id: String;
     title: String;
     date: String;
-    image: string;
+    image: string[];
     savedIcon: Boolean;
     description: String;
     time: String;
@@ -31,6 +33,13 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
     const [saved, setSaved] = useState(route.params.savedIcon);
     const [url, setUrl] = useState("");
     const [processing, setProcessing] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
+    console.log(
+        Array.from(route.params.image, (image) => ({
+            url: image,
+            props: {}
+        }))
+    );
 
     const updateSaved = (search: any) => {
         // Will need to add post request here to save to their account later
@@ -105,13 +114,66 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
         console.log(url);
     }, []);
 
+    const renderHeader = () => (
+        <TouchableOpacity
+            onPress={() => setModalVisible(false)}
+            style={{
+                top: 50,
+                zIndex: 9999,
+                width: "100%",
+                height: "15%",
+                alignItems: "flex-end"
+            }}
+        >
+            <Image
+                source={require("../assets/close.png")}
+                resizeMode="contain"
+                style={{
+                    width: 18,
+                    margin: 20,
+                    marginTop: 70,
+                    zIndex: 9999,
+                    height: "100%"
+                }}
+            />
+        </TouchableOpacity>
+    );
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.imageBackground}>
-                <Image
-                    style={styles.image}
-                    source={{ uri: route.params.image }}
-                ></Image>
+                <Modal
+                    visible={modalVisible}
+                    transparent={true}
+                    onRequestClose={() => setModalVisible(false)}
+                    onTouchCancel={() => setModalVisible(false)}
+                    onDismiss={() => setModalVisible(false)}
+                >
+                    <ImageViewer
+                        imageUrls={Array.from(route.params.image, (image) => ({
+                            url: image,
+                            props: {}
+                        }))}
+                        enableSwipeDown
+                        onSwipeDown={() => setModalVisible(false)}
+                        enableImageZoom={true}
+                        renderIndicator={() => <Text />}
+                        backgroundColor="rgba(0, 0, 0, 0.8)"
+                        onCancel={() => setModalVisible(false)}
+                        renderHeader={() => renderHeader()}
+                        style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            height: "100%"
+                        }}
+                    />
+                </Modal>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <Image
+                        style={styles.image}
+                        source={{ uri: route.params.image[0] }}
+                    ></Image>
+                </TouchableOpacity>
 
                 <View style={styles.top}>
                     <TouchableOpacity
@@ -128,27 +190,47 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
                             }}
                         />
                     </TouchableOpacity>
-                    <Button
-                        buttonStyle={styles.roundButton}
-                        title=""
-                        onPress={updateSaved}
-                        icon={
-                            saved ? (
-                                <FontAwesome
-                                    name="bookmark"
-                                    size={24}
-                                    color="#FB7762"
-                                />
-                            ) : (
-                                <FontAwesome
-                                    name="bookmark-o"
-                                    size={24}
-                                    color="#FB7762"
-                                />
-                            )
-                        }
-                    ></Button>
+                    <View style={styles.newImage}>
+                        <Button
+                            buttonStyle={styles.roundButton}
+                            title=""
+                            onPress={updateSaved}
+                            icon={
+                                saved ? (
+                                    <FontAwesome
+                                        name="bookmark"
+                                        size={30}
+                                        color="#FB7762"
+                                    />
+                                ) : (
+                                    <FontAwesome
+                                        name="bookmark-o"
+                                        size={30}
+                                        color="#FB7762"
+                                    />
+                                )
+                            }
+                        ></Button>
+
+                        <TouchableOpacity
+                            style={styles.roundButtonTop}
+                            onPress={() => navigation.goBack()}
+                        >
+                            <Image
+                                source={require("../assets/add-image.png")}
+                                resizeMode="contain"
+                                style={{
+                                    width: 30,
+                                    height: 30,
+                                    paddingTop: 55,
+                                    marginLeft: 2,
+                                    alignContent: "right"
+                                }}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
+
                 <View style={styles.title}>
                     <Text style={styles.eventTitle}>{route.params.title}</Text>
                     <View style={styles.priceRating}>
@@ -318,7 +400,7 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     title: {
-        top: -200,
+        top: -260,
         paddingLeft: 15
     },
     eventTitle: {
@@ -397,6 +479,20 @@ const styles = StyleSheet.create({
     button: {
         bottom: 20,
         alignItems: "center"
+    },
+    newImage: {
+        display: "flex",
+        justifyContent: "space-between"
+    },
+    roundButtonTop: {
+        width: 50,
+        height: 50,
+        borderRadius: 100,
+        backgroundColor: "white",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: 10
     }
 });
 export default ActivityPage;
