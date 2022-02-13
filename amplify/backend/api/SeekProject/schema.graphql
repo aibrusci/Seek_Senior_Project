@@ -5,12 +5,14 @@ type Event @model(subscriptions: null){
     title: String
     date: String
     image: String
-    savedIcon: Boolean
+    savedUsers: [String]
     description: String
     time: String
     filterCategories: [String]
     location: String
     category: String
+    website: String
+    savedIcon: Boolean
 }
 
 type Mutation {

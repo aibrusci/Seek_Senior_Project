@@ -28,12 +28,14 @@ export const addEvent = /* GraphQL */ `
       title
       date
       image
-      savedIcon
+      savedUsers
       description
       time
       filterCategories
       location
       category
+      website
+      savedIcon
       createdAt
       updatedAt
     }
@@ -54,12 +56,14 @@ export const createEvent = /* GraphQL */ `
       title
       date
       image
-      savedIcon
+      savedUsers
       description
       time
       filterCategories
       location
       category
+      website
+      savedIcon
       createdAt
       updatedAt
     }
@@ -75,12 +79,14 @@ export const updateEvent = /* GraphQL */ `
       title
       date
       image
-      savedIcon
+      savedUsers
       description
       time
       filterCategories
       location
       category
+      website
+      savedIcon
       createdAt
       updatedAt
     }
@@ -96,12 +102,14 @@ export const deleteEvent = /* GraphQL */ `
       title
       date
       image
-      savedIcon
+      savedUsers
       description
       time
       filterCategories
       location
       category
+      website
+      savedIcon
       createdAt
       updatedAt
     }
