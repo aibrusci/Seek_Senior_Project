@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Image, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import SearchPage from '../Pages/SearchPage';
+import MapPage from '../Pages/MapPage';
 import SavePage from '../Pages/SavePage';
 import UserPage from '../Pages/UserPage';
 
@@ -24,7 +24,7 @@ export default function tabs (){
             }
         }}
         >
-            <Tab.Screen name="SearchPage" component={SearchPage} options={{
+            <Tab.Screen name="MapPage" component={MapPage} options={{
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>
                         <Image 
