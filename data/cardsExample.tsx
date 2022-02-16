@@ -57,19 +57,6 @@ export const markers = [
             longitude: -120.6607,
         }
     },
-    {
-        id: 4,
-        title: "Libertine Comedy Night",
-        date: "Wednesday Nights 5-9pm",
-        image: Images[3].image,
-        savedIcon: true,
-        description: "so funny i laugh so hard",
-        filterCategories: ["Food", "Comedy", "Night Life", "Downtown"],
-        coordinate: {
-            latitude: 35.277694,
-            longitude: -120.663137,
-        }
-    },
 ];
 
 export const mapStandardStyle= [

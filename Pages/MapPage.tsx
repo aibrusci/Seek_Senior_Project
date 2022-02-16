@@ -10,8 +10,9 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  TouchableHighlight,
 } from "react-native";
-import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
+import MapView, {PROVIDER_GOOGLE, Marker, Callout} from "react-native-maps";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -77,7 +78,7 @@ type CardType = {
     const _map = React.useRef(null);
     const _scrollView = React.useRef(null);
 
-    const [filteredCards, setFilteredCards] = useState(markers);
+    const [filteredMarkers, setfilteredMarkers] = useState(markers);
     const [activeFilters, setactiveFilters] = useState(Array());
     const [showBackArrow, setBackArrow] = useState(false);
     const [filters, setFilters] = useState(_getAllFilters(markers));
@@ -142,7 +143,7 @@ type CardType = {
     }
 
     function updateCards(search: string) {
-        setFilteredCards(
+        setfilteredMarkers(
             markers.filter((item: any) => {
                 if (item.title.toLowerCase().includes(search.toLowerCase())) {
                     return item;
@@ -167,7 +168,7 @@ type CardType = {
             }
             return 0;
         });
-        setFilteredCards(
+        setfilteredMarkers(
             markers.filter((item: any) => {
                 if (
                     activeFilters.every((val) => {
@@ -238,7 +239,7 @@ type CardType = {
            style={styles.map}
            provider={PROVIDER_GOOGLE}
          >
-           {state.markers.map((marker, index) => {
+           {filteredMarkers.map((marker, index) => {
              const scaleStyle={
                transform: [
                  {
@@ -252,14 +253,18 @@ type CardType = {
                 ref={_map}
                 initialRegion={state.region}
                 provider={PROVIDER_GOOGLE}>
-                  <Marker key={index} coordinate={marker.coordinate} onPress={() => console.log("yo")}>
-                    <Animated.View style={[styles.markerWrap]}>
-                      <Animated.Image
-                        source={require('../assets/map-marker.png')}
-                        style={[styles.marker, scaleStyle]}
-                        resizeMode="cover"
-                      />
-                    </Animated.View>
+                  <Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
+                    {/* <Callout tooltip>
+                      <TouchableHighlight onPress={() => console.log("yo")}> */}
+                        <Animated.View style={[styles.markerWrap]}>
+                          <Animated.Image
+                            source={require('../assets/map-marker.png')}
+                            style={[styles.marker, scaleStyle]}
+                            resizeMode="cover"
+                          />
+                        </Animated.View>
+                      {/* </TouchableHighlight>
+                    </Callout> */}
                   </Marker>
                 </MapView>
               </View>
@@ -301,7 +306,7 @@ type CardType = {
                 {useNativeDriver: true}
               )}
             >
-              {state.markers.map((marker, index) =>
+              {filteredMarkers.map((marker, index) =>
                 <View style={styles.card} key={index}>
                   <Image
                     source={marker.image}
