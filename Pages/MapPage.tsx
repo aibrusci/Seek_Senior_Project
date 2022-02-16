@@ -26,7 +26,7 @@ import FilterMenu from "../Components/Filter/FilterMenu";
 import { useTheme } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get("window");
-const CARD_HEIGHT = 220;
+const CARD_HEIGHT = 200;
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
@@ -102,7 +102,7 @@ type CardType = {
             const coordinate = state.markers[index];
             _map.current.animateToRegion(
               {
-                latitude: coordinate.coordinate.latitude - .006,
+                latitude: coordinate.coordinate.latitude - .01,
                 longitude: coordinate.coordinate.longitude,
                 latitudeDelta: state.region.latitudeDelta,
                 longitudeDelta: state.region.longitudeDelta,
@@ -132,7 +132,7 @@ type CardType = {
       });
     
     const onMarkerPress = (mapEventData : any) => {
-      {console.log("PRESSED")}
+      {console.log("PRESSED")} //this onPress function has a bug.
       const markerID = mapEventData._targetInst.return.key;
 
       let x = (markerID * CARD_WIDTH) + (markerID * 20); 
@@ -370,7 +370,6 @@ const styles = StyleSheet.create({
     paddingRight: width - CARD_WIDTH,
   },
   card: {
-    // padding: 10,
     elevation: 2,
     backgroundColor: "#FFF",
     borderTopLeftRadius: 5,
@@ -396,7 +395,6 @@ const styles = StyleSheet.create({
   },
   cardtitle: {
     fontSize: 12,
-    // marginTop: 5,
     fontWeight: "bold",
   },
   cardDescription: {
