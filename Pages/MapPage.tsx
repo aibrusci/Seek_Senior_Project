@@ -156,6 +156,7 @@ type CardType = {
             setBackArrow(true);
         }
     }
+    
     const onFilterClick = (filter: string) => {
         const active = _addRemoveFilter(filter, activeFilters);
         setactiveFilters(active);
@@ -216,319 +217,215 @@ type CardType = {
         return Array.from(newFilters);
     }
    
-     return (
-       <View style={styles.container}>
-         <View style={styles.searchBox}>
-          <Searchbar
-            showBackArrow={showBackArrow}
-            setBackArrow={setBackArrow}
-            pageType={"home"}
-            updateCards={updateCards}
-          ></Searchbar>
-            <FilterRow
-              filters={filters}
-              activeFilters={activeFilters}
-              onFilterClick={onFilterClick}
-              clearSelectedFilters={clearSelectedFilters}
-              openMenu={() => refRBSheet.current.open()}
-            ></FilterRow>
-          </View>
-         <MapView
-           ref={_map}
-           initialRegion={state.region}
-           style={styles.map}
-           provider={PROVIDER_GOOGLE}
-         >
-           {filteredMarkers.map((marker, index) => {
-             const scaleStyle={
-               transform: [
-                 {
-                   scale: interpolations[index].scale,
-                 }
-               ]
-             }
-             return (
-               <View style={styles.container}>
-                <MapView
-                ref={_map}
-                initialRegion={state.region}
-                provider={PROVIDER_GOOGLE}>
-                  <Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
-                    {/* <Callout tooltip>
-                      <TouchableHighlight onPress={() => console.log("yo")}> */}
-                        <Animated.View style={[styles.markerWrap]}>
-                          <Animated.Image
-                            source={require('../assets/map-marker.png')}
-                            style={[styles.marker, scaleStyle]}
-                            resizeMode="cover"
-                          />
-                        </Animated.View>
-                      {/* </TouchableHighlight>
-                    </Callout> */}
-                  </Marker>
-                </MapView>
-              </View>
-             );
-           })}
-           </MapView>
-           <FilterMenu
-              refRBSheet={refRBSheet}
-              filters={filters}
-              activeFilters={activeFilters}
-              onFilterClick={onFilterClick}
-              clearSelectedFilters={clearSelectedFilters}
-            ></FilterMenu>
-            <Animated.ScrollView
-            ref={_scrollView}
-              horizontal
-              scrollEventThrottle={1}
-              showsHorizontalScrollIndicator={false}
-              style={styles.scrollView}
-              pagingEnabled
-              snapToInterval={CARD_WIDTH + 20}
-              snapToAlignment="center"
-              contentInset={{
-                top: 0,
-                left: SPACING_FOR_CARD_INSET,
-                bottom: 0,
-                right: SPACING_FOR_CARD_INSET
-              }}
-              onScroll={Animated.event(
-                [
-                  {
-                    nativeEvent: {
-                      contentOffset: {
-                        x: mapAnimation,
-                      }
-                    }
-                  }
-                ],
-                {useNativeDriver: true}
-              )}
-            >
-              {filteredMarkers.map((marker, index) =>
-                <View style={styles.card} key={index}>
-                  <Image
-                    source={marker.image}
-                    style={styles.cardImage}
-                    resizeMode='cover'
-                  />
-                  <View style={styles.textContent}>
-                    <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                    <Text numberOfLines={1} style={styles.cardDescription}>{marker.description}</Text>
-                  </View>
-                </View>
-              )}
-            </Animated.ScrollView>
+  return (
+    <View style={styles.container}>
+      <View style={styles.searchBox}>
+      <Searchbar
+        showBackArrow={showBackArrow}
+        setBackArrow={setBackArrow}
+        pageType={"home"}
+        updateCards={updateCards}
+      ></Searchbar>
+        <FilterRow
+          filters={filters}
+          activeFilters={activeFilters}
+          onFilterClick={onFilterClick}
+          clearSelectedFilters={clearSelectedFilters}
+          openMenu={() => refRBSheet.current.open()}
+        ></FilterRow>
+      </View>
+      <MapView
+        ref={_map}
+        initialRegion={state.region}
+        style={styles.map}
+        provider={PROVIDER_GOOGLE}
+      >
+        {filteredMarkers.map((marker, index) => {
+          const scaleStyle={
+            transform: [
+              {
+                scale: interpolations[index].scale,
+              }
+            ]
+          }
+          return (
+            <View style={styles.container}>
+            <MapView
+            ref={_map}
+            initialRegion={state.region}
+            provider={PROVIDER_GOOGLE}>
+              <Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
+                {/* <Callout tooltip>
+                  <TouchableHighlight onPress={() => console.log("yo")}> */}
+                    <Animated.View style={[styles.markerWrap]}>
+                      <Animated.Image
+                        source={require('../assets/map-marker.png')}
+                        style={[styles.marker, scaleStyle]}
+                        resizeMode="cover"
+                      />
+                    </Animated.View>
+                  {/* </TouchableHighlight>
+                </Callout> */}
+              </Marker>
+            </MapView>
           </View>
           );
-        };
-         {/* <View style={styles.searchBox}>
-           <TextInput 
-             placeholder="Search here"
-             placeholderTextColor="#000"
-             autoCapitalize="none"
-             style={{flex:1,padding:0}}
-           />
-           <Ionicons name="ios-search" size={20} />
-         </View>
-         <ScrollView
-           horizontal
-           scrollEventThrottle={1}
-           showsHorizontalScrollIndicator={false}
-           height={50}
-           style={styles.chipsScrollView}
-           contentInset={{ // iOS only
-             top:0,
-             left:0,
-             bottom:0,
-             right:20
-           }}
-           contentContainerStyle={{
-             paddingRight: Platform.OS === 'android' ? 20 : 0
-           }}
-         >
-           {state.categories.map((category, index) => (
-             <TouchableOpacity key={index} style={styles.chipsItem}>
-               {category.icon}
-               <Text>{category.name}</Text>
-             </TouchableOpacity>
-           ))}
-         </ScrollView>
-         <Animated.ScrollView
-           ref={_scrollView}
-           horizontal
-           pagingEnabled
-           scrollEventThrottle={1}
-           showsHorizontalScrollIndicator={false}
-           snapToInterval={CARD_WIDTH + 20}
-           snapToAlignment="center"
-           style={styles.scrollView}
-           contentInset={{
-             top: 0,
-             left: SPACING_FOR_CARD_INSET,
-             bottom: 0,
-             right: SPACING_FOR_CARD_INSET
-           }}
-           contentContainerStyle={{
-             paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0
-           }}
-           onScroll={Animated.event(
-             [
-               {
-                 nativeEvent: {
-                   contentOffset: {
-                     x: mapAnimation,
-                   }
-                 },
-               },
-             ],
-             {useNativeDriver: true}
-           )}
-         >
-           {state.markers.map((marker, index) =>(
-             <View style={styles.card} key={index}>
-               <Image 
-                 source={'../assets/map-marker.png'}
-                 style={styles.cardImage}
-                 resizeMode="cover"
-               />
-               <View style={styles.textContent}>
-                 <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                 <Text numberOfLines={1} style={styles.cardDescription}>{marker.description}</Text>
-                 <View style={styles.button}>
-                   <TouchableOpacity
-                     onPress={() => {}}
-                     style={[styles.signIn, {
-                       borderColor: '#FF6347',
-                       borderWidth: 1
-                     }]}
-                   >
-                     <Text style={[styles.textSign, {
-                       color: '#FF6347'
-                     }]}>Order Now</Text>
-                   </TouchableOpacity>
-                 </View>
-               </View>
-             </View>
-           ))}
-         </Animated.ScrollView>
-       </View> */}
-     {/* );
-   }; */}
-   
-   const styles = StyleSheet.create({
-     container: {
-       flex: 1,
-     },
-     map: {
-       height: '100%'
-     },
-     searchBox: {
-      //  position:'absolute', 
-       paddingTop: 20,
-       paddingLeft: 20,
-      //  flexDirection:"row",
-       backgroundColor: '#fff',
-      //  width: '90%',
-      //  alignSelf:'center',
-      //  borderRadius: 5,
-      //  padding: 10,
-      //  shadowColor: '#ccc',
-      //  shadowOffset: { width: 0, height: 3 },
-      //  shadowOpacity: 0.5,
-      //  shadowRadius: 5,
-      //  elevation: 10,
-     },
-     chipsScrollView: {
-       position:'absolute', 
-       top:Platform.OS === 'ios' ? 90 : 80, 
-       paddingHorizontal:10
-     },
-     chipsIcon: {
-       marginRight: 5,
-     },
-     chipsItem: {
-       flexDirection:"row",
-       backgroundColor:'#fff', 
-       borderRadius:20,
-       padding:8,
-       paddingHorizontal:20, 
-       marginHorizontal:10,
-       height:35,
-       shadowColor: '#ccc',
-       shadowOffset: { width: 0, height: 3 },
-       shadowOpacity: 0.5,
-       shadowRadius: 5,
-       elevation: 10,
-     },
-     scrollView: {
-       position: "absolute",
-       bottom: 0,
-       left: 0,
-       right: 0,
-       paddingVertical: 10,
-     },
-     endPadding: {
-       paddingRight: width - CARD_WIDTH,
-     },
-     card: {
-       // padding: 10,
-       elevation: 2,
-       backgroundColor: "#FFF",
-       borderTopLeftRadius: 5,
-       borderTopRightRadius: 5,
-       marginHorizontal: 10,
-       shadowColor: "#000",
-       shadowRadius: 5,
-       shadowOpacity: 0.3,
-       shadowOffset: { width: 2, height: -2 },
-       height: CARD_HEIGHT,
-       width: CARD_WIDTH,
-       overflow: "hidden",
-     },
-     cardImage: {
-       flex: 3,
-       width: "100%",
-       height: "100%",
-       alignSelf: "center",
-     },
-     textContent: {
-       flex: 2,
-       padding: 10,
-     },
-     cardtitle: {
-       fontSize: 12,
-       // marginTop: 5,
-       fontWeight: "bold",
-     },
-     cardDescription: {
-       fontSize: 12,
-       color: "#444",
-     },
-     markerWrap: {
-       alignItems: "center",
-       justifyContent: "center",
-       width: 50,
-       height: 50,
-     },
-     marker: {
-       width: 25,
-       height: 35,
-     },
-     button: {
-       alignItems: 'center',
-       marginTop: 5
-     },
-     signIn: {
-         width: '100%',
-         padding:5,
-         justifyContent: 'center',
-         alignItems: 'center',
-         borderRadius: 3
-     },
-     textSign: {
-         fontSize: 14,
-         fontWeight: 'bold'
-     }
-   });
+        })}
+        </MapView>
+        <FilterMenu
+          refRBSheet={refRBSheet}
+          filters={filters}
+          activeFilters={activeFilters}
+          onFilterClick={onFilterClick}
+          clearSelectedFilters={clearSelectedFilters}
+        ></FilterMenu>
+        <Animated.ScrollView
+        ref={_scrollView}
+          horizontal
+          scrollEventThrottle={1}
+          showsHorizontalScrollIndicator={false}
+          style={styles.scrollView}
+          pagingEnabled
+          snapToInterval={CARD_WIDTH + 20}
+          snapToAlignment="center"
+          contentInset={{
+            top: 0,
+            left: SPACING_FOR_CARD_INSET,
+            bottom: 0,
+            right: SPACING_FOR_CARD_INSET
+          }}
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    x: mapAnimation,
+                  }
+                }
+              }
+            ],
+            {useNativeDriver: true}
+          )}
+        >
+          {filteredMarkers.map((marker, index) =>
+            <View style={styles.card} key={index}>
+              <Image
+                source={marker.image}
+                style={styles.cardImage}
+                resizeMode='cover'
+              />
+              <View style={styles.textContent}>
+                <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
+                <Text numberOfLines={1} style={styles.cardDescription}>{marker.description}</Text>
+              </View>
+            </View>
+          )}
+        </Animated.ScrollView>
+      </View>
+      );
+    };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  map: {
+    height: '100%'
+  },
+  searchBox: {
+    paddingTop: 20,
+    paddingLeft: 20,
+    backgroundColor: '#fff',
+  },
+  chipsScrollView: {
+    position:'absolute', 
+    top:Platform.OS === 'ios' ? 90 : 80, 
+    paddingHorizontal:10
+  },
+  chipsIcon: {
+    marginRight: 5,
+  },
+  chipsItem: {
+    flexDirection:"row",
+    backgroundColor:'#fff', 
+    borderRadius:20,
+    padding:8,
+    paddingHorizontal:20, 
+    marginHorizontal:10,
+    height:35,
+    shadowColor: '#ccc',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
+  },
+  scrollView: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingVertical: 10,
+  },
+  endPadding: {
+    paddingRight: width - CARD_WIDTH,
+  },
+  card: {
+    // padding: 10,
+    elevation: 2,
+    backgroundColor: "#FFF",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    marginHorizontal: 10,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 2, height: -2 },
+    height: CARD_HEIGHT,
+    width: CARD_WIDTH,
+    overflow: "hidden",
+  },
+  cardImage: {
+    flex: 3,
+    width: "100%",
+    height: "100%",
+    alignSelf: "center",
+  },
+  textContent: {
+    flex: 2,
+    padding: 10,
+  },
+  cardtitle: {
+    fontSize: 12,
+    // marginTop: 5,
+    fontWeight: "bold",
+  },
+  cardDescription: {
+    fontSize: 12,
+    color: "#444",
+  },
+  markerWrap: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 50,
+    height: 50,
+  },
+  marker: {
+    width: 25,
+    height: 35,
+  },
+  button: {
+    alignItems: 'center',
+    marginTop: 5
+  },
+  signIn: {
+      width: '100%',
+      padding:5,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 3
+  },
+  textSign: {
+      fontSize: 14,
+      fontWeight: 'bold'
+  }
+});
