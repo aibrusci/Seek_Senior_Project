@@ -1,0 +1,194 @@
+type Event {
+  id: ID!
+  title: String
+  date: String
+  image: String
+  savedUsers: [String]
+  description: String
+  time: String
+  filterCategories: [String]
+  location: String
+  category: String
+  website: String
+  savedIcon: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Mutation {
+  addEvent(id: ID!, title: String, date: String, image: String, savedIcon: Boolean, description: String, time: String, filterCategories: [String], location: String): Event
+  category: String
+  createEvent(input: CreateEventInput!, condition: ModelEventConditionInput): Event
+  updateEvent(input: UpdateEventInput!, condition: ModelEventConditionInput): Event
+  deleteEvent(input: DeleteEventInput!, condition: ModelEventConditionInput): Event
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelEventConnection {
+  items: [Event]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelEventFilterInput {
+  id: ModelIDInput
+  title: ModelStringInput
+  date: ModelStringInput
+  image: ModelStringInput
+  savedUsers: ModelStringInput
+  description: ModelStringInput
+  time: ModelStringInput
+  filterCategories: ModelStringInput
+  location: ModelStringInput
+  category: ModelStringInput
+  website: ModelStringInput
+  savedIcon: ModelBooleanInput
+  and: [ModelEventFilterInput]
+  or: [ModelEventFilterInput]
+  not: ModelEventFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getEvent(id: ID!): Event
+  listEvents(filter: ModelEventFilterInput, limit: Int, nextToken: String): ModelEventConnection
+}
+
+input CreateEventInput {
+  id: ID
+  title: String
+  date: String
+  image: String
+  savedUsers: [String]
+  description: String
+  time: String
+  filterCategories: [String]
+  location: String
+  category: String
+  website: String
+  savedIcon: Boolean
+}
+
+input UpdateEventInput {
+  id: ID!
+  title: String
+  date: String
+  image: String
+  savedUsers: [String]
+  description: String
+  time: String
+  filterCategories: [String]
+  location: String
+  category: String
+  website: String
+  savedIcon: Boolean
+}
+
+input DeleteEventInput {
+  id: ID
+}
+
+input ModelEventConditionInput {
+  title: ModelStringInput
+  date: ModelStringInput
+  image: ModelStringInput
+  savedUsers: ModelStringInput
+  description: ModelStringInput
+  time: ModelStringInput
+  filterCategories: ModelStringInput
+  location: ModelStringInput
+  category: ModelStringInput
+  website: ModelStringInput
+  savedIcon: ModelBooleanInput
+  and: [ModelEventConditionInput]
+  or: [ModelEventConditionInput]
+  not: ModelEventConditionInput
+}

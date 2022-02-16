@@ -8,68 +8,93 @@ import UserPage from '../Pages/UserPage';
 
 const Tab = createBottomTabNavigator();
 
-export default function tabs (){
+export default function Tabs() {
     return (
         <Tab.Navigator
-        screenOptions={{
-            tabBarShowLabel:false,
-            headerShown:false,
-            tabBarStyle: {
-                position: 'abolute',
-                elevation: 0,
-                backgroundColor: '#fff',
-                borderTopWidth: 3,
-                top: 20,
-                borderColor: '#808080',
-                height: 90
-            }
-        }}
+            screenOptions={{
+                tabBarShowLabel: false,
+                headerShown: false,
+                tabBarStyle: {
+                    position: "abolute",
+                    elevation: 0,
+                    backgroundColor: "#fff",
+                    borderTopWidth: 3,
+                    borderColor: "#808080"
+                }
+            }}
         >
-            <Tab.Screen name="SearchPage" component={SearchPage} options={{
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Image 
-                            source={require("../assets/search-icon.png")}
-                            resizeMode='contain'
+            <Tab.Screen
+                name="MapPage"
+                component={MapPage}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View
                             style={{
-                                width: 25,
-                                height: 25,
-                                tintColor: focused ? '#e32f45' : '#748c94',
+                                alignItems: "center",
+                                justifyContent: "center"
                             }}
-                        />
-                    </View>
-                )
-            }}></Tab.Screen>
-            <Tab.Screen name="SavePage" component={SavePage} options={{
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Image 
-                            source={require("../assets/save-icon.png")}
-                            resizeMode='contain'
+                        >
+                            <Image
+                                source={require("../assets/search-icon.png")}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: focused ? "#e32f45" : "#748c94"
+                                }}
+                            />
+                        </View>
+                    )
+                }}
+            ></Tab.Screen>
+            <Tab.Screen
+                name="SavePage"
+                component={SavePage}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View
                             style={{
-                                width: 25,
-                                height: 25,
-                                tintColor: focused ? '#e32f45' : '#748c94',
+                                alignItems: "center",
+                                justifyContent: "center"
                             }}
-                        />
-                    </View>
-                )
-            }}></Tab.Screen>
-            <Tab.Screen name="UserPage" component={UserPage} options={{
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Image 
-                            source={require("../assets/user-icon.png")}
-                            resizeMode='contain'
+                        >
+                            <Image
+                                source={require("../assets/save-icon.png")}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: focused ? "#e32f45" : "#748c94"
+                                }}
+                            />
+                        </View>
+                    )
+                }}
+            ></Tab.Screen>
+            <Tab.Screen
+                name="UserPage"
+                component={UserPage}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View
                             style={{
-                                width: 25,
-                                height: 25,
-                                tintColor: focused ? '#e32f45' : '#748c94',
+                                alignItems: "center",
+                                justifyContent: "center"
                             }}
-                        />
-                    </View>
-                )
-            }}></Tab.Screen>
+                        >
+                            <Image
+                                source={require("../assets/user-icon.png")}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: focused ? "#e32f45" : "#748c94"
+                                }}
+                            />
+                        </View>
+                    )
+                }}
+            ></Tab.Screen>
         </Tab.Navigator>
-    )
+    );
 }

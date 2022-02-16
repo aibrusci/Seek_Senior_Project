@@ -1,0 +1,14 @@
+{
+  "resourceName": "seekimages",
+  "policyUUID": "7148b795",
+  "bucketName": "seekimagebucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Triggerd43ddae8",
+  "groupAccess": {}
+}
