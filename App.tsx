@@ -15,7 +15,7 @@ import { withAuthenticator } from "aws-amplify-react-native";
 import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
 import SearchPage from "./Pages/SearchPage";
 import SearchBar from "react-native-elements";
-import Tabs from "./Navigation/tabs";
+import Tabs from "./Navigation/Tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainStackNavigator } from "./Navigation/Stack";
 import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
