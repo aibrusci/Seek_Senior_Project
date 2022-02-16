@@ -5,7 +5,7 @@ import Searchbar from './Components/SearchBar/Searchbar';
 import SearchBar  from 'react-native-elements';
 import Logo from './Components/Logo/Logo';
 import SearchPage from './Pages/SearchPage';
-import Tabs from './navigation/tabs';
+import Tabs from './Navigation/tabs';
 import { NavigationContainer } from '@react-navigation/native';
 
 
