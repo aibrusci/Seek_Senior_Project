@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Button } from "react-native-elements";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
+import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 
 type ActivityCardProps = {
     id: String;
@@ -23,6 +24,9 @@ type ActivityCardProps = {
 const ActivityCard: React.FC<ActivityCardProps> = (props) => {
     const [saved, setSaved] = useState(props.savedIcon);
     const navigation = useNavigation();
+    let [fontsLoaded] = useFonts({
+        WorkSans_400Regular
+    });
 
     const updateSaved = (search: any) => {
         // Will need to add post request here to save to their account later
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         flexShrink: 1,
-        fontFamily: "WorkSans-Regular"
+        fontFamily: "WorkSans_400Regular"
     },
     CardFooter: {
         display: "flex",
@@ -100,13 +104,13 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: "#000000",
         paddingTop: 5,
-        fontFamily: "WorkSans-Regular"
+        fontFamily: "WorkSans_400Regular"
     },
     date: {
         fontSize: 10,
         lineHeight: 14,
         color: "#000000",
-        fontFamily: "WorkSans-Regular"
+        fontFamily: "WorkSans_400Regular"
     },
     image: {
         width: 160,

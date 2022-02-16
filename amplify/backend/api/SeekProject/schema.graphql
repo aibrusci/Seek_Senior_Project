@@ -1,0 +1,27 @@
+#input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type Event @model(subscriptions: null){
+    id: ID!
+    title: String
+    date: String
+    image: String
+    savedUsers: [String]
+    description: String
+    time: String
+    filterCategories: [String]
+    location: String
+    category: String
+    website: String
+    savedIcon: Boolean
+}
+
+type Mutation {
+    addEvent(id:ID!,  title:String, 
+                      date: String,
+                      image: String,
+                      savedIcon: Boolean,
+                      description: String,
+                      time: String,
+                      filterCategories: [String],
+                      location: String): Event,
+                      category: String}

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ActivityCard from "../../Components/ActivityCard/ActivityCard";
+import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 
 type CardRowProps = {
     category: string;
@@ -23,6 +24,9 @@ type ActivityCardType = {
 };
 
 const CardRow: React.FC<CardRowProps> = (props) => {
+    let [fontsLoaded] = useFonts({
+        WorkSans_400Regular
+    });
     const _renderViews = (views: ActivityCardType[]): JSX.Element[] => {
         return views.map((card) => {
             return (
@@ -75,7 +79,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         fontWeight: "500",
         fontSize: 16,
-        fontFamily: "WorkSans-Regular"
+        fontFamily: "WorkSans_400Regular"
     }
 });
 export default CardRow;
