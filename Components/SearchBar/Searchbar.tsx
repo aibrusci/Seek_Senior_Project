@@ -56,7 +56,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
     };
 
     const switchToHomePage = () => {
-        navigation.navigate("HomePage", {
+        navigation.navigate("SearchPage", {
             screen: "HomePage",
             ...props
         })

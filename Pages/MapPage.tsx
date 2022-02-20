@@ -14,10 +14,14 @@ import {
   TouchableHighlight,
 } from "react-native";
 import MapView, {PROVIDER_GOOGLE, Marker, Callout} from "react-native-maps";
+import Amplify, { API, graphqlOperation, Auth } from "aws-amplify";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+
+import { createEvent } from "../src/graphql/mutations";
+import { listEvents } from "../src/graphql/queries";
 
 import { markers, mapStandardStyle} from '../data/cardsExample';
 import Searchbar from '../Components/SearchBar/Searchbar';
@@ -80,6 +84,8 @@ type CardType = {
     const _scrollView = React.useRef(null);
 
     const [filteredMarkers, setfilteredMarkers] = useState(markers);
+    const [filteredCards, setFilteredCards] = useState([]);
+    const [cards, setCards] = useState([]);
     const [activeFilters, setactiveFilters] = useState(Array());
     const [showBackArrow, setBackArrow] = useState(false);
     const [filters, setFilters] = useState(_getAllFilters(markers));
@@ -87,6 +93,26 @@ type CardType = {
 
     let mapIndex = 0;
     let mapAnimation = new Animated.Value(0);
+
+    useEffect(() => {
+      (async () => {
+          const user = await Auth.currentAuthenticatedUser();
+          const apiData = await API.graphql(graphqlOperation(listEvents));
+          const cardData = apiData.data.listEvents.items;
+          setCards(cardData);
+          setFilteredCards(cardData);
+
+          const newFilters = new Set();
+          cardData.forEach((card) => {
+              if (card.filterCategories) {
+                  card.filterCategories.forEach((category) =>
+                      newFilters.add(category)
+                  );
+              }
+          });
+          setFilters(Array.from(newFilters));
+      })();
+  }, []);
 
     useEffect(() => {
       mapAnimation.addListener(({ value }) => {
@@ -150,6 +176,13 @@ type CardType = {
                     return item;
                 }
             })
+        );
+        setFilteredCards(
+          cards.filter((item: any) => {
+              if (item.title.toLowerCase().includes(search.toLowerCase())) {
+                  return item;
+              }
+          })
         );
         if (search === "") {
             setBackArrow(false);
@@ -224,7 +257,7 @@ type CardType = {
       <Searchbar
         showBackArrow={showBackArrow}
         setBackArrow={setBackArrow}
-        pageType={"home"}
+        pageType={"map"}
         updateCards={updateCards}
       ></Searchbar>
         <FilterRow
@@ -308,19 +341,21 @@ type CardType = {
             {useNativeDriver: true}
           )}
         >
-          {filteredMarkers.map((marker, index) =>
-            <View style={styles.card} key={index}>
-              <Image
-                source={marker.image}
-                style={styles.cardImage}
-                resizeMode='cover'
-              />
-              <View style={styles.textContent}>
-                <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                <Text numberOfLines={1} style={styles.cardDescription}>{marker.description}</Text>
-              </View>
-            </View>
-          )}
+          {filteredCards.map((c, index) => {
+                  return (
+                      <View style={styles.card} key={index}>
+                        <Image
+                          source={{uri: c.image}}
+                          style={styles.cardImage}
+                          resizeMode='cover'
+                        />
+                        <View style={styles.textContent}>
+                          <Text numberOfLines={1} style={styles.cardtitle}>{c.title}</Text>
+                          <Text numberOfLines={1} style={styles.cardDescription}>{c.description}</Text>
+                        </View>
+                      </View>
+                  );
+              })}
         </Animated.ScrollView>
       </SafeAreaView>
       );
