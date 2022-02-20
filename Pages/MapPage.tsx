@@ -5,6 +5,7 @@ import {
   TextInput,
   View,
   ScrollView,
+  SafeAreaView,
   Animated,
   Image,
   TouchableOpacity,
@@ -218,7 +219,7 @@ type CardType = {
     }
    
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.searchBox}>
       <Searchbar
         showBackArrow={showBackArrow}
@@ -321,7 +322,7 @@ type CardType = {
             </View>
           )}
         </Animated.ScrollView>
-      </View>
+      </SafeAreaView>
       );
     };
 
@@ -330,10 +331,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   map: {
-    height: '100%'
+    height: 500,
   },
   searchBox: {
-    paddingTop: 20,
     paddingLeft: 20,
     backgroundColor: '#fff',
   },

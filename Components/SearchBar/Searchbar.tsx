@@ -4,6 +4,7 @@ import { View, StyleSheet, Platform } from "react-native";
 import BackArrow from "../BackArrow/BackArrow";
 import MapIcon from "../MapIcon/MapIcon";
 import ListIcon from "../ListIcon/ListIcon";
+import { useNavigation } from "@react-navigation/native";
 import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 
 type SearchBarComponentProps = {
@@ -16,7 +17,7 @@ type SearchBarComponentProps = {
 const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
     const [search, setSearch] = useState("");
     const [searchIcon, setSearchIcon] = useState(true);
-    const [pageType, setPageType] = useState(props.pageType);
+    const navigation = useNavigation();
     let [fontsLoaded] = useFonts({
         WorkSans_400Regular
     });
@@ -25,7 +26,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
         setSearch(search);
         props.setBackArrow(true);
 
-        if (search == "" && pageType == "home") {
+        if (search == "" && props.pageType == "home") {
             clearSearch();
         } else {
             props.updateCards(search);
@@ -33,8 +34,11 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
     };
 
     const onBackArrowClick = () => {
-        if (pageType == "map") {
-            setPageType("home");
+        if (props.pageType == "map") {
+            navigation.navigate("HomePage", {
+                screen: "HomePage",
+                ...props
+            })
             if (search == "") {
                 switchToSearchIcon();
             }
@@ -44,7 +48,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
     };
 
     const clearSearch = () => {
-        if (pageType == "home") {
+        if (props.pageType == "home") {
             switchToSearchIcon();
         }
         props.updateCards("");
@@ -52,14 +56,20 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
     };
 
     const switchToHomePage = () => {
-        setPageType("home");
+        navigation.navigate("HomePage", {
+            screen: "HomePage",
+            ...props
+        })
         if (search == "") {
             switchToSearchIcon();
         }
     };
 
     const switchToMapPage = () => {
-        setPageType("map");
+        navigation.navigate("MapPage", {
+            screen: "MapPage",
+            ...props
+        })
         props.setBackArrow(true);
     };
 
@@ -92,10 +102,10 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
                     />
                 </View>
                 <View>
-                    {pageType == "home" && (
+                    {props.pageType == "home" && (
                         <MapIcon onButtonClick={switchToMapPage} />
                     )}
-                    {pageType == "map" && (
+                    {props.pageType == "map" && (
                         <ListIcon onButtonClick={switchToHomePage} />
                     )}
                 </View>

@@ -4,18 +4,17 @@ import {
     StyleSheet,
     Text,
     View,
+    Image,
     TouchableOpacity,
     Pressable
 } from "react-native";
-import Searchbar from "./Components/SearchBar/Searchbar";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Logo from "./Components/Logo/Logo";
 import Amplify, { API, graphqlOperation, Auth } from "aws-amplify";
 import awsConfig from "./src/aws-exports";
 import { withAuthenticator } from "aws-amplify-react-native";
-import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
-import SearchPage from "./Pages/SearchPage";
-import SearchBar from "react-native-elements";
-import Tabs from "./Navigation/Tabs";
+import SavePage from './Pages/SavePage';
+import UserPage from './Pages/UserPage';
 import { NavigationContainer } from "@react-navigation/native";
 import { MainStackNavigator } from "./Navigation/Stack";
 import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
@@ -41,6 +40,8 @@ async function signOut() {
     }
 }
 
+const Tab = createBottomTabNavigator();
+
 function App() {
     let [fontsLoaded] = useFonts({
         WorkSans_400Regular
@@ -53,7 +54,92 @@ function App() {
                     <Text style={styles.buttonText}>Sign out</Text>
                 </Pressable>
             </View>
-            <MainStackNavigator />
+            <Tab.Navigator
+            screenOptions={{
+                tabBarShowLabel: false,
+                headerShown: false,
+                tabBarStyle: {
+                    position: "abolute",
+                    elevation: 0,
+                    backgroundColor: "#fff",
+                    borderTopWidth: 3,
+                    borderColor: "#808080"
+                }
+            }}
+            >
+            <Tab.Screen
+                name="SearchPage"
+                component={MainStackNavigator}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View
+                            style={{
+                                alignItems: "center",
+                                justifyContent: "center"
+                            }}
+                        >
+                            <Image
+                                source={require("./assets/search-icon.png")}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: focused ? "#e32f45" : "#748c94"
+                                }}
+                            />
+                        </View>
+                    )
+                }}
+            ></Tab.Screen>
+            <Tab.Screen
+                name="SavePage"
+                component={SavePage}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View
+                            style={{
+                                alignItems: "center",
+                                justifyContent: "center"
+                            }}
+                        >
+                            <Image
+                                source={require("./assets/save-icon.png")}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: focused ? "#e32f45" : "#748c94"
+                                }}
+                            />
+                        </View>
+                    )
+                }}
+            ></Tab.Screen>
+            <Tab.Screen
+                name="UserPage"
+                component={UserPage}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View
+                            style={{
+                                alignItems: "center",
+                                justifyContent: "center"
+                            }}
+                        >
+                            <Image
+                                source={require("./assets/user-icon.png")}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: focused ? "#e32f45" : "#748c94"
+                                }}
+                            />
+                        </View>
+                    )
+                }}
+            ></Tab.Screen>
+          </Tab.Navigator>
         </NavigationContainer>
     );
 }

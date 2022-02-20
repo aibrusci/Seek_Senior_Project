@@ -42,7 +42,6 @@ export default function SearchPage() {
             const cardData = apiData.data.listEvents.items;
             setCards(cardData);
             setFilteredCards(cardData);
-            console.log(cardData);
 
             const newFilters = new Set();
             cardData.forEach((card) => {
