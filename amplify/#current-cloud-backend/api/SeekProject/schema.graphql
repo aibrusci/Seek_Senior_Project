@@ -5,21 +5,28 @@ type Event @model(subscriptions: null){
     title: String
     date: String
     image: String
-    savedIcon: Boolean
     description: String
     time: String
     filterCategories: [String]
     location: String
-    category: String
+    coordinate: [Float]
+    mapDescription: String
+    price: String
+    website: String
+    savedUsers: [String]
 }
 
 type Mutation {
     addEvent(id:ID!,  title:String, 
                       date: String,
                       image: String,
-                      savedIcon: Boolean,
                       description: String,
                       time: String,
                       filterCategories: [String],
+                      coordinate: [Float],
+                      mapDescription: String,
+                      price: String,
+                      website: String,
+                      savedUsers: [String],
                       location: String): Event,
                       category: String}

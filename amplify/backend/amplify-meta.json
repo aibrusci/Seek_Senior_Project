@@ -43,7 +43,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/auth/seekseniorproject9d7d403a-cloudformation-template.json",
         "logicalId": "authseekseniorproject9d7d403a"
       },
-      "lastPushTimeStamp": "2022-01-20T04:30:43.675Z",
+      "lastPushTimeStamp": "2022-02-16T22:23:54.513Z",
       "output": {
         "UserPoolId": "us-east-1_8SVQe8Kv5",
         "AppClientIDWeb": "43mtm37q0mpvnkeq1pia7a4f8n",
@@ -77,8 +77,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiSeekProject"
       },
-      "lastPushTimeStamp": "2022-01-20T04:30:45.515Z",
-      "lastPushDirHash": "WT/cne8Xf8ReonT0wxmRHyQKn04="
+      "lastPushTimeStamp": "2022-02-16T22:23:54.515Z",
+      "lastPushDirHash": "ckdrZsjLSqx34P9kRRmSweqvPQ8="
     }
   }
 }

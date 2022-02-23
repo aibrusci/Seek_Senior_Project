@@ -1,21 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {Button} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { updateEvent } from '../../src/graphql/mutations';
+import Amplify , {API, graphqlOperation, Auth} from 'aws-amplify';
 
 type ActivityCardProps = {
+    id: String;
     title: String;
     date: String;
     image: string;
     savedIcon: boolean;
+    savedUsers: any;
+    username: string;
+    refresh: any
+    updateUsers: Function
   }
 
 const ActivityCard: React.FC<ActivityCardProps> = (props) => {
     const [saved, setSaved] = useState(props.savedIcon);
 
-    const updateSaved = (search: any) => {
+    const  updateSaved = async (search: any) => {
         // Will need to add post request here to save to their account later
+        let currentSavedUsers = props.savedUsers
+
+        if(saved){
+          const index = currentSavedUsers.indexOf(props.username)
+          currentSavedUsers.splice(index,1)
+        }else {
+          currentSavedUsers.push(props.username)
+        }
+        const updatedEvent = await API.graphql(
+          graphqlOperation(updateEvent, {
+            input: {id: props.id, savedUsers: currentSavedUsers},
+          }),
+        )
         setSaved(!saved);
+        props.updateUsers(currentSavedUsers, props.id);
+        props.savedIcon = saved
+        props.refresh
     };
 
   return (

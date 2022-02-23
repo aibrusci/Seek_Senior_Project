@@ -138,7 +138,7 @@
             ]
           },
           "S3DeploymentBucket": "amplify-seekseniorproject-dev-152527-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/07617b71b818f22683a174667ce5bc7835e767ac",
+          "S3DeploymentRootKey": "amplify-appsync-files/123068c85f21a35e6825849c3179367aaa53b830",
           "env": "dev"
         }
       }

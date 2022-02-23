@@ -1,16 +1,27 @@
-import React from "react";
+import React,{useState} from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ActivityCard from "../../Components/ActivityCard/ActivityCard";
+
+
+
 
 type CardRowProps = {
     category: string;
     cards: any;
+    username: string;
+    refresh: any
+    updateUsers: Function
 };
+
 type ActivityCardType = {
+    id: string;
     title: string;
     date: string;
     image: string;
     savedIcon: boolean;
+    savedUsers: any;
+    refresh: any
+    updateUsers: Function;
 };
 
 const CardRow: React.FC<CardRowProps> = (props) => {
@@ -19,10 +30,15 @@ const CardRow: React.FC<CardRowProps> = (props) => {
             return (
                 <View style={styles.cardStyle}>
                     <ActivityCard
+                        refresh={props.refresh}
+                        username={props.username}
+                        savedUsers={card.savedUsers}
+                        id={card.id}
                         title={card.title}
                         date={card.date}
-                        savedIcon={false}
+                        savedIcon={card.savedUsers.includes(props.username)}
                         image={card.image}
+                        updateUsers = {props.updateUsers}
                     />
                 </View>
             );

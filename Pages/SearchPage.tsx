@@ -18,6 +18,7 @@ export default function SearchPage() {
     const [filters, setFilters] = useState(Array());
     const refRBSheet = useRef();
     const [cards, setCards] = useState([]);
+    const [userInfo, setUserInfo] = useState();
 
 
     useEffect(() => {
@@ -25,9 +26,10 @@ export default function SearchPage() {
          const user = await Auth.currentAuthenticatedUser();
          const apiData = await API.graphql(graphqlOperation(listEvents));
          const cardData = apiData.data.listEvents.items;
+         console.log(cardData)
          setCards(cardData);
          setFilteredCards(cardData);
-         
+         setUserInfo(user);
          const newFilters = new Set();
          cardData.forEach((card) =>
              card.filterCategories.forEach((category) =>
@@ -46,6 +48,25 @@ export default function SearchPage() {
             clearSelectedFilters();
         }
     }, [showBackArrow]);
+
+    useEffect(() => {
+        
+         
+      }, [cards])
+
+    function updateUsers(newUsers: any, id:any){
+        let cards2 = [... cards]
+        cards2.map((card: any) => {
+          if(card.id === id) {
+              card.savedUsers = newUsers
+          }
+      })
+      setCards(cards2)
+      }
+
+    function refreshPage() {
+        window.location.reload(false);
+      }
 
     function updateCards(search: string) {
         setFilteredCards(
@@ -138,17 +159,18 @@ export default function SearchPage() {
                 }}
             >
                 {filteredCards.map((c: any) => {
-                    return (
-                        <View style={styles.card}>
-                            {console.log(c)}
-                            <ActivityCard
-                                title={c.title}
-                                date={c.date}
-                                savedIcon={false}
-                                image={c.image}
-                            />
-                        </View>
-                    );
+                 <View style={styles.card}>
+                   <ActivityCard
+                       refresh={refreshPage}
+                       username={userInfo.username}
+                       id={c.id}
+                       title={c.title}
+                       date={c.date}
+                       savedIcon={c.savedUsers.includes(userInfo.username)}
+                       savedUsers={c.savedUsers}
+                       image={c.image}
+                       updateUsers = {updateUsers}/>
+                   </View>;
                 })}
             </ScrollView>
         ) : (
@@ -161,6 +183,9 @@ export default function SearchPage() {
                     {filters.map((category) => {
                         return (
                             <CardRow
+                                refresh={refreshPage}
+                                updateUsers={updateUsers}
+                                username={userInfo.username}
                                 cards={cards.filter((item: any) => {
                                     if(item.filterCategories){
                                       if (

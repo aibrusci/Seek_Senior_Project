@@ -17,7 +17,7 @@ const Logo = (props: any) => {
 const styles = StyleSheet.create({
   view: {
     marginTop: 70,
-    marginLeft: 30,
+    marginLeft: 10,
   },
 });
 
