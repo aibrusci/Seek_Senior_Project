@@ -1,6 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Pressable
+} from "react-native";
 import Searchbar from './Components/SearchBar/Searchbar';
 import Logo from './Components/Logo/Logo';
 import Amplify , {API, graphqlOperation, Auth} from 'aws-amplify';
@@ -12,19 +18,27 @@ import SearchBar  from 'react-native-elements';
 import Tabs from './navigation/tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import LogoIcon from './LogoIcon.png';
+import { MainStackNavigator } from "./Navigation/Stack";
+import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 
 Amplify.configure({
-  ...awsConfig,
-  Analytics: {
-    disabled: true,
-  },
+    ...awsConfig,
+    Analytics: {
+        disabled: true
+    },
+    Storage: {
+        AWSS3: {
+            bucket: "seekimagebucket",
+            region: "us-east-1"
+        }
+    }
 });
 
 async function signOut() {
     try {
         await Auth.signOut();
     } catch (error) {
-        console.log('error signing out: ', error);
+        console.log("error signing out: ", error);
     }
 }
 
@@ -71,52 +85,62 @@ const authTheme = {
 
 
 function App() {
-
+  let [fontsLoaded] = useFonts({
+    WorkSans_400Regular
+  });
   return (
     <NavigationContainer>
       <View style={styles.topRow}>
-        <Logo/>
+      <Logo style={styles.Logo}></Logo>
         <Pressable style={styles.button} onPress={() => signOut()}> 
               <Text style={styles.buttonText}>Sign out</Text>
          </Pressable>
       </View>
-        <Tabs/>
+      <MainStackNavigator />
     </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center"
+    },
 
-  button: {
-    backgroundColor: '#FB7762',
-    padding: 10,
-    borderRadius: 6,
-    width: 100,
-    marginLeft: 140,
-    marginTop: 75
-  },
+    button: {
+        backgroundColor: "#FB7762",
+        padding: 10,
+        borderRadius: 6,
+        width: 100,
+        marginTop: 65
+    },
 
-  buttonText: {
-    color: "#FFFFFF",
-    textAlign: "center"
-  },
+    buttonText: {
+        color: "#FFFFFF",
+        textAlign: "center",
+        fontFamily: "WorkSans_400Regular"
+    },
 
-  topRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  logo: {
-    marginRight: 600
-  }
-  
+    topRow: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    header: {
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "space-between",
+        justifyContent: "space-between",
+        paddingRight: 15,
+        marginLeft: -5,
+        paddingBottom: 10
+    },
+    Logo: {
+        marginTop: 65,
+        marginBottom: 10
+    }
 });
 
 export default withAuthenticator(App, { theme: authTheme });

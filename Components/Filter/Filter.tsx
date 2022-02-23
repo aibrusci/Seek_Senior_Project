@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, Pressable } from "react-native";
+import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 
 type FilterProps = {
     title: any;
@@ -8,6 +9,9 @@ type FilterProps = {
 };
 
 const Filter: React.FC<FilterProps> = (props) => {
+    let [fontsLoaded] = useFonts({
+        WorkSans_400Regular
+    });
     let className;
     if (props.selected) {
         className = "filterSelected";
@@ -48,7 +52,8 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: "#000000",
         padding: 5,
-        zIndex: 999
+        zIndex: 999,
+        fontFamily: "WorkSans_400Regular"
     }
 });
 export default Filter;

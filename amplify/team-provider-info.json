@@ -13,7 +13,14 @@
     },
     "categories": {
       "auth": {
-        "seekseniorproject9d7d403a": {}
+        "seekseniorproject9d7d403a": {},
+        "true": {}
+      },
+      "function": {
+        "S3Triggerd43ddae8": {
+          "deploymentBucketName": "amplify-seekseniorproject-dev-152527-deployment",
+          "s3Key": "amplify-builds/S3Triggerd43ddae8-524835316c6c77457941-build.zip"
+        }
       }
     }
   }

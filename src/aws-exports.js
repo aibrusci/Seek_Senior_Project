@@ -8,9 +8,6 @@ const awsmobile = {
     "aws_user_pools_id": "us-east-1_8SVQe8Kv5",
     "aws_user_pools_web_client_id": "43mtm37q0mpvnkeq1pia7a4f8n",
     "oauth": {},
-    "aws_appsync_graphqlEndpoint": "https://z3qoiavykzcjbmnaid3whgzhxi.appsync-api.us-east-1.amazonaws.com/graphql",
-    "aws_appsync_region": "us-east-1",
-    "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
     "aws_cognito_username_attributes": [
         "EMAIL",
         "PHONE_NUMBER"
@@ -29,7 +26,12 @@ const awsmobile = {
     },
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
-    ]
+    ],
+    "aws_appsync_graphqlEndpoint": "https://z3qoiavykzcjbmnaid3whgzhxi.appsync-api.us-east-1.amazonaws.com/graphql",
+    "aws_appsync_region": "us-east-1",
+    "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
+    "aws_user_files_s3_bucket": "seekimagebucket152527-dev",
+    "aws_user_files_s3_bucket_region": "us-east-1"
 };
 
 

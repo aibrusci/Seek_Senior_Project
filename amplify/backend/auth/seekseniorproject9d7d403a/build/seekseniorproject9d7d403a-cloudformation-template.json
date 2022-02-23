@@ -130,6 +130,79 @@
     }
   },
   "Resources": {
+    "SNSRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cognito-idp.amazonaws.com"
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "sts:ExternalId": "seekse9d7d403a_role_external_id"
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sns:Publish"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            },
+            "PolicyName": "seekse9d7d403a-sns-policy"
+          }
+        ],
+        "RoleName": {
+          "Fn::If": [
+            "ShouldNotCreateEnvResources",
+            "seekse9d7d403a_sns-role",
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "sns9d7d403a",
+                  {
+                    "Fn::Select": [
+                      3,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Ref": "AWS::StackName"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "-",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
     "UserPool": {
       "Type": "AWS::Cognito::UserPool",
       "Properties": {
@@ -163,6 +236,21 @@
             "Required": true
           }
         ],
+        "SmsAuthenticationMessage": {
+          "Ref": "smsAuthenticationMessage"
+        },
+        "SmsConfiguration": {
+          "ExternalId": "seekse9d7d403a_role_external_id",
+          "SnsCallerArn": {
+            "Fn::GetAtt": [
+              "SNSRole",
+              "Arn"
+            ]
+          }
+        },
+        "SmsVerificationMessage": {
+          "Ref": "smsVerificationMessage"
+        },
         "UsernameAttributes": {
           "Ref": "usernameAttributes"
         },
@@ -536,6 +624,15 @@
         ]
       },
       "Condition": "ShouldOutputAppClientSecrets"
+    },
+    "CreatedSNSRole": {
+      "Description": "role arn",
+      "Value": {
+        "Fn::GetAtt": [
+          "SNSRole",
+          "Arn"
+        ]
+      }
     }
   }
 }

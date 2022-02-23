@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ActivityCard from "../../Components/ActivityCard/ActivityCard";
+import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 
 
 
@@ -14,31 +15,50 @@ type CardRowProps = {
 };
 
 type ActivityCardType = {
-    id: string;
-    title: string;
-    date: string;
+    id: String;
+    title: String;
+    date: String;
     image: string;
-    savedIcon: boolean;
+    savedIcon: Boolean;
+    description: String;
+    time: String;
+    filterCategories: [String];
+    location: String;
+    category: String;
+    price: string;
+    website: string;
+    rating: [number];
     savedUsers: any;
     refresh: any
     updateUsers: Function;
 };
 
 const CardRow: React.FC<CardRowProps> = (props) => {
+    let [fontsLoaded] = useFonts({
+        WorkSans_400Regular
+    });
     const _renderViews = (views: ActivityCardType[]): JSX.Element[] => {
         return views.map((card) => {
             return (
                 <View style={styles.cardStyle}>
                     <ActivityCard
-                        refresh={props.refresh}
-                        username={props.username}
-                        savedUsers={card.savedUsers}
                         id={card.id}
                         title={card.title}
                         date={card.date}
-                        savedIcon={card.savedUsers.includes(props.username)}
                         image={card.image}
+                        savedIcon={card.savedUsers.includes(props.username)}
+                        description={card.description}
+                        time={card.time}
+                        filterCategories={card.filterCategories}
+                        location={card.location}
+                        category={card.category}
+                        price={card.price}
+                        website={card.website}
+                        rating={card.rating}
                         updateUsers = {props.updateUsers}
+                        username={props.username}
+                        refresh={props.refresh}
+                        savedUsers={card.savedUsers}
                     />
                 </View>
             );
@@ -72,7 +92,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         fontWeight: "500",
-        fontSize: 16
+        fontSize: 16,
+        fontFamily: "WorkSans_400Regular"
     }
 });
 export default CardRow;

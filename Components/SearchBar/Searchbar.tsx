@@ -4,6 +4,7 @@ import { View, StyleSheet, Platform } from "react-native";
 import BackArrow from "../BackArrow/BackArrow";
 import MapIcon from "../MapIcon/MapIcon";
 import ListIcon from "../ListIcon/ListIcon";
+import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 
 type SearchBarComponentProps = {
     pageType: String;
@@ -16,6 +17,9 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
     const [search, setSearch] = useState("");
     const [searchIcon, setSearchIcon] = useState(true);
     const [pageType, setPageType] = useState(props.pageType);
+    let [fontsLoaded] = useFonts({
+        WorkSans_400Regular
+    });
 
     const updateSearch = (search: any) => {
         setSearch(search);
@@ -70,6 +74,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
             <View style={styles.inline}>
                 <View style={styles.searchView}>
                     <SearchBar
+                        styles={styles.search}
                         placeholder="Search..."
                         onChangeText={updateSearch}
                         value={search}
@@ -112,6 +117,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center"
+    },
+    search: {
+        fontFamily: "WorkSans_400Regular"
     }
 });
 

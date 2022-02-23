@@ -7,14 +7,28 @@ export type AmplifyDependentResourcesAttributes = {
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
-            "AppClientID": "string"
+            "AppClientID": "string",
+            "CreatedSNSRole": "string"
         }
     },
     "api": {
-        "seekseniorproject": {
-            "GraphQLAPIKeyOutput": "string",
+        "SeekProject": {
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
+        }
+    },
+    "function": {
+        "S3Triggerd43ddae8": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        }
+    },
+    "storage": {
+        "seekimages": {
+            "BucketName": "string",
+            "Region": "string"
         }
     }
 }
