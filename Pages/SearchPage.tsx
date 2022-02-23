@@ -26,7 +26,6 @@ export default function SearchPage() {
          const user = await Auth.currentAuthenticatedUser();
          const apiData = await API.graphql(graphqlOperation(listEvents));
          const cardData = apiData.data.listEvents.items;
-         console.log(cardData)
          setCards(cardData);
          setFilteredCards(cardData);
          setUserInfo(user);
@@ -159,7 +158,7 @@ export default function SearchPage() {
                 }}
             >
                 {filteredCards.map((c: any) => {
-                 <View style={styles.card}>
+                 return(<View style={styles.card}>
                    <ActivityCard
                        refresh={refreshPage}
                        username={userInfo.username}
@@ -170,7 +169,7 @@ export default function SearchPage() {
                        savedUsers={c.savedUsers}
                        image={c.image}
                        updateUsers = {updateUsers}/>
-                   </View>;
+                 </View>);
                 })}
             </ScrollView>
         ) : (
