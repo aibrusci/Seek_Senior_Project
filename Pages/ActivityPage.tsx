@@ -35,6 +35,7 @@ import {
     WorkSans_900Black_Italic
 } from "@expo-google-fonts/work-sans";
 import Logo from "../Components/Logo/Logo";
+import Rating from "../Components/Rating/Rating";
 
 type Event = {
     id: String;
@@ -281,7 +282,12 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
                             {route.params.title}
                         </Text>
                         <View style={styles.priceRating}>
-                            {[1, 2, 3, 4, 5].map((a) => (
+                            {route.params.rating ? (
+                                <Rating rating={route.params.rating}></Rating>
+                            ) : (
+                                <Rating rating={[1, 2, 3]}></Rating>
+                            )}
+                            {/* {[1, 2, 3, 4, 5].map((a) => (
                                 <Image
                                     source={require("../assets/FilledStar.png")}
                                     resizeMode="contain"
@@ -291,7 +297,7 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
                                         marginTop: 2
                                     }}
                                 />
-                            ))}
+                            ))} */}
                             <Text style={styles.eventPrice}> • </Text>
                             <Text style={styles.eventPrice}>
                                 {" "}
@@ -479,7 +485,8 @@ const styles = StyleSheet.create({
     },
     priceRating: {
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
+        paddingLeft: 10
     },
     eventLocation: {
         fontFamily: "WorkSans_400Regular",

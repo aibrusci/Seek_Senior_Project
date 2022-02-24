@@ -3,20 +3,21 @@ type Event {
   title: String
   date: String
   image: String
-  savedUsers: [String]
   description: String
   time: String
   filterCategories: [String]
   location: String
-  category: String
+  coordinate: [Float]
+  mapDescription: String
+  price: String
   website: String
-  savedIcon: Boolean
+  savedUsers: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
 
 type Mutation {
-  addEvent(id: ID!, title: String, date: String, image: String, savedIcon: Boolean, description: String, time: String, filterCategories: [String], location: String): Event
+  addEvent(id: ID!, title: String, date: String, image: String, description: String, time: String, filterCategories: [String], coordinate: [Float], mapDescription: String, price: String, website: String, savedUsers: [String], location: String): Event
   category: String
   createEvent(input: CreateEventInput!, condition: ModelEventConditionInput): Event
   updateEvent(input: UpdateEventInput!, condition: ModelEventConditionInput): Event
@@ -111,14 +112,15 @@ input ModelEventFilterInput {
   title: ModelStringInput
   date: ModelStringInput
   image: ModelStringInput
-  savedUsers: ModelStringInput
   description: ModelStringInput
   time: ModelStringInput
   filterCategories: ModelStringInput
   location: ModelStringInput
-  category: ModelStringInput
+  coordinate: ModelFloatInput
+  mapDescription: ModelStringInput
+  price: ModelStringInput
   website: ModelStringInput
-  savedIcon: ModelBooleanInput
+  savedUsers: ModelStringInput
   and: [ModelEventFilterInput]
   or: [ModelEventFilterInput]
   not: ModelEventFilterInput
@@ -147,14 +149,15 @@ input CreateEventInput {
   title: String
   date: String
   image: String
-  savedUsers: [String]
   description: String
   time: String
   filterCategories: [String]
   location: String
-  category: String
+  coordinate: [Float]
+  mapDescription: String
+  price: String
   website: String
-  savedIcon: Boolean
+  savedUsers: [String]
 }
 
 input UpdateEventInput {
@@ -162,14 +165,15 @@ input UpdateEventInput {
   title: String
   date: String
   image: String
-  savedUsers: [String]
   description: String
   time: String
   filterCategories: [String]
   location: String
-  category: String
+  coordinate: [Float]
+  mapDescription: String
+  price: String
   website: String
-  savedIcon: Boolean
+  savedUsers: [String]
 }
 
 input DeleteEventInput {
@@ -180,14 +184,15 @@ input ModelEventConditionInput {
   title: ModelStringInput
   date: ModelStringInput
   image: ModelStringInput
-  savedUsers: ModelStringInput
   description: ModelStringInput
   time: ModelStringInput
   filterCategories: ModelStringInput
   location: ModelStringInput
-  category: ModelStringInput
+  coordinate: ModelFloatInput
+  mapDescription: ModelStringInput
+  price: ModelStringInput
   website: ModelStringInput
-  savedIcon: ModelBooleanInput
+  savedUsers: ModelStringInput
   and: [ModelEventConditionInput]
   or: [ModelEventConditionInput]
   not: ModelEventConditionInput

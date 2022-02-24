@@ -42,7 +42,7 @@ export default function SearchPage() {
             const cardData = apiData.data.listEvents.items;
             setCards(cardData);
             setFilteredCards(cardData);
-            console.log(cardData);
+            console.log(cards);
 
             const newFilters = new Set();
             cardData.forEach((card) => {
@@ -51,6 +51,7 @@ export default function SearchPage() {
                         newFilters.add(category)
                     );
                 }
+                card.image = [card.image];
             });
             setFilters(Array.from(newFilters));
         })();

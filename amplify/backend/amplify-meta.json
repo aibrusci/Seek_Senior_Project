@@ -43,7 +43,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/auth/seekseniorproject9d7d403a-cloudformation-template.json",
         "logicalId": "authseekseniorproject9d7d403a"
       },
-      "lastPushTimeStamp": "2022-02-16T21:12:24.040Z",
+      "lastPushTimeStamp": "2022-02-24T05:19:18.463Z",
       "output": {
         "UserPoolId": "us-east-1_8SVQe8Kv5",
         "AppClientIDWeb": "43mtm37q0mpvnkeq1pia7a4f8n",
@@ -77,62 +77,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiSeekProject"
       },
-      "lastPushTimeStamp": "2022-02-16T21:12:24.044Z",
-      "lastPushDirHash": "iKCwa/ds9P1gO9yeUTacSMLeWOs="
-    }
-  },
-  "function": {
-    "S3Triggerd43ddae8": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true,
-      "lastBuildTimeStamp": "2022-02-16T21:09:13.543Z",
-      "lastBuildType": "PROD",
-      "lastPackageTimeStamp": "2022-02-16T21:09:13.568Z",
-      "distZipFilename": "S3Triggerd43ddae8-524835316c6c77457941-build.zip",
-      "s3Bucket": {
-        "deploymentBucketName": "amplify-seekseniorproject-dev-152527-deployment",
-        "s3Key": "amplify-builds/S3Triggerd43ddae8-524835316c6c77457941-build.zip"
-      },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/function/S3Triggerd43ddae8-cloudformation-template.json",
-        "logicalId": "functionS3Triggerd43ddae8"
-      },
-      "lastPushTimeStamp": "2022-02-16T21:12:24.075Z",
-      "output": {
-        "Region": "us-east-1",
-        "Arn": "arn:aws:lambda:us-east-1:366810761984:function:S3Triggerd43ddae8-dev",
-        "Name": "S3Triggerd43ddae8-dev",
-        "LambdaExecutionRole": "S3Triggerd43ddae8LambdaRoled43ddae8-dev"
-      },
-      "lastPushDirHash": "K5Taai3jk9+iwrXLS029kwBIHLE="
-    }
-  },
-  "storage": {
-    "seekimages": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "S3Triggerd43ddae8",
-          "attributes": [
-            "Name",
-            "Arn",
-            "LambdaExecutionRole"
-          ]
-        }
-      ],
-      "lastPushTimeStamp": "2022-02-16T21:12:24.075Z",
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
-        "logicalId": "storageseekimages"
-      },
-      "output": {
-        "BucketName": "seekimagebucket152527-dev",
-        "Region": "us-east-1"
-      },
-      "lastPushDirHash": "cdd54y5elI9HXSvy1lvSXQoOv5s="
+      "lastPushTimeStamp": "2022-02-24T05:19:18.466Z",
+      "lastPushDirHash": "ckdrZsjLSqx34P9kRRmSweqvPQ8="
     }
   }
 }

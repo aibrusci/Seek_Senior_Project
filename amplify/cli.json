@@ -2,10 +2,6 @@
   "features": {
     "project": {
       "overrides": true
-    },
-    "graphqltransformer": {
-      "securityEnhancementNotification": false,
-      "showfieldauthnotification": false
     }
   }
 }
