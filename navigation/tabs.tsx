@@ -1,9 +1,10 @@
-import * as React from "react";
-import { Image, Text, View } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import SearchPage from "../Pages/SearchPage";
-import SavePage from "../Pages/SavePage";
-import UserPage from "../Pages/UserPage";
+import * as React from 'react';
+import { Image, Text, View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MapPage from '../Pages/MapPage';
+import SearchPage from '../Pages/SearchPage';
+import SavePage from '../Pages/SavePage';
+import UserPage from '../Pages/UserPage';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,8 +24,8 @@ export default function Tabs() {
             }}
         >
             <Tab.Screen
-                name="SearchPage"
-                component={SearchPage}
+                name="MapPage"
+                component={MapPage}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <View
