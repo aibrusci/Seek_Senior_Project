@@ -28,7 +28,7 @@ const CardRow: React.FC<CardRowProps> = (props) => {
         WorkSans_400Regular
     });
     const _renderViews = (views: ActivityCardType[]): JSX.Element[] => {
-        return views.map((card) => {
+        return views.map((card, i) => {
             return (
                 <View style={styles.cardStyle}>
                     <ActivityCard

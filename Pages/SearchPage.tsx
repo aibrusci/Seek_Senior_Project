@@ -40,10 +40,6 @@ export default function SearchPage() {
             const user = await Auth.currentAuthenticatedUser();
             const apiData = await API.graphql(graphqlOperation(listEvents));
             const cardData = apiData.data.listEvents.items;
-            setCards(cardData);
-            setFilteredCards(cardData);
-            console.log(cards);
-
             const newFilters = new Set();
             cardData.forEach((card) => {
                 if (card.filterCategories) {
@@ -51,8 +47,15 @@ export default function SearchPage() {
                         newFilters.add(category)
                     );
                 }
-                card.image = [card.image];
+                if (card.image && typeof card.image === "string") {
+                    card.image = [card.image];
+                    console.log(card.image);
+                }
             });
+            setFilteredCards(cardData);
+            setCards(cardData);
+            console.log(cards);
+            console.log(cardData);
             setFilters(Array.from(newFilters));
         })();
     }, []);
@@ -154,7 +157,7 @@ export default function SearchPage() {
                     >
                         {filteredCards.map((c) => {
                             return (
-                                <View style={styles.card}>
+                                <View style={styles.card} key={c.id}>
                                     <ActivityCard
                                         id={c.id}
                                         title={c.title}
@@ -184,6 +187,7 @@ export default function SearchPage() {
                             {filters.map((category) => {
                                 return (
                                     <CardRow
+                                        key={category}
                                         cards={cards.filter((item: any) => {
                                             if (
                                                 item.filterCategories &&

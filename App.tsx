@@ -47,12 +47,16 @@ function App() {
     });
     return (
         <NavigationContainer>
-            <View style={styles.header}>
-                <Logo style={styles.Logo}></Logo>
-                <Pressable style={styles.button} onPress={() => signOut()}>
-                    <Text style={styles.buttonText}>Sign out</Text>
-                </Pressable>
-            </View>
+            {fontsLoaded ? (
+                <View style={styles.header}>
+                    <Logo style={styles.Logo}></Logo>
+                    <Pressable style={styles.button} onPress={() => signOut()}>
+                        <Text style={styles.buttonText}>Sign out</Text>
+                    </Pressable>
+                </View>
+            ) : (
+                <View></View>
+            )}
             <MainStackNavigator />
         </NavigationContainer>
     );
