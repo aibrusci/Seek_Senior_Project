@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ActivityPage from "../Pages/ActivityPage";
-import Tabs from "./Tabs";
+import Tabs from "./tabs";
 import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 

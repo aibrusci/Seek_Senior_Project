@@ -1,10 +1,11 @@
-import * as React from 'react';
-import { Image, Text, View } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MapPage from '../Pages/MapPage';
-import SearchPage from '../Pages/SearchPage';
-import SavePage from '../Pages/SavePage';
-import UserPage from '../Pages/UserPage';
+import * as React from "react";
+import { Image, Text, View } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MapPage from "../Pages/MapPage";
+import SearchPage from "../Pages/SearchPage";
+import SavePage from "../Pages/SavePage";
+import UserPage from "../Pages/UserPage";
+import AddPage from "../Pages/AddPage";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,8 +25,8 @@ export default function Tabs() {
             }}
         >
             <Tab.Screen
-                name="MapPage"
-                component={MapPage}
+                name="SearchPage"
+                component={SearchPage}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <View
@@ -64,6 +65,30 @@ export default function Tabs() {
                                 style={{
                                     width: 25,
                                     height: 25,
+                                    tintColor: focused ? "#e32f45" : "#748c94"
+                                }}
+                            />
+                        </View>
+                    )
+                }}
+            ></Tab.Screen>
+            <Tab.Screen
+                name="AddPage"
+                component={AddPage}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View
+                            style={{
+                                alignItems: "center",
+                                justifyContent: "center"
+                            }}
+                        >
+                            <Image
+                                source={require("../assets/add_circle.png")}
+                                resizeMode="contain"
+                                style={{
+                                    width: 28,
+                                    height: 28,
                                     tintColor: focused ? "#e32f45" : "#748c94"
                                 }}
                             />
