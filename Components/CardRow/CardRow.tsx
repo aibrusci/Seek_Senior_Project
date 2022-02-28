@@ -1,17 +1,24 @@
-import React from "react";
+import React,{useState} from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ActivityCard from "../../Components/ActivityCard/ActivityCard";
 import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 
+
+
+
 type CardRowProps = {
     category: string;
     cards: any;
+    username: string;
+    refresh: any
+    updateUsers: Function
 };
+
 type ActivityCardType = {
     id: String;
     title: String;
     date: String;
-    image: string[];
+    image: string;
     savedIcon: Boolean;
     description: String;
     time: String;
@@ -21,6 +28,9 @@ type ActivityCardType = {
     price: string;
     website: string;
     rating: [number];
+    savedUsers: any;
+    refresh: any
+    updateUsers: Function;
 };
 
 const CardRow: React.FC<CardRowProps> = (props) => {
@@ -36,7 +46,7 @@ const CardRow: React.FC<CardRowProps> = (props) => {
                         title={card.title}
                         date={card.date}
                         image={card.image}
-                        savedIcon={card.savedIcon}
+                        savedIcon={card.savedUsers.includes(props.username)}
                         description={card.description}
                         time={card.time}
                         filterCategories={card.filterCategories}
@@ -45,6 +55,10 @@ const CardRow: React.FC<CardRowProps> = (props) => {
                         price={card.price}
                         website={card.website}
                         rating={card.rating}
+                        updateUsers = {props.updateUsers}
+                        username={props.username}
+                        refresh={props.refresh}
+                        savedUsers={card.savedUsers}
                     />
                 </View>
             );

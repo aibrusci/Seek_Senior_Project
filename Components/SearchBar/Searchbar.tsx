@@ -47,6 +47,7 @@ const Searchbar: React.FunctionComponent<SearchBarComponentProps> = (props) => {
         if (pageType == "home") {
             switchToSearchIcon();
         }
+        
         props.updateCards("");
         setSearch("");
     };

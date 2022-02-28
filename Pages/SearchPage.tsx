@@ -34,6 +34,7 @@ export default function SearchPage() {
     const [filters, setFilters] = useState(Array());
     const refRBSheet = useRef();
     const [cards, setCards] = useState([]);
+    const [userInfo, setUserInfo] = useState();
 
     useEffect(() => {
         (async () => {
@@ -42,8 +43,8 @@ export default function SearchPage() {
             const cardData = apiData.data.listEvents.items;
             setCards(cardData);
             setFilteredCards(cardData);
+            setUserInfo(user);
             console.log(cardData);
-
             const newFilters = new Set();
             cardData.forEach((card) => {
                 if (card.filterCategories) {
@@ -61,6 +62,25 @@ export default function SearchPage() {
             clearSelectedFilters();
         }
     }, [showBackArrow]);
+
+    useEffect(() => {
+        
+         
+      }, [cards])
+
+    function updateUsers(newUsers: any, id:any){
+        let cards2 = [... cards]
+        cards2.map((card: any) => {
+          if(card.id === id) {
+              card.savedUsers = newUsers
+          }
+      })
+      setCards(cards2)
+      }
+
+    function refreshPage() {
+        window.location.reload(false);
+      }
 
     function updateCards(search: string) {
         setFilteredCards(
@@ -126,90 +146,85 @@ export default function SearchPage() {
     };
 
     return (
-        <View style={styles.viewContainer}>
-            <SafeAreaView style={styles.container}>
-                <Searchbar
-                    showBackArrow={showBackArrow}
-                    setBackArrow={setBackArrow}
-                    pageType={"home"}
-                    updateCards={updateCards}
-                ></Searchbar>
-                <FilterRow
-                    filters={filters}
-                    activeFilters={activeFilters}
-                    onFilterClick={onFilterClick}
-                    clearSelectedFilters={clearSelectedFilters}
-                    openMenu={() => refRBSheet.current.open()}
-                ></FilterRow>
-                {showBackArrow ? (
-                    <ScrollView
-                        pagingEnabled
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{
-                            flexDirection: "row",
-                            flexWrap: "wrap"
-                        }}
-                    >
-                        {filteredCards.map((c) => {
-                            return (
-                                <View style={styles.card}>
-                                    <ActivityCard
-                                        id={c.id}
-                                        title={c.title}
-                                        date={c.date}
-                                        image={c.image}
-                                        savedIcon={false}
-                                        description={c.description}
-                                        time={c.time}
-                                        filterCategories={c.filterCategories}
-                                        location={c.locatiton}
-                                        category={c.category}
-                                        price={c.price}
-                                        website={c.website}
-                                        rating={c.rating}
-                                    />
-                                </View>
-                            );
-                        })}
-                    </ScrollView>
-                ) : (
-                    <ScrollView
-                        pagingEnabled
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                    >
-                        <View style={styles.card}>
-                            {filters.map((category) => {
-                                return (
-                                    <CardRow
-                                        cards={cards.filter((item: any) => {
-                                            if (
-                                                item.filterCategories &&
-                                                item.filterCategories.includes(
-                                                    category
-                                                )
-                                            ) {
-                                                return item;
-                                            }
-                                        })}
-                                        category={String(category)}
-                                    />
-                                );
-                            })}
-                        </View>
-                    </ScrollView>
-                )}
-                <FilterMenu
-                    refRBSheet={refRBSheet}
-                    filters={filters}
-                    activeFilters={activeFilters}
-                    onFilterClick={onFilterClick}
-                    clearSelectedFilters={clearSelectedFilters}
-                ></FilterMenu>
-            </SafeAreaView>
-        </View>
-    );
+        <SafeAreaView style={styles.container}>
+        <Searchbar
+            showBackArrow={showBackArrow}
+            setBackArrow={setBackArrow}
+            pageType={"home"}
+            updateCards={updateCards}
+        ></Searchbar>
+        <FilterRow
+            filters={filters}
+            activeFilters={activeFilters}
+            onFilterClick={onFilterClick}
+            clearSelectedFilters={clearSelectedFilters}
+            openMenu={() => refRBSheet.current.open()}
+        ></FilterRow>
+        {showBackArrow ? (
+            <ScrollView
+                pagingEnabled
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+                    flexDirection: "row",
+                    flexWrap: "wrap"
+                }}
+            >
+                {filteredCards.map((c: any) => {
+                 return(<View style={styles.card}>
+                   <ActivityCard
+                       refresh={refreshPage}
+                       username={userInfo.username}
+                       id={c.id}
+                       title={c.title}
+                       date={c.date}
+                       savedIcon={c.savedUsers.includes(userInfo.username)}
+                       savedUsers={c.savedUsers}
+                       image={c.image}
+                       updateUsers = {updateUsers}/>
+                 </View>);
+                })}
+            </ScrollView>
+        ) : (
+            <ScrollView
+                pagingEnabled
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+            >
+                <View style={styles.card}>
+                    {filters.map((category) => {
+                        return (
+                            <CardRow
+                                refresh={refreshPage}
+                                updateUsers={updateUsers}
+                                username={userInfo.username}
+                                cards={cards.filter((item: any) => {
+                                    if(item.filterCategories){
+                                      if (
+                                        item.filterCategories.includes(
+                                            category
+                                        )
+                                    ) {
+                                        return item;
+                                    }
+                                    }                                       
+                                })}
+                                category={String(category)}
+                            />
+                        );
+                    })}
+                </View>
+            </ScrollView>
+        )}
+        <FilterMenu
+            refRBSheet={refRBSheet}
+            filters={filters}
+            activeFilters={activeFilters}
+            onFilterClick={onFilterClick}
+            clearSelectedFilters={clearSelectedFilters}
+        ></FilterMenu>
+    </SafeAreaView>
+);
 }
 
 const styles = StyleSheet.create({
