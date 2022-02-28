@@ -24,8 +24,8 @@ export default function Tabs() {
             }}
         >
             <Tab.Screen
-                name="MapPage"
-                component={MapPage}
+                name="SearchPage"
+                component={SearchPage}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <View

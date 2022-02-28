@@ -43,11 +43,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/auth/seekseniorproject9d7d403a-cloudformation-template.json",
         "logicalId": "authseekseniorproject9d7d403a"
       },
-<<<<<<< HEAD
-      "lastPushTimeStamp": "2022-02-16T22:11:02.508Z",
-=======
-      "lastPushTimeStamp": "2022-02-16T21:12:24.040Z",
->>>>>>> 8c97b24b8cb470617d0af603019c6f1def9bf9d4
+      "lastPushTimeStamp": "2022-02-28T06:40:03.807Z",
       "output": {
         "UserPoolId": "us-east-1_8SVQe8Kv5",
         "AppClientIDWeb": "43mtm37q0mpvnkeq1pia7a4f8n",
@@ -81,49 +77,45 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiSeekProject"
       },
-<<<<<<< HEAD
-      "lastPushTimeStamp": "2022-02-16T22:15:46.501Z",
-      "lastPushDirHash": "ckdrZsjLSqx34P9kRRmSweqvPQ8="
-=======
-      "lastPushTimeStamp": "2022-02-16T21:12:24.044Z",
-      "lastPushDirHash": "iKCwa/ds9P1gO9yeUTacSMLeWOs="
+      "lastPushTimeStamp": "2022-02-28T06:40:05.697Z",
+      "lastPushDirHash": "oTCOQzWsYCL7uRCYJ9S6emZM30A="
     }
   },
   "function": {
-    "S3Triggerd43ddae8": {
+    "S3Triggere2dab7d7": {
       "service": "Lambda",
       "providerPlugin": "awscloudformation",
       "build": true,
-      "lastBuildTimeStamp": "2022-02-16T21:09:13.543Z",
+      "lastBuildTimeStamp": "2022-02-28T06:17:21.584Z",
       "lastBuildType": "PROD",
-      "lastPackageTimeStamp": "2022-02-16T21:09:13.568Z",
-      "distZipFilename": "S3Triggerd43ddae8-524835316c6c77457941-build.zip",
+      "lastPackageTimeStamp": "2022-02-28T06:17:21.644Z",
+      "distZipFilename": "S3Triggere2dab7d7-6d664138634453446357-build.zip",
       "s3Bucket": {
         "deploymentBucketName": "amplify-seekseniorproject-dev-152527-deployment",
-        "s3Key": "amplify-builds/S3Triggerd43ddae8-524835316c6c77457941-build.zip"
+        "s3Key": "amplify-builds/S3Triggere2dab7d7-6d664138634453446357-build.zip"
       },
       "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/function/S3Triggerd43ddae8-cloudformation-template.json",
-        "logicalId": "functionS3Triggerd43ddae8"
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/function/S3Triggere2dab7d7-cloudformation-template.json",
+        "logicalId": "functionS3Triggere2dab7d7"
       },
-      "lastPushTimeStamp": "2022-02-16T21:12:24.075Z",
+      "lastPushTimeStamp": "2022-02-28T06:40:03.814Z",
       "output": {
         "Region": "us-east-1",
-        "Arn": "arn:aws:lambda:us-east-1:366810761984:function:S3Triggerd43ddae8-dev",
-        "Name": "S3Triggerd43ddae8-dev",
-        "LambdaExecutionRole": "S3Triggerd43ddae8LambdaRoled43ddae8-dev"
+        "Arn": "arn:aws:lambda:us-east-1:366810761984:function:S3Triggere2dab7d7-dev",
+        "Name": "S3Triggere2dab7d7-dev",
+        "LambdaExecutionRole": "S3Triggere2dab7d7LambdaRolee2dab7d7-dev"
       },
-      "lastPushDirHash": "K5Taai3jk9+iwrXLS029kwBIHLE="
+      "lastPushDirHash": "qFGHeL5FNsHrlyXobAge/t/2uAA="
     }
   },
   "storage": {
-    "seekimages": {
+    "seekStorage": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "S3Triggerd43ddae8",
+          "resourceName": "S3Triggere2dab7d7",
           "attributes": [
             "Name",
             "Arn",
@@ -131,17 +123,16 @@
           ]
         }
       ],
-      "lastPushTimeStamp": "2022-02-16T21:12:24.075Z",
+      "lastPushTimeStamp": "2022-02-28T06:40:03.817Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-seekseniorproject-dev-152527-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
-        "logicalId": "storageseekimages"
+        "logicalId": "storageseekStorage"
       },
       "output": {
-        "BucketName": "seekimagebucket152527-dev",
+        "BucketName": "seekseniorprojectd73987c00ca7454dade2e648928581152527-dev",
         "Region": "us-east-1"
       },
-      "lastPushDirHash": "cdd54y5elI9HXSvy1lvSXQoOv5s="
->>>>>>> 8c97b24b8cb470617d0af603019c6f1def9bf9d4
+      "lastPushDirHash": "JWmJFDsu3YdqMUhIZ/ROcw6/nls="
     }
   }
 }

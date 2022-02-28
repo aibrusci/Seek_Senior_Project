@@ -18,7 +18,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "S3Triggerd43ddae8": {
+        "S3Triggere2dab7d7": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
@@ -26,7 +26,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "storage": {
-        "seekimages": {
+        "seekStorage": {
             "BucketName": "string",
             "Region": "string"
         }

@@ -20,6 +20,10 @@
         "S3Triggerd43ddae8": {
           "deploymentBucketName": "amplify-seekseniorproject-dev-152527-deployment",
           "s3Key": "amplify-builds/S3Triggerd43ddae8-524835316c6c77457941-build.zip"
+        },
+        "S3Triggere2dab7d7": {
+          "deploymentBucketName": "amplify-seekseniorproject-dev-152527-deployment",
+          "s3Key": "amplify-builds/S3Triggere2dab7d7-6d664138634453446357-build.zip"
         }
       }
     }

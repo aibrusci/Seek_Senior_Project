@@ -46,20 +46,20 @@
     }
   },
   "function": {
-    "S3Triggerd43ddae8": {
+    "S3Triggere2dab7d7": {
       "service": "Lambda",
       "providerPlugin": "awscloudformation",
       "build": true
     }
   },
   "storage": {
-    "seekimages": {
+    "seekStorage": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "S3Triggerd43ddae8",
+          "resourceName": "S3Triggere2dab7d7",
           "attributes": [
             "Name",
             "Arn",

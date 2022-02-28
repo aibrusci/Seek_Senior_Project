@@ -114,9 +114,6 @@ useEffect(() => {
                        updateUsers = {updateUsers}/>
                    </View>)
                 })}
-                <Button onPress={refreshPage}>
-
-                </Button>
             </ScrollView>
         </View>)
       }
