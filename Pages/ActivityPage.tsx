@@ -13,6 +13,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Linking, Platform } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
 import S3StorageUpload from "../Components/S3StorageUpload/S3StorageUpload";
+import Rating from "../Components/Rating/Rating";
 import {
     useFonts,
     WorkSans_100Thin,
@@ -281,17 +282,17 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
                             {route.params.title}
                         </Text>
                         <View style={styles.priceRating}>
-                            {[1, 2, 3, 4, 5].map((a) => (
-                                <Image
-                                    source={require("../assets/FilledStar.png")}
-                                    resizeMode="contain"
-                                    style={{
-                                        width: 18,
-                                        height: 18,
-                                        marginTop: 2
-                                    }}
-                                />
-                            ))}
+                            {route.params.rating ? (
+                                <Rating
+                                    id={route.params.id}
+                                    rating={route.params.rating}
+                                ></Rating>
+                            ) : (
+                                <Rating
+                                    id={route.params.id}
+                                    rating={[]}
+                                ></Rating>
+                            )}
                             <Text style={styles.eventPrice}> • </Text>
                             <Text style={styles.eventPrice}>
                                 {" "}
@@ -479,7 +480,8 @@ const styles = StyleSheet.create({
     },
     priceRating: {
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
+        paddingLeft: 10
     },
     eventLocation: {
         fontFamily: "WorkSans_400Regular",

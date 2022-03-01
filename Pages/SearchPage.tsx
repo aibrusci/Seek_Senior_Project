@@ -63,24 +63,21 @@ export default function SearchPage() {
         }
     }, [showBackArrow]);
 
-    useEffect(() => {
-        
-         
-      }, [cards])
+    useEffect(() => {}, [cards]);
 
-    function updateUsers(newUsers: any, id:any){
-        let cards2 = [... cards]
+    function updateUsers(newUsers: any, id: any) {
+        let cards2 = [...cards];
         cards2.map((card: any) => {
-          if(card.id === id) {
-              card.savedUsers = newUsers
-          }
-      })
-      setCards(cards2)
-      }
+            if (card.id === id) {
+                card.savedUsers = newUsers;
+            }
+        });
+        setCards(cards2);
+    }
 
     function refreshPage() {
         window.location.reload(false);
-      }
+    }
 
     function updateCards(search: string) {
         setFilteredCards(
@@ -147,84 +144,98 @@ export default function SearchPage() {
 
     return (
         <SafeAreaView style={styles.container}>
-        <Searchbar
-            showBackArrow={showBackArrow}
-            setBackArrow={setBackArrow}
-            pageType={"home"}
-            updateCards={updateCards}
-        ></Searchbar>
-        <FilterRow
-            filters={filters}
-            activeFilters={activeFilters}
-            onFilterClick={onFilterClick}
-            clearSelectedFilters={clearSelectedFilters}
-            openMenu={() => refRBSheet.current.open()}
-        ></FilterRow>
-        {showBackArrow ? (
-            <ScrollView
-                pagingEnabled
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{
-                    flexDirection: "row",
-                    flexWrap: "wrap"
-                }}
-            >
-                {filteredCards.map((c: any) => {
-                 return(<View style={styles.card}>
-                   <ActivityCard
-                       refresh={refreshPage}
-                       username={userInfo.username}
-                       id={c.id}
-                       title={c.title}
-                       date={c.date}
-                       savedIcon={c.savedUsers.includes(userInfo.username)}
-                       savedUsers={c.savedUsers}
-                       image={c.image}
-                       updateUsers = {updateUsers}/>
-                 </View>);
-                })}
-            </ScrollView>
-        ) : (
-            <ScrollView
-                pagingEnabled
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-            >
-                <View style={styles.card}>
-                    {filters.map((category) => {
+            <Searchbar
+                showBackArrow={showBackArrow}
+                setBackArrow={setBackArrow}
+                pageType={"home"}
+                updateCards={updateCards}
+            ></Searchbar>
+            <FilterRow
+                filters={filters}
+                activeFilters={activeFilters}
+                onFilterClick={onFilterClick}
+                clearSelectedFilters={clearSelectedFilters}
+                openMenu={() => refRBSheet.current.open()}
+            ></FilterRow>
+            {showBackArrow ? (
+                <ScrollView
+                    pagingEnabled
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{
+                        flexDirection: "row",
+                        flexWrap: "wrap"
+                    }}
+                >
+                    {filteredCards.map((c: any) => {
                         return (
-                            <CardRow
-                                refresh={refreshPage}
-                                updateUsers={updateUsers}
-                                username={userInfo.username}
-                                cards={cards.filter((item: any) => {
-                                    if(item.filterCategories){
-                                      if (
-                                        item.filterCategories.includes(
-                                            category
-                                        )
-                                    ) {
-                                        return item;
-                                    }
-                                    }                                       
-                                })}
-                                category={String(category)}
-                            />
+                            <View style={styles.card} key={c.id}>
+                                <ActivityCard
+                                    refresh={refreshPage}
+                                    username={userInfo.username}
+                                    id={c.id}
+                                    title={c.title}
+                                    date={c.date}
+                                    savedIcon={c.savedUsers.includes(
+                                        userInfo.username
+                                    )}
+                                    savedUsers={c.savedUsers}
+                                    image={c.image}
+                                    updateUsers={updateUsers}
+                                    description={c.descroption}
+                                    time={c.time}
+                                    filterCategories={c.filterCategories}
+                                    location={c.location}
+                                    category={c.category}
+                                    price={c.price}
+                                    website={c.website}
+                                    rating={c.rating}
+                                />
+                            </View>
                         );
                     })}
-                </View>
-            </ScrollView>
-        )}
-        <FilterMenu
-            refRBSheet={refRBSheet}
-            filters={filters}
-            activeFilters={activeFilters}
-            onFilterClick={onFilterClick}
-            clearSelectedFilters={clearSelectedFilters}
-        ></FilterMenu>
-    </SafeAreaView>
-);
+                </ScrollView>
+            ) : (
+                <ScrollView
+                    pagingEnabled
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                >
+                    <View style={styles.card}>
+                        {filters.map((category) => {
+                            return (
+                                <CardRow
+                                    key={category}
+                                    refresh={refreshPage}
+                                    updateUsers={updateUsers}
+                                    username={userInfo.username}
+                                    cards={cards.filter((item: any) => {
+                                        if (item.filterCategories) {
+                                            if (
+                                                item.filterCategories.includes(
+                                                    category
+                                                )
+                                            ) {
+                                                return item;
+                                            }
+                                        }
+                                    })}
+                                    category={String(category)}
+                                />
+                            );
+                        })}
+                    </View>
+                </ScrollView>
+            )}
+            <FilterMenu
+                refRBSheet={refRBSheet}
+                filters={filters}
+                activeFilters={activeFilters}
+                onFilterClick={onFilterClick}
+                clearSelectedFilters={clearSelectedFilters}
+            ></FilterMenu>
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
