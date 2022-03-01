@@ -80,6 +80,14 @@ const SearchPage: React.FunctionComponent<SearchPageComponentProps> = (props) =>
                        savedIcon={c.savedUsers.includes(props.userInfo.username)}
                        savedUsers={c.savedUsers}
                        image={c.image}
+                       description={c.descroption}
+                       time={c.time}
+                       filterCategories={c.filterCategories}
+                       location={c.location}
+                       category={c.category}
+                       price={c.price}
+                       website={c.website}
+                       rating={c.rating}
                        updateUsers = {props.updateUsers}/>
                  </View>);
                 })}
@@ -94,6 +102,7 @@ const SearchPage: React.FunctionComponent<SearchPageComponentProps> = (props) =>
                     {props.filters.map((category) => {
                         return (
                             <CardRow
+                                key={category}
                                 updateUsers={props.updateUsers}
                                 username={props.userInfo.username}
                                 cards={props.cards.filter((item: any) => {

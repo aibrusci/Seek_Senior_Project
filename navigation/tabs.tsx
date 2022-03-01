@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import Amplify, { API, graphqlOperation, Auth } from "aws-amplify";
 import { listEvents } from "../src/graphql/queries";
@@ -7,7 +8,6 @@ import MapPage from '../Pages/MapPage';
 import SearchPage from '../Pages/SearchPage';
 import SavePage from '../Pages/SavePage';
 import UserPage from '../Pages/UserPage';
-
 const Tab = createBottomTabNavigator();
 
 
