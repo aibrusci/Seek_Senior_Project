@@ -2,7 +2,7 @@ type Event {
   id: ID!
   title: String
   date: String
-  image: String
+  image: [String]
   description: String
   time: String
   filterCategories: [String]
@@ -12,12 +12,13 @@ type Event {
   price: String
   website: String
   savedUsers: [String]
+  rating: [Int]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
 
 type Mutation {
-  addEvent(id: ID!, title: String, date: String, image: String, description: String, time: String, filterCategories: [String], coordinate: [Float], mapDescription: String, price: String, website: String, savedUsers: [String], location: String): Event
+  addEvent(id: ID!, title: String, date: String, image: [String], description: String, time: String, filterCategories: [String], coordinate: [Float], mapDescription: String, price: String, website: String, rating: [Int], savedUsers: [String], location: String): Event
   category: String
   createEvent(input: CreateEventInput!, condition: ModelEventConditionInput): Event
   updateEvent(input: UpdateEventInput!, condition: ModelEventConditionInput): Event
@@ -30,7 +31,7 @@ enum ModelSortDirection {
 }
 
 type ModelEventConnection {
-  items: [Event]
+  items: [Event]!
   nextToken: String
 }
 
@@ -112,25 +113,16 @@ input ModelEventFilterInput {
   title: ModelStringInput
   date: ModelStringInput
   image: ModelStringInput
-<<<<<<< HEAD
-=======
-  savedUsers: ModelStringInput
->>>>>>> 8c97b24b8cb470617d0af603019c6f1def9bf9d4
   description: ModelStringInput
   time: ModelStringInput
   filterCategories: ModelStringInput
   location: ModelStringInput
-<<<<<<< HEAD
   coordinate: ModelFloatInput
   mapDescription: ModelStringInput
   price: ModelStringInput
   website: ModelStringInput
   savedUsers: ModelStringInput
-=======
-  category: ModelStringInput
-  website: ModelStringInput
-  savedIcon: ModelBooleanInput
->>>>>>> 8c97b24b8cb470617d0af603019c6f1def9bf9d4
+  rating: ModelIntInput
   and: [ModelEventFilterInput]
   or: [ModelEventFilterInput]
   not: ModelEventFilterInput
@@ -158,81 +150,54 @@ input CreateEventInput {
   id: ID
   title: String
   date: String
-  image: String
-<<<<<<< HEAD
-=======
-  savedUsers: [String]
->>>>>>> 8c97b24b8cb470617d0af603019c6f1def9bf9d4
+  image: [String]
   description: String
   time: String
   filterCategories: [String]
   location: String
-<<<<<<< HEAD
   coordinate: [Float]
   mapDescription: String
   price: String
   website: String
   savedUsers: [String]
-=======
-  category: String
-  website: String
-  savedIcon: Boolean
->>>>>>> 8c97b24b8cb470617d0af603019c6f1def9bf9d4
+  rating: [Int]
 }
 
 input UpdateEventInput {
   id: ID!
   title: String
   date: String
-  image: String
-<<<<<<< HEAD
-=======
-  savedUsers: [String]
->>>>>>> 8c97b24b8cb470617d0af603019c6f1def9bf9d4
+  image: [String]
   description: String
   time: String
   filterCategories: [String]
   location: String
-<<<<<<< HEAD
   coordinate: [Float]
   mapDescription: String
   price: String
   website: String
   savedUsers: [String]
-=======
-  category: String
-  website: String
-  savedIcon: Boolean
->>>>>>> 8c97b24b8cb470617d0af603019c6f1def9bf9d4
+  rating: [Int]
 }
 
 input DeleteEventInput {
-  id: ID
+  id: ID!
 }
 
 input ModelEventConditionInput {
   title: ModelStringInput
   date: ModelStringInput
   image: ModelStringInput
-<<<<<<< HEAD
-=======
-  savedUsers: ModelStringInput
->>>>>>> 8c97b24b8cb470617d0af603019c6f1def9bf9d4
   description: ModelStringInput
   time: ModelStringInput
   filterCategories: ModelStringInput
   location: ModelStringInput
-<<<<<<< HEAD
   coordinate: ModelFloatInput
   mapDescription: ModelStringInput
   price: ModelStringInput
   website: ModelStringInput
   savedUsers: ModelStringInput
-=======
-  category: ModelStringInput
-  website: ModelStringInput
-  savedIcon: ModelBooleanInput
->>>>>>> 8c97b24b8cb470617d0af603019c6f1def9bf9d4
+  rating: ModelIntInput
   and: [ModelEventConditionInput]
   or: [ModelEventConditionInput]
   not: ModelEventConditionInput

@@ -4,7 +4,7 @@ type Event @model(subscriptions: null){
     id: ID!
     title: String
     date: String
-    image: String
+    image: [String]
     description: String
     time: String
     filterCategories: [String]
@@ -14,12 +14,13 @@ type Event @model(subscriptions: null){
     price: String
     website: String
     savedUsers: [String]
+    rating: [Int]
 }
 
 type Mutation {
     addEvent(id:ID!,  title:String, 
                       date: String,
-                      image: String,
+                      image: [String],
                       description: String,
                       time: String,
                       filterCategories: [String],
@@ -27,6 +28,7 @@ type Mutation {
                       mapDescription: String,
                       price: String,
                       website: String,
+                      rating: [Int],
                       savedUsers: [String],
                       location: String): Event,
                       category: String}

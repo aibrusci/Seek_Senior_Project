@@ -33,6 +33,7 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
     let [fontsLoaded] = useFonts({
         WorkSans_400Regular
     });
+    console.log(props);
 
     const updateSaved = async (search: any) => {
         // Will need to add post request here to save to their account later

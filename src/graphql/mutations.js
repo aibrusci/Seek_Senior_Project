@@ -6,11 +6,16 @@ export const addEvent = /* GraphQL */ `
     $id: ID!
     $title: String
     $date: String
-    $image: String
-    $savedIcon: Boolean
+    $image: [String]
     $description: String
     $time: String
     $filterCategories: [String]
+    $coordinate: [Float]
+    $mapDescription: String
+    $price: String
+    $website: String
+    $rating: [Int]
+    $savedUsers: [String]
     $location: String
   ) {
     addEvent(
@@ -18,24 +23,31 @@ export const addEvent = /* GraphQL */ `
       title: $title
       date: $date
       image: $image
-      savedIcon: $savedIcon
       description: $description
       time: $time
       filterCategories: $filterCategories
+      coordinate: $coordinate
+      mapDescription: $mapDescription
+      price: $price
+      website: $website
+      rating: $rating
+      savedUsers: $savedUsers
       location: $location
     ) {
       id
       title
       date
       image
-      savedUsers
       description
       time
       filterCategories
       location
-      category
+      coordinate
+      mapDescription
+      price
       website
-      savedIcon
+      savedUsers
+      rating
       createdAt
       updatedAt
     }
@@ -56,14 +68,16 @@ export const createEvent = /* GraphQL */ `
       title
       date
       image
-      savedUsers
       description
       time
       filterCategories
       location
-      category
+      coordinate
+      mapDescription
+      price
       website
-      savedIcon
+      savedUsers
+      rating
       createdAt
       updatedAt
     }
@@ -79,14 +93,16 @@ export const updateEvent = /* GraphQL */ `
       title
       date
       image
-      savedUsers
       description
       time
       filterCategories
       location
-      category
+      coordinate
+      mapDescription
+      price
       website
-      savedIcon
+      savedUsers
+      rating
       createdAt
       updatedAt
     }
@@ -102,14 +118,16 @@ export const deleteEvent = /* GraphQL */ `
       title
       date
       image
-      savedUsers
       description
       time
       filterCategories
       location
-      category
+      coordinate
+      mapDescription
+      price
       website
-      savedIcon
+      savedUsers
+      rating
       createdAt
       updatedAt
     }
