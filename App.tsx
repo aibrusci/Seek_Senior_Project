@@ -85,6 +85,8 @@ function App() {
   let [fontsLoaded] = useFonts({
     WorkSans_400Regular
   });
+
+  
   return (
     <NavigationContainer>
       <View style={styles.topRow}>

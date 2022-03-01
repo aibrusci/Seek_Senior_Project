@@ -10,7 +10,6 @@ type CardRowProps = {
     category: string;
     cards: any;
     username: string;
-    refresh: any
     updateUsers: Function
 };
 
@@ -28,8 +27,8 @@ type ActivityCardType = {
     price: string;
     website: string;
     rating: [number];
-    savedUsers: any;
-    refresh: any
+    //savedSeeks: any;
+    savedUsers: any
     updateUsers: Function;
 };
 
@@ -57,7 +56,6 @@ const CardRow: React.FC<CardRowProps> = (props) => {
                         rating={card.rating}
                         updateUsers = {props.updateUsers}
                         username={props.username}
-                        refresh={props.refresh}
                         savedUsers={card.savedUsers}
                     />
                 </View>

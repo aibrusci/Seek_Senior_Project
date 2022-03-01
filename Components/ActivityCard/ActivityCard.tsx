@@ -22,10 +22,9 @@ type ActivityCardProps = {
     price: string;
     website: string;
     rating: [number];
-    savedUsers: any;
     username: string;
-    refresh: any
     updateUsers: Function
+    savedUsers: any;
 };
 
 const ActivityCard: React.FC<ActivityCardProps> = (props) => {
@@ -36,7 +35,7 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
     });
 
     const  updateSaved = async (search: any) => {
-        // Will need to add post request here to save to their account later
+
         let currentSavedUsers = props.savedUsers
 
         if(saved){
@@ -53,7 +52,6 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
         setSaved(!saved);
         props.updateUsers(currentSavedUsers, props.id);
         props.savedIcon = saved
-        props.refresh
     };
 
     return (
