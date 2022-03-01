@@ -1,0 +1,12 @@
+{
+  "resourceName": "seekStorage",
+  "policyUUID": "740d778e",
+  "bucketName": "seekseniorprojectd73987c00ca7454dade2e648928581",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "READ"
+  ],
+  "triggerFunction": "S3Triggere2dab7d7",
+  "groupAccess": {}
+}

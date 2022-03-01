@@ -30,7 +30,7 @@ const awsmobile = {
     "aws_appsync_graphqlEndpoint": "https://z3qoiavykzcjbmnaid3whgzhxi.appsync-api.us-east-1.amazonaws.com/graphql",
     "aws_appsync_region": "us-east-1",
     "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
-    "aws_user_files_s3_bucket": "seekimagebucket152527-dev",
+    "aws_user_files_s3_bucket": "seekseniorprojectd73987c00ca7454dade2e648928581152527-dev",
     "aws_user_files_s3_bucket_region": "us-east-1"
 };
 

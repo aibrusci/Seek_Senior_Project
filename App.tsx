@@ -18,7 +18,7 @@ import SearchBar  from 'react-native-elements';
 import Tabs from './navigation/tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import LogoIcon from './LogoIcon.png';
-import { MainStackNavigator } from "./Navigation/Stack";
+import { MainStackNavigator } from "./navigation/Stack";
 import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 
 Amplify.configure({
@@ -42,9 +42,6 @@ async function signOut() {
     }
 }
 
-//const MyTheme = Object.assign({}, AmplifyTheme.sectionHeader, { background: 'orange' });
-const MySectionHeader = Object.assign({}, AmplifyTheme.sectionHeader, { background: 'black' });
-// const MyTheme = Object.assign({}, AmplifyTheme, { sectionHeader: MySectionHeader });
 const authTheme = {
   ...AmplifyTheme,
   sectionHeader:{
@@ -114,7 +111,8 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 6,
         width: 100,
-        marginTop: 65
+        marginTop: 65,
+        marginLeft: 145,
     },
 
     buttonText: {
@@ -139,7 +137,7 @@ const styles = StyleSheet.create({
     },
     Logo: {
         marginTop: 65,
-        marginBottom: 10
+        marginBottom: 10,
     }
 });
 
