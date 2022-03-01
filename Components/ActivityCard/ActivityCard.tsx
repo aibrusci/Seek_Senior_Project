@@ -21,10 +21,9 @@ type ActivityCardProps = {
     price: string;
     website: string;
     rating: [number];
-    savedUsers: any;
     username: string;
-    refresh: any;
-    updateUsers: Function;
+    updateUsers: Function
+    savedUsers: any;
 };
 
 const ActivityCard: React.FC<ActivityCardProps> = (props) => {
@@ -35,9 +34,9 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
     });
     console.log(props);
 
-    const updateSaved = async (search: any) => {
-        // Will need to add post request here to save to their account later
-        let currentSavedUsers = props.savedUsers;
+    const  updateSaved = async (search: any) => {
+
+        let currentSavedUsers = props.savedUsers
 
         if (saved) {
             const index = currentSavedUsers.indexOf(props.username);
@@ -52,8 +51,7 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
         );
         setSaved(!saved);
         props.updateUsers(currentSavedUsers, props.id);
-        props.savedIcon = saved;
-        props.refresh;
+        props.savedIcon = saved
     };
 
     return (

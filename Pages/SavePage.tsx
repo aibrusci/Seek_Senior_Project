@@ -4,85 +4,34 @@ import Searchbar from '../Components/SearchBar/Searchbar';
 import ActivityCard from '../Components/ActivityCard/ActivityCard';
 import Amplify , {API, graphqlOperation, Auth} from 'aws-amplify';
 import { listEvents } from '../src/graphql/queries';
-import CardRow from '../Components/CardRow/CardRow';
 import { Button } from 'react-native-elements';
 
+type SavePageComponentProps = {
+  showBackArrow: Boolean;
+  setBackArrow: Function;
+  cards: any;
+  userInfo: any;
+  savedSeeks: any;
+  updateCards: Function;
+  updateUsers: Function;
+};
 
-export default function SavePage() {
-
-  const [showBackArrow, setBackArrow] = useState(false);
-  const [savedSeeks, setSavedSeeks] = useState([]);
-  const [cards, setCards] = useState();
-  const [userInfo, setUserInfo] = useState();
-  const [refresh, setRefresh] = useState(true);
-
-  function updateCards(search: string) {
-    if (search === "") {
-        setBackArrow(false);
-    } else {
-        setBackArrow(true);
-    }
-}
-
-function refreshPage(){
-  setRefresh(!refresh)
-}
-function updateUsers(newUsers: any, id:any){
-  let cards2 = [... cards]
-  cards2.map((card: any) => {
-    if(card.id === id) {
-        card.savedUsers = newUsers
-    }
-})
-setCards(cards2)
-}
-
-useEffect(() => {
-  let temp: any = []
-  if (cards) {
-    cards.map((card: any) => {
-      if(card.savedUsers.includes(userInfo.username)) {
-          temp.push(card)
-      }
-  })
-  setSavedSeeks(temp)
-  }
-   
-}, [cards])
-
-useEffect(() => {
-  (async () => {
-
-   const user = await Auth.currentAuthenticatedUser();
-   const apiData = await API.graphql(graphqlOperation(listEvents));
-   const cardData = apiData.data.listEvents.items;
-   setUserInfo(user)
-   setCards(cardData);
-   let temp: any = []
-   cardData.map((card: any) => {
-       if(card.savedUsers.includes(user.username)) {
-           temp.push(card)
-       }
-   })
-   setSavedSeeks(temp)
-  })();
-
-}, [])
+const SavePage: React.FunctionComponent<SavePageComponentProps> = (props) => {
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.search}>
       <Searchbar 
-            showBackArrow={showBackArrow}
-            setBackArrow={setBackArrow}
+            showBackArrow={props.showBackArrow}
+            setBackArrow={props.setBackArrow}
             pageType={"save"}
-            updateCards={updateCards}
+            updateCards={props.updateCards}
         ></Searchbar>
       </View>
       <Text style={styles.savedSeeks}>
         Saved Seeks
       </Text>
-      { (savedSeeks && savedSeeks.length == 0 ) ? 
+      { (props.savedSeeks && props.savedSeeks.length == 0 ) ? 
         (<View>
           <Text style={styles.messageOne}>
             No saved seeks
@@ -100,18 +49,17 @@ useEffect(() => {
                 }}
             >
               {/* {console.log(savedSeeks)} */}
-              {savedSeeks.map((c: any) => {
+              {props.savedSeeks.map((c: any) => {
                    return (<View style={styles.cardStyle}>
                    <ActivityCard
-                       username={userInfo.username}
+                       username={props.userInfo.username}
                        id={c.id}
                        title={c.title}
                        date={c.date}
-                       savedIcon={c.savedUsers.includes(userInfo.username)}
+                       savedIcon={c.savedUsers.includes(props.userInfo.username)}
                        savedUsers={c.savedUsers}
                        image={c.image}
-                       refresh = {refreshPage}
-                       updateUsers = {updateUsers}/>
+                       updateUsers = {props.updateUsers}/>
                    </View>)
                 })}
             </ScrollView>
@@ -155,3 +103,5 @@ const styles = StyleSheet.create({
     borderRadius: 15
 }
 });
+
+export default SavePage
