@@ -54,6 +54,7 @@ const FilterRow: React.FC<FilterRowProps> = (props) => {
                 />
                 {filterArray.map((filter: string) => (
                     <Filter
+                        key={filter}
                         title={filter}
                         selected={props.activeFilters.includes(filter)}
                         onFilterClick={props.onFilterClick}

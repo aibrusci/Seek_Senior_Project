@@ -1,17 +1,14 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ActivityCard from "../../Components/ActivityCard/ActivityCard";
 import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
-
-
-
 
 type CardRowProps = {
     category: string;
     cards: any;
     username: string;
-    refresh: any
-    updateUsers: Function
+    refresh: any;
+    updateUsers: Function;
 };
 
 type ActivityCardType = {
@@ -29,7 +26,7 @@ type ActivityCardType = {
     website: string;
     rating: [number];
     savedUsers: any;
-    refresh: any
+    refresh: any;
     updateUsers: Function;
 };
 
@@ -38,7 +35,7 @@ const CardRow: React.FC<CardRowProps> = (props) => {
         WorkSans_400Regular
     });
     const _renderViews = (views: ActivityCardType[]): JSX.Element[] => {
-        return views.map((card) => {
+        return views.map((card, i) => {
             return (
                 <View style={styles.cardStyle}>
                     <ActivityCard
@@ -55,7 +52,7 @@ const CardRow: React.FC<CardRowProps> = (props) => {
                         price={card.price}
                         website={card.website}
                         rating={card.rating}
-                        updateUsers = {props.updateUsers}
+                        updateUsers={props.updateUsers}
                         username={props.username}
                         refresh={props.refresh}
                         savedUsers={card.savedUsers}

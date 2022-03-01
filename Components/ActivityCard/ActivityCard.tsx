@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import {Button} from 'react-native-elements';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { updateEvent } from '../../src/graphql/mutations';
+import { Button } from "react-native-elements";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { updateEvent } from "../../src/graphql/mutations";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
-import Amplify , {API, graphqlOperation, Auth} from 'aws-amplify';
-
+import Amplify, { API, graphqlOperation, Auth } from "aws-amplify";
 
 type ActivityCardProps = {
     id: String;
@@ -24,8 +23,8 @@ type ActivityCardProps = {
     rating: [number];
     savedUsers: any;
     username: string;
-    refresh: any
-    updateUsers: Function
+    refresh: any;
+    updateUsers: Function;
 };
 
 const ActivityCard: React.FC<ActivityCardProps> = (props) => {
@@ -35,25 +34,25 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
         WorkSans_400Regular
     });
 
-    const  updateSaved = async (search: any) => {
+    const updateSaved = async (search: any) => {
         // Will need to add post request here to save to their account later
-        let currentSavedUsers = props.savedUsers
+        let currentSavedUsers = props.savedUsers;
 
-        if(saved){
-          const index = currentSavedUsers.indexOf(props.username)
-          currentSavedUsers.splice(index,1)
-        }else {
-          currentSavedUsers.push(props.username)
+        if (saved) {
+            const index = currentSavedUsers.indexOf(props.username);
+            currentSavedUsers.splice(index, 1);
+        } else {
+            currentSavedUsers.push(props.username);
         }
         const updatedEvent = await API.graphql(
-          graphqlOperation(updateEvent, {
-            input: {id: props.id, savedUsers: currentSavedUsers},
-          }),
-        )
+            graphqlOperation(updateEvent, {
+                input: { id: props.id, savedUsers: currentSavedUsers }
+            })
+        );
         setSaved(!saved);
         props.updateUsers(currentSavedUsers, props.id);
-        props.savedIcon = saved
-        props.refresh
+        props.savedIcon = saved;
+        props.refresh;
     };
 
     return (

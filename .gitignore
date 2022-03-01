@@ -9,3 +9,4 @@
 node_modules
 
 amplify/mock-data
+amplify/team-provider-info.json

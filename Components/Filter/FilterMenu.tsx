@@ -68,7 +68,7 @@ const FilterMenu: React.FC<FilterMenuProps> = (props) => {
                     }}
                 >
                     {props.filters.map((filter: string) => (
-                        <View style={styles.filterMenuItem}>
+                        <View style={styles.filterMenuItem} key={filter}>
                             <Filter
                                 title={filter}
                                 selected={props.activeFilters.includes(filter)}
