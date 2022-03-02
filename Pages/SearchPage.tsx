@@ -4,8 +4,7 @@ import { StyleSheet, ScrollView, View, SafeAreaView } from "react-native";
 import ActivityCard from "../Components/ActivityCard/ActivityCard";
 import CardRow from "../Components/CardRow/CardRow";
 import Searchbar from "../Components/SearchBar/Searchbar";
-import Amplify, { API, graphqlOperation, Auth } from "aws-amplify";
-import { createEvent } from "../src/graphql/mutations";
+import { API, graphqlOperation, Auth } from "aws-amplify";
 import { listEvents } from "../src/graphql/queries";
 import FilterRow from "../Components/Filter/FilterRow";
 import FilterMenu from "../Components/Filter/FilterMenu";
@@ -27,138 +26,44 @@ type CardType = {
     rating: [number];
 };
 
-export default function SearchPage() {
-    const [filteredCards, setFilteredCards] = useState([]);
-    const [activeFilters, setactiveFilters] = useState(Array());
-    const [showBackArrow, setBackArrow] = useState(false);
-    const [filters, setFilters] = useState(Array());
+type SearchPageComponentProps = {
+    filteredCards: any;
+    activeFilters: any;
+    showBackArrow: Boolean;
+    setBackArrow: Function;
+    filters: any;
+    cards: any;
+    userInfo: any;
+    updateUsers: Function;
+    updateCards: Function;
+    onFilterClick: Function;
+    clearSelectedFilters: Function;
+    _addRemoveFilter: Function;
+    savedSeeks: any;
+};
+
+const SearchPage: React.FunctionComponent<SearchPageComponentProps> = (
+    props
+) => {
     const refRBSheet = useRef();
-    const [cards, setCards] = useState([]);
-    const [userInfo, setUserInfo] = useState();
-
-    useEffect(() => {
-        (async () => {
-            const user = await Auth.currentAuthenticatedUser();
-            const apiData = await API.graphql(graphqlOperation(listEvents));
-            const cardData = apiData.data.listEvents.items;
-            setCards(cardData);
-            setFilteredCards(cardData);
-            setUserInfo(user);
-            console.log(cardData);
-            const newFilters = new Set();
-            cardData.forEach((card) => {
-                if (card.filterCategories) {
-                    card.filterCategories.forEach((category) =>
-                        newFilters.add(category)
-                    );
-                }
-            });
-            setFilters(Array.from(newFilters));
-        })();
-    }, []);
-
-    useEffect(() => {
-        if (!showBackArrow) {
-            clearSelectedFilters();
-        }
-    }, [showBackArrow]);
-
-    useEffect(() => {}, [cards]);
-
-    function updateUsers(newUsers: any, id: any) {
-        let cards2 = [...cards];
-        cards2.map((card: any) => {
-            if (card.id === id) {
-                card.savedUsers = newUsers;
-            }
-        });
-        setCards(cards2);
-    }
-
-    function refreshPage() {
-        window.location.reload(false);
-    }
-
-    function updateCards(search: string) {
-        setFilteredCards(
-            cards.filter((item: any) => {
-                if (item.title.toLowerCase().includes(search.toLowerCase())) {
-                    return item;
-                }
-            })
-        );
-        if (search === "") {
-            setBackArrow(false);
-        } else {
-            setBackArrow(true);
-        }
-    }
-    const onFilterClick = (filter: string) => {
-        const active = _addRemoveFilter(filter, activeFilters);
-        setactiveFilters(active);
-        filters.sort((a: any, b: any) => {
-            if (activeFilters.includes(a)) {
-                return -1;
-            }
-            if (activeFilters.includes(b)) {
-                return 1;
-            }
-            return 0;
-        });
-        setFilteredCards(
-            cards.filter((item: any) => {
-                if (
-                    activeFilters.every((val) => {
-                        if (item.filterCategories) {
-                            return item.filterCategories.includes(val);
-                        } else {
-                            return false;
-                        }
-                    })
-                ) {
-                    return item;
-                }
-            })
-        );
-        if (activeFilters.length) {
-            setBackArrow(true);
-        } else {
-            setBackArrow(false);
-        }
-    };
-
-    const clearSelectedFilters = () => {
-        setactiveFilters([]);
-        setBackArrow(false);
-    };
-
-    const _addRemoveFilter = (filter: string, activeFilters: any[]) => {
-        const index = activeFilters.indexOf(filter);
-        if (index > -1) {
-            activeFilters.splice(index, 1);
-        } else {
-            activeFilters.push(filter);
-        }
-        return activeFilters;
-    };
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.viewContainer}>
                 <Searchbar
-                    showBackArrow={showBackArrow}
-                    setBackArrow={setBackArrow}
+                    showBackArrow={props.showBackArrow}
+                    setBackArrow={props.setBackArrow}
                     pageType={"home"}
-                    updateCards={updateCards}
+                    updateCards={props.updateCards}
                 ></Searchbar>
                 <FilterRow
-                    filters={filters}
-                    activeFilters={activeFilters}
-                    onFilterClick={onFilterClick}
-                    clearSelectedFilters={clearSelectedFilters}
+                    filters={props.filters}
+                    activeFilters={props.activeFilters}
+                    onFilterClick={props.onFilterClick}
+                    clearSelectedFilters={props.clearSelectedFilters}
                     openMenu={() => refRBSheet.current.open()}
                 ></FilterRow>
-                {showBackArrow ? (
+                {props.showBackArrow ? (
                     <ScrollView
                         pagingEnabled
                         showsVerticalScrollIndicator={false}
@@ -168,21 +73,19 @@ export default function SearchPage() {
                             flexWrap: "wrap"
                         }}
                     >
-                        {filteredCards.map((c: any) => {
+                        {props.filteredCards.map((c: any) => {
                             return (
-                                <View style={styles.card} key={c.id}>
+                                <View style={styles.card}>
                                     <ActivityCard
-                                        refresh={refreshPage}
-                                        username={userInfo.username}
+                                        username={props.userInfo.username}
                                         id={c.id}
                                         title={c.title}
                                         date={c.date}
                                         savedIcon={c.savedUsers.includes(
-                                            userInfo.username
+                                            props.userInfo.username
                                         )}
                                         savedUsers={c.savedUsers}
                                         image={c.image}
-                                        updateUsers={updateUsers}
                                         description={c.descroption}
                                         time={c.time}
                                         filterCategories={c.filterCategories}
@@ -191,6 +94,7 @@ export default function SearchPage() {
                                         price={c.price}
                                         website={c.website}
                                         rating={c.rating}
+                                        updateUsers={props.updateUsers}
                                     />
                                 </View>
                             );
@@ -203,24 +107,25 @@ export default function SearchPage() {
                         showsHorizontalScrollIndicator={false}
                     >
                         <View style={styles.card}>
-                            {filters.map((category) => {
+                            {props.filters.map((category) => {
                                 return (
                                     <CardRow
                                         key={category}
-                                        refresh={refreshPage}
-                                        updateUsers={updateUsers}
-                                        username={userInfo.username}
-                                        cards={cards.filter((item: any) => {
-                                            if (item.filterCategories) {
-                                                if (
-                                                    item.filterCategories.includes(
-                                                        category
-                                                    )
-                                                ) {
-                                                    return item;
+                                        updateUsers={props.updateUsers}
+                                        username={props.userInfo.username}
+                                        cards={props.cards.filter(
+                                            (item: any) => {
+                                                if (item.filterCategories) {
+                                                    if (
+                                                        item.filterCategories.includes(
+                                                            category
+                                                        )
+                                                    ) {
+                                                        return item;
+                                                    }
                                                 }
                                             }
-                                        })}
+                                        )}
                                         category={String(category)}
                                     />
                                 );
@@ -230,15 +135,15 @@ export default function SearchPage() {
                 )}
                 <FilterMenu
                     refRBSheet={refRBSheet}
-                    filters={filters}
-                    activeFilters={activeFilters}
-                    onFilterClick={onFilterClick}
-                    clearSelectedFilters={clearSelectedFilters}
+                    filters={props.filters}
+                    activeFilters={props.activeFilters}
+                    onFilterClick={props.onFilterClick}
+                    clearSelectedFilters={props.clearSelectedFilters}
                 ></FilterMenu>
             </View>
         </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -256,3 +161,5 @@ const styles = StyleSheet.create({
         padding: -24
     }
 });
+
+export default SearchPage;
