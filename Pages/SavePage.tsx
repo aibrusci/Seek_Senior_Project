@@ -14,6 +14,7 @@ type SavePageComponentProps = {
     savedSeeks: any;
     updateCards: Function;
     updateUsers: Function;
+    filteredSavedCards: any;
 };
 
 const SavePage: React.FunctionComponent<SavePageComponentProps> = (props) => {
@@ -29,7 +30,8 @@ const SavePage: React.FunctionComponent<SavePageComponentProps> = (props) => {
                     ></Searchbar>
                 </View>
                 <Text style={styles.savedSeeks}>Saved Seeks</Text>
-                {props.savedSeeks && props.savedSeeks.length == 0 ? (
+                {props.filteredSavedCards &&
+                props.filteredSavedCards.length == 0 ? (
                     <View>
                         <Text style={styles.messageOne}>No saved seeks</Text>
                     </View>
@@ -44,8 +46,7 @@ const SavePage: React.FunctionComponent<SavePageComponentProps> = (props) => {
                                 flexWrap: "wrap"
                             }}
                         >
-                            {/* {console.log(savedSeeks)} */}
-                            {props.savedSeeks.map((c: any) => {
+                            {props.filteredSavedCards.map((c: any, i) => {
                                 return (
                                     <View style={styles.cardStyle}>
                                         <ActivityCard
@@ -53,12 +54,22 @@ const SavePage: React.FunctionComponent<SavePageComponentProps> = (props) => {
                                             id={c.id}
                                             title={c.title}
                                             date={c.date}
+                                            time={c.time}
                                             savedIcon={c.savedUsers.includes(
                                                 props.userInfo.username
                                             )}
                                             savedUsers={c.savedUsers}
                                             image={c.image}
                                             updateUsers={props.updateUsers}
+                                            description={c.description}
+                                            filterCategories={
+                                                c.filterCategories
+                                            }
+                                            location={c.location}
+                                            price={c.price}
+                                            website={c.website}
+                                            rating={c.rating}
+                                            category={c.category}
                                         />
                                     </View>
                                 );

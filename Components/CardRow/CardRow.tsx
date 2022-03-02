@@ -7,7 +7,7 @@ type CardRowProps = {
     category: string;
     cards: any;
     username: string;
-    updateUsers: Function
+    updateUsers: Function;
 };
 
 type ActivityCardType = {
@@ -24,7 +24,7 @@ type ActivityCardType = {
     price: string;
     website: string;
     rating: [number];
-    savedUsers: any
+    savedUsers: any;
     updateUsers: Function;
 };
 

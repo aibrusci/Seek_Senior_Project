@@ -112,7 +112,8 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
         console.log(address);
         const destination = encodeURIComponent(address);
         const provider = Platform.OS === "ios" ? "apple" : "google";
-        const link = `weather://${provider}.com/?daddr=${destination}`;
+        const link = `http://weather://${provider}.com/?daddr=${destination}`;
+        console.log(link);
 
         try {
             const supported = await Linking.canOpenURL(link);
@@ -267,10 +268,17 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
                         </Text>
                         <View style={styles.priceRating}>
                             {route.params.rating ? (
-                                <Rating
-                                    id={route.params.id}
-                                    rating={route.params.rating}
-                                ></Rating>
+                                <View style={styles.ratingRow}>
+                                    <Rating
+                                        id={route.params.id}
+                                        rating={route.params.rating}
+                                    ></Rating>
+                                    {/* <Text style={styles.ratingText}>
+                                        {route.params.rating.reduce(
+                                            (a: any, b: any) => a + b
+                                        ) / route.params.rating.length}
+                                    </Text> */}
+                                </View>
                             ) : (
                                 <Rating
                                     id={route.params.id}
@@ -375,21 +383,25 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
                             {route.params.date}
                         </Text>
                     </View>
-                    <View style={styles.timeBlock}>
-                        <Image
-                            source={require("../assets/clock.png")}
-                            resizeMode="contain"
-                            style={{
-                                width: 20,
-                                height: 20,
-                                paddingTop: 50,
-                                marginRight: 10
-                            }}
-                        />
-                        <Text style={styles.eventTime}>
-                            {route.params.time}
-                        </Text>
-                    </View>
+                    {route.params.time ? (
+                        <View style={styles.timeBlock}>
+                            <Image
+                                source={require("../assets/clock.png")}
+                                resizeMode="contain"
+                                style={{
+                                    width: 20,
+                                    height: 20,
+                                    paddingTop: 50,
+                                    marginRight: 10
+                                }}
+                            />
+                            <Text style={styles.eventTime}>
+                                {route.params.time}
+                            </Text>
+                        </View>
+                    ) : (
+                        <View></View>
+                    )}
                 </View>
 
                 <Divider style={styles.divider}></Divider>
@@ -403,7 +415,7 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
 };
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 10,
+        // paddingTop: 10,
         backgroundColor: "white"
     },
     top: {
@@ -413,7 +425,8 @@ const styles = StyleSheet.create({
         paddingTop: 40,
         paddingLeft: 10,
         paddingRight: 10,
-        top: -545
+        top: -545,
+        position: "relative"
     },
     image: {
         opacity: 0.8,
@@ -439,8 +452,15 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     title: {
-        top: -235,
-        paddingLeft: 15
+        top: -310,
+        paddingLeft: 15,
+        shadowColor: "black",
+        shadowRadius: 5,
+        shadowOpacity: 0.7,
+        display: "flex",
+        flexDirection: "column",
+        height: 135,
+        justifyContent: "flex-end"
     },
     eventTitle: {
         fontFamily: "WorkSans_700Bold",
@@ -453,6 +473,16 @@ const styles = StyleSheet.create({
         fontSize: 18,
         lineHeight: 22,
         color: "white"
+    },
+    ratingText: {
+        fontFamily: "WorkSans_700Bold",
+        fontSize: 18,
+        lineHeight: 22,
+        color: "white"
+    },
+    ratingRow: {
+        display: "flex",
+        flexDirection: "row"
     },
     titleRow: {
         display: "flex",
@@ -472,8 +502,9 @@ const styles = StyleSheet.create({
     eventLocation: {
         fontFamily: "WorkSans_400Regular",
         fontSize: 15,
-        lineHeight: 32,
-        color: "white"
+        lineHeight: 20,
+        color: "white",
+        justifyContent: "flex-end"
     },
     buttonLabel: {
         textAlign: "center",
@@ -507,7 +538,8 @@ const styles = StyleSheet.create({
         padding: 20,
         fontFamily: "WorkSans_300Light",
         lineHeight: 24,
-        paddingTop: 10
+        paddingTop: 10,
+        marginBottom: 50
     },
     roundButton: {
         width: 50,
