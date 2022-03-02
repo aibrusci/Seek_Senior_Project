@@ -215,6 +215,7 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
                     <TouchableOpacity onPress={() => setModalVisible(true)}>
                         <Image
                             style={styles.image}
+                            resizeMode="cover"
                             source={{ uri: route.params.image[0] }}
                         ></Image>
                     </TouchableOpacity>
@@ -256,24 +257,7 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
                                     )
                                 }
                             ></Button>
-                            <S3StorageUpload></S3StorageUpload>
-
-                            {/* <TouchableOpacity
-                            style={styles.roundButtonTop}
-                            onPress={() => navigation.goBack()}
-                        >
-                            <Image
-                                source={require("../assets/add-image.png")}
-                                resizeMode="contain"
-                                style={{
-                                    width: 30,
-                                    height: 30,
-                                    paddingTop: 55,
-                                    marginLeft: 2,
-                                    alignContent: "flex-start"
-                                }}
-                            />
-                        </TouchableOpacity> */}
+                            {/* <S3StorageUpload></S3StorageUpload> */}
                         </View>
                     </View>
 
@@ -418,7 +402,10 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
     }
 };
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        paddingTop: 10,
+        backgroundColor: "white"
+    },
     top: {
         display: "flex",
         flexDirection: "row",
@@ -426,12 +413,11 @@ const styles = StyleSheet.create({
         paddingTop: 40,
         paddingLeft: 10,
         paddingRight: 10,
-        top: -485
+        top: -545
     },
     image: {
         opacity: 0.8,
-        height: 466,
-        width: 401
+        height: 520
     },
     imageBackground: {
         backgroundColor: "black",
@@ -453,7 +439,7 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     title: {
-        top: -260,
+        top: -235,
         paddingLeft: 15
     },
     eventTitle: {
