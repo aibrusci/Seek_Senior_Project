@@ -30,7 +30,6 @@ const Ratings: React.FunctionComponent<RatingsComponentProps> = (props) => {
                 input: { id: props.id, rating: currentRating }
             })
         );
-        console.log(currentRating);
     };
 
     return (

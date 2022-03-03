@@ -18,7 +18,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 
-import { markers, mapStandardStyle} from '../data/cardsExample';
 import Searchbar from '../Components/SearchBar/Searchbar';
 import FilterRow from "../Components/Filter/FilterRow";
 import FilterMenu from "../Components/Filter/FilterMenu";
@@ -30,41 +29,28 @@ const CARD_HEIGHT = 200;
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-type CardType = {
-  title: string;
-  date: string;
-  image: string;
-  savedIcon: boolean;
-  filterCategories: string[];
+type MapPageComponentProps = {
+  filteredCards: any;
+  activeFilters: any;
+  showBackArrow: Boolean;
+  setBackArrow: Function;
+  filters: any;
+  cards: any;
+  userInfo: any;
+  updateUsers: Function;
+  updateCards: Function;
+  onFilterClick: Function;
+  clearSelectedFilters: Function;
+  _addRemoveFilter: Function;
+  savedSeeks: any;
 };
 
-   export default function MapPage(){
+const MapPage: React.FunctionComponent<MapPageComponentProps> = (
+  props
+) => {
      const theme = useTheme();
    
      const initialMapState = {
-       markers,
-       categories: [
-         { 
-           name: 'Fastfood Center', 
-           icon: <MaterialCommunityIcons style={styles.chipsIcon} name="food-fork-drink" size={18} />,
-         },
-         {
-           name: 'Restaurant',
-           icon: <Ionicons name="ios-restaurant" style={styles.chipsIcon} size={18} />,
-         },
-         {
-           name: 'Dineouts',
-           icon: <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />,
-         },
-         {
-           name: 'Snacks Corner',
-           icon: <MaterialCommunityIcons name="food" style={styles.chipsIcon} size={18} />,
-         },
-         {
-           name: 'Hotel',
-           icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
-         },
-     ],
        region: {
           latitude: 35.2783,
           longitude: -120.6590,
@@ -77,11 +63,6 @@ type CardType = {
 
     const _map = React.useRef(null);
     const _scrollView = React.useRef(null);
-
-    const [filteredMarkers, setfilteredMarkers] = useState(markers);
-    const [activeFilters, setactiveFilters] = useState(Array());
-    const [showBackArrow, setBackArrow] = useState(false);
-    const [filters, setFilters] = useState(_getAllFilters(markers));
     const refRBSheet = useRef();
 
     let mapIndex = 0;
@@ -90,8 +71,8 @@ type CardType = {
     useEffect(() => {
       mapAnimation.addListener(({ value }) => {
         let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-        if (index >= state.markers.length) {
-          index = state.markers.length - 1;
+        if (index >= props.cards.length) {
+          index = props.cards.length - 1;
         }
         if (index <= 0) {
           index = 0;
@@ -99,11 +80,11 @@ type CardType = {
         const regionTimeout = setTimeout(() => {
           if( mapIndex !== index ) {
             mapIndex = index;
-            const coordinate = state.markers[index];
+            const coordinate = props.cards[index].coordinate;
             _map.current.animateToRegion(
               {
-                latitude: coordinate.coordinate.latitude - .01,
-                longitude: coordinate.coordinate.longitude,
+                latitude: coordinate[0] - .01,
+                longitude: coordinate[1],
                 latitudeDelta: state.region.latitudeDelta,
                 longitudeDelta: state.region.longitudeDelta,
               },
@@ -115,7 +96,7 @@ type CardType = {
       });
     });
 
-    const interpolations = state.markers.map((marker, index) => {
+    const interpolations = props.cards.map((marker: any, index: any) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
         index * CARD_WIDTH,
@@ -131,7 +112,8 @@ type CardType = {
         return { scale };
       });
     
-    const onMarkerPress = (mapEventData : any) => {//this onPress function has a bug.
+    const onMarkerPress = (mapEventData : any) => {
+      {console.log("PRESSED")} //this onPress function has a bug.
       const markerID = mapEventData._targetInst.return.key;
 
       let x = (markerID * CARD_WIDTH) + (markerID * 20); 
@@ -140,96 +122,21 @@ type CardType = {
 
       _scrollView.current.scrollTo({x: x, y: 0, animated: true});
     }
-
-    function updateCards(search: string) {
-        setfilteredMarkers(
-            markers.filter((item: any) => {
-                if (item.title.toLowerCase().includes(search.toLowerCase())) {
-                    return item;
-                }
-            })
-        );
-        if (search === "") {
-            setBackArrow(false);
-        } else {
-            setBackArrow(true);
-        }
-    }
-    
-    const onFilterClick = (filter: string) => {
-        const active = _addRemoveFilter(filter, activeFilters);
-        setactiveFilters(active);
-        filters.sort((a: any, b: any) => {
-            if (activeFilters.includes(a)) {
-                return -1;
-            }
-            if (activeFilters.includes(b)) {
-                return 1;
-            }
-            return 0;
-        });
-        setfilteredMarkers(
-            markers.filter((item: any) => {
-                if (
-                    activeFilters.every((val) => {
-                        return item.filterCategories.includes(val);
-                    })
-                ) {
-                    return item;
-                }
-            })
-        );
-        if (activeFilters.length) {
-            setBackArrow(true);
-        } else {
-            setBackArrow(false);
-        }
-    };
-    useEffect(() => {
-        if (!showBackArrow) {
-            clearSelectedFilters();
-        }
-    }, [showBackArrow]);
-
-    const clearSelectedFilters = () => {
-        setactiveFilters([]);
-        setBackArrow(false);
-    };
-
-    const _addRemoveFilter = (filter: string, activeFilters: any[]) => {
-        const index = activeFilters.indexOf(filter);
-        if (index > -1) {
-            activeFilters.splice(index, 1);
-        } else {
-            activeFilters.push(filter);
-        }
-        return activeFilters;
-    };
-
-    function _getAllFilters(cards: CardType[]) {
-        const newFilters = new Set();
-        cards.forEach((card) =>
-            card.filterCategories.forEach((category) =>
-                newFilters.add(category)
-            )
-        );
-        return Array.from(newFilters);
-    }
    
   return (
     <View style={styles.container}>
       <View style={styles.searchBox}>
       <Searchbar
-        showBackArrow={showBackArrow}
-        setBackArrow={setBackArrow}
+        showBackArrow={props.showBackArrow}
+        setBackArrow={props.setBackArrow}
         pageType={"map"}
-        updateCards={updateCards}
+        updateCards={props.updateCards}
       ></Searchbar>
         <FilterRow
-          filters={filters}
-          activeFilters={activeFilters}
-          onFilterClick={onFilterClick}
-          clearSelectedFilters={clearSelectedFilters}
+          filters={props.filters}
+          activeFilters={props.activeFilters}
+          onFilterClick={props.onFilterClick}
+          clearSelectedFilters={props.clearSelectedFilters}
           openMenu={() => refRBSheet.current.open()}
         ></FilterRow>
       </View>
@@ -239,7 +146,7 @@ type CardType = {
         style={styles.map}
         provider={PROVIDER_GOOGLE}
       >
-        {filteredMarkers.map((marker, index) => {
+        {props.filteredCards.map((marker: any, index: any) => {
           const scaleStyle={
             transform: [
               {
@@ -253,7 +160,7 @@ type CardType = {
             ref={_map}
             initialRegion={state.region}
             provider={PROVIDER_GOOGLE}>
-              <Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
+              <Marker key={index} coordinate={{latitude: marker.coordinate[0], longitude:marker.coordinate[1]}} onPress={(e) => onMarkerPress(e)}>
                 {/* <Callout tooltip>
                   <TouchableHighlight onPress={() => console.log("yo")}> */}
                     <Animated.View style={[styles.markerWrap]}>
@@ -273,10 +180,10 @@ type CardType = {
         </MapView>
         <FilterMenu
           refRBSheet={refRBSheet}
-          filters={filters}
-          activeFilters={activeFilters}
-          onFilterClick={onFilterClick}
-          clearSelectedFilters={clearSelectedFilters}
+          filters={props.filters}
+          activeFilters={props.activeFilters}
+          onFilterClick={props.onFilterClick}
+          clearSelectedFilters={props.clearSelectedFilters}
         ></FilterMenu>
         <Animated.ScrollView
         ref={_scrollView}
@@ -306,7 +213,7 @@ type CardType = {
             {useNativeDriver: true}
           )}
         >
-          {filteredMarkers.map((marker, index) =>
+          {props.filteredCards.map((marker: any, index: any) =>
             <View style={styles.card} key={index}>
               <Image
                 source={marker.image}
@@ -426,3 +333,5 @@ const styles = StyleSheet.create({
       fontWeight: 'bold'
   }
 });
+
+export default MapPage;
