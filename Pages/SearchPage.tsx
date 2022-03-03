@@ -86,7 +86,7 @@ const SearchPage: React.FunctionComponent<SearchPageComponentProps> = (
                                         )}
                                         savedUsers={c.savedUsers}
                                         image={c.image}
-                                        description={c.descroption}
+                                        description={c.description}
                                         time={c.time}
                                         filterCategories={c.filterCategories}
                                         location={c.location}

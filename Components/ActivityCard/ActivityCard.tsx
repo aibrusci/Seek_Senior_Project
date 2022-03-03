@@ -22,7 +22,7 @@ type ActivityCardProps = {
     website: string;
     rating: [number];
     username: string;
-    updateUsers: Function
+    updateUsers: Function;
     savedUsers: any;
 };
 
@@ -32,11 +32,9 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
     let [fontsLoaded] = useFonts({
         WorkSans_400Regular
     });
-    console.log(props);
 
-    const  updateSaved = async (search: any) => {
-
-        let currentSavedUsers = props.savedUsers
+    const updateSaved = async (search: any) => {
+        let currentSavedUsers = props.savedUsers;
 
         if (saved) {
             const index = currentSavedUsers.indexOf(props.username);
@@ -51,7 +49,7 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
         );
         setSaved(!saved);
         props.updateUsers(currentSavedUsers, props.id);
-        props.savedIcon = saved
+        props.savedIcon = saved;
     };
 
     return (
@@ -71,7 +69,9 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
             <View style={styles.CardFooter}>
                 <View style={styles.cardText}>
                     <Text style={styles.activityName}>{props.title}</Text>
-                    <Text style={styles.date}>{props.date}</Text>
+                    <Text style={styles.date}>
+                        {props.date} {props.time}
+                    </Text>
                 </View>
                 <Button
                     buttonStyle={{
