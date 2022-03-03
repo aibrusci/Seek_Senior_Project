@@ -42,107 +42,118 @@ type SearchPageComponentProps = {
     savedSeeks: any;
 };
 
-const SearchPage: React.FunctionComponent<SearchPageComponentProps> = (props) => {
+const SearchPage: React.FunctionComponent<SearchPageComponentProps> = (
+    props
+) => {
     const refRBSheet = useRef();
 
     return (
         <SafeAreaView style={styles.container}>
-        <Searchbar
-            showBackArrow={props.showBackArrow}
-            setBackArrow={props.setBackArrow}
-            pageType={"home"}
-            updateCards={props.updateCards}
-        ></Searchbar>
-        <FilterRow
-            filters={props.filters}
-            activeFilters={props.activeFilters}
-            onFilterClick={props.onFilterClick}
-            clearSelectedFilters={props.clearSelectedFilters}
-            openMenu={() => refRBSheet.current.open()}
-        ></FilterRow>
-        {props.showBackArrow ? (
-            <ScrollView
-                pagingEnabled
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{
-                    flexDirection: "row",
-                    flexWrap: "wrap"
-                }}
-            >
-                {props.filteredCards.map((c: any) => {
-                 return(<View style={styles.card}>
-                   <ActivityCard
-                       username={props.userInfo.username}
-                       id={c.id}
-                       title={c.title}
-                       date={c.date}
-                       savedIcon={c.savedUsers.includes(props.userInfo.username)}
-                       savedUsers={c.savedUsers}
-                       image={c.image}
-                       description={c.descroption}
-                       time={c.time}
-                       filterCategories={c.filterCategories}
-                       location={c.location}
-                       category={c.category}
-                       price={c.price}
-                       website={c.website}
-                       rating={c.rating}
-                       updateUsers = {props.updateUsers}/>
-                 </View>);
-                })}
-            </ScrollView>
-        ) : (
-            <ScrollView
-                pagingEnabled
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-            >
-                <View style={styles.card}>
-                    {props.filters.map((category) => {
-                        return (
-                            <CardRow
-                                key={category}
-                                updateUsers={props.updateUsers}
-                                username={props.userInfo.username}
-                                cards={props.cards.filter((item: any) => {
-                                    if(item.filterCategories){
-                                      if (
-                                        item.filterCategories.includes(
-                                            category
-                                        )
-                                    ) {
-                                        return item;
-                                    }
-                                    }                                       
-                                })}
-                                category={String(category)}
-                            />
-                        );
-                    })}
-                </View>
-            </ScrollView>
-        )}
-        <FilterMenu
-            refRBSheet={refRBSheet}
-            filters={props.filters}
-            activeFilters={props.activeFilters}
-            onFilterClick={props.onFilterClick}
-            clearSelectedFilters={props.clearSelectedFilters}
-        ></FilterMenu>
-    </SafeAreaView>
-);
-}
+            <View style={styles.viewContainer}>
+                <Searchbar
+                    showBackArrow={props.showBackArrow}
+                    setBackArrow={props.setBackArrow}
+                    pageType={"home"}
+                    updateCards={props.updateCards}
+                ></Searchbar>
+                <FilterRow
+                    filters={props.filters}
+                    activeFilters={props.activeFilters}
+                    onFilterClick={props.onFilterClick}
+                    clearSelectedFilters={props.clearSelectedFilters}
+                    openMenu={() => refRBSheet.current.open()}
+                ></FilterRow>
+                {props.showBackArrow ? (
+                    <ScrollView
+                        pagingEnabled
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{
+                            flexDirection: "row",
+                            flexWrap: "wrap"
+                        }}
+                    >
+                        {props.filteredCards.map((c: any) => {
+                            return (
+                                <View style={styles.card}>
+                                    <ActivityCard
+                                        username={props.userInfo.username}
+                                        id={c.id}
+                                        title={c.title}
+                                        date={c.date}
+                                        savedIcon={c.savedUsers.includes(
+                                            props.userInfo.username
+                                        )}
+                                        savedUsers={c.savedUsers}
+                                        image={c.image}
+                                        description={c.description}
+                                        time={c.time}
+                                        filterCategories={c.filterCategories}
+                                        location={c.location}
+                                        category={c.category}
+                                        price={c.price}
+                                        website={c.website}
+                                        rating={c.rating}
+                                        updateUsers={props.updateUsers}
+                                    />
+                                </View>
+                            );
+                        })}
+                    </ScrollView>
+                ) : (
+                    <ScrollView
+                        pagingEnabled
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                    >
+                        <View style={styles.card}>
+                            {props.filters.map((category) => {
+                                return (
+                                    <CardRow
+                                        key={category}
+                                        updateUsers={props.updateUsers}
+                                        username={props.userInfo.username}
+                                        cards={props.cards.filter(
+                                            (item: any) => {
+                                                if (item.filterCategories) {
+                                                    if (
+                                                        item.filterCategories.includes(
+                                                            category
+                                                        )
+                                                    ) {
+                                                        return item;
+                                                    }
+                                                }
+                                            }
+                                        )}
+                                        category={String(category)}
+                                    />
+                                );
+                            })}
+                        </View>
+                    </ScrollView>
+                )}
+                <FilterMenu
+                    refRBSheet={refRBSheet}
+                    filters={props.filters}
+                    activeFilters={props.activeFilters}
+                    onFilterClick={props.onFilterClick}
+                    clearSelectedFilters={props.clearSelectedFilters}
+                ></FilterMenu>
+            </View>
+        </SafeAreaView>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
         justifyContent: "space-between",
-        marginLeft: 24,
-        backgroundColor: "#fff",
+        backgroundColor: "white",
         maxHeight: 800
     },
     viewContainer: {
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        marginLeft: 24
     },
     card: {},
     Logo: {
@@ -151,4 +162,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SearchPage
+export default SearchPage;

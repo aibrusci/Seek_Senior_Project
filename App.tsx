@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
     topRow: {
         flexDirection: "row",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        marginBottom: 10
     },
     header: {
         display: "flex",
