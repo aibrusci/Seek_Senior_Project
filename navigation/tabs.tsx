@@ -10,8 +10,6 @@ import SavePage from '../Pages/SavePage';
 import UserPage from '../Pages/UserPage';
 const Tab = createBottomTabNavigator();
 
-
-
 export default function Tabs() {
 
 const [filteredCards, setFilteredCards] = useState([]);
@@ -31,7 +29,6 @@ useEffect(() => {
         setCards(cardData);
         setFilteredCards(cardData);
         setUserInfo(user);
-        console.log(cardData);
         const newFilters = new Set();
         cardData.forEach((card) => {
             if (card.filterCategories) {

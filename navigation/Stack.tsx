@@ -1,6 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ActivityPage from "../Pages/ActivityPage";
+import MapPage from "../Pages/MapPage";
 import Tabs from "./tabs";
 import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -22,6 +23,14 @@ const MainStackNavigator = () => {
                 name="ActivityPage"
                 component={ActivityPage}
                 options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen
+                name="MapPage"
+                component={MapPage}
+                options={{
+                    title: "MapPage",
                     headerShown: false
                 }}
             />

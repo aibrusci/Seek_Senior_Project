@@ -48,7 +48,6 @@ const SavePage: React.FunctionComponent<SavePageComponentProps> = (props) => {
                     flexWrap: "wrap"
                 }}
             >
-              {/* {console.log(savedSeeks)} */}
               {props.savedSeeks.map((c: any) => {
                    return (<View style={styles.cardStyle}>
                    <ActivityCard
