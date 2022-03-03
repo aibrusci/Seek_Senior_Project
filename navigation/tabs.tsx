@@ -64,6 +64,10 @@ useEffect(() => {
                 card.filterCategories.forEach((category: any) =>
                     newFilters.add(category)
                 );
+            }
+        })
+    }
+    )})
 
     function updateUsers(newUsers: any, id: any) {
         let cards2 = [...cards];
