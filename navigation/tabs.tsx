@@ -49,6 +49,22 @@ export default function Tabs() {
         })();
     }, []);
 
+
+useEffect(() => {
+    (async () => {
+        const user = await Auth.currentAuthenticatedUser();
+        const apiData = await API.graphql(graphqlOperation(listEvents));
+        const cardData = apiData.data.listEvents.items;
+        setCards(cardData);
+        setFilteredCards(cardData);
+        setUserInfo(user);
+        const newFilters = new Set();
+        cardData.forEach((card) => {
+            if (card.filterCategories) {
+                card.filterCategories.forEach((category: any) =>
+                    newFilters.add(category)
+                );
+
     function updateUsers(newUsers: any, id: any) {
         let cards2 = [...cards];
         cards2.map((card: any) => {

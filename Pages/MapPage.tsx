@@ -131,8 +131,7 @@ type CardType = {
         return { scale };
       });
     
-    const onMarkerPress = (mapEventData : any) => {
-      {console.log("PRESSED")} //this onPress function has a bug.
+    const onMarkerPress = (mapEventData : any) => {//this onPress function has a bug.
       const markerID = mapEventData._targetInst.return.key;
 
       let x = (markerID * CARD_WIDTH) + (markerID * 20); 
@@ -223,7 +222,7 @@ type CardType = {
       <Searchbar
         showBackArrow={showBackArrow}
         setBackArrow={setBackArrow}
-        pageType={"home"}
+        pageType={"map"}
         updateCards={updateCards}
       ></Searchbar>
         <FilterRow
