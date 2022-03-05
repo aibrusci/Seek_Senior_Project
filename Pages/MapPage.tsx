@@ -21,6 +21,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Searchbar from '../Components/SearchBar/Searchbar';
 import FilterRow from "../Components/Filter/FilterRow";
 import FilterMenu from "../Components/Filter/FilterMenu";
+import ActivityCard from '../Components/ActivityCard/ActivityCard';
 
 import { useTheme } from '@react-navigation/native';
 
@@ -213,17 +214,29 @@ const MapPage: React.FunctionComponent<MapPageComponentProps> = (
             {useNativeDriver: true}
           )}
         >
-          {props.filteredCards.map((marker: any, index: any) =>
+          {props.filteredCards.map((c: any, index: any) =>
             <View style={styles.card} key={index}>
-              <Image
-                source={marker.image}
-                style={styles.cardImage}
-                resizeMode='cover'
+              <ActivityCard
+                username={props.userInfo.username}
+                id={c.id}
+                title={c.title}
+                date={c.date}
+                savedIcon={c.savedUsers.includes(
+                    props.userInfo.username
+                )}
+                savedUsers={c.savedUsers}
+                image={c.image}
+                description={c.description}
+                time={c.time}
+                filterCategories={c.filterCategories}
+                location={c.location}
+                category={c.category}
+                price={c.price}
+                website={c.website}
+                rating={c.rating}
+                updateUsers={props.updateUsers}
+                pageType={"MapPage"}
               />
-              <View style={styles.textContent}>
-                <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                <Text numberOfLines={1} style={styles.cardDescription}>{marker.description}</Text>
-              </View>
             </View>
           )}
         </Animated.ScrollView>
@@ -288,24 +301,6 @@ const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     width: CARD_WIDTH,
     overflow: "hidden",
-  },
-  cardImage: {
-    flex: 3,
-    width: "100%",
-    height: "100%",
-    alignSelf: "center",
-  },
-  textContent: {
-    flex: 2,
-    padding: 10,
-  },
-  cardtitle: {
-    fontSize: 12,
-    fontWeight: "bold",
-  },
-  cardDescription: {
-    fontSize: 12,
-    color: "#444",
   },
   markerWrap: {
     alignItems: "center",

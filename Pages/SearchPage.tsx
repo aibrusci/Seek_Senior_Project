@@ -95,6 +95,7 @@ const SearchPage: React.FunctionComponent<SearchPageComponentProps> = (
                                         website={c.website}
                                         rating={c.rating}
                                         updateUsers={props.updateUsers}
+                                        pageType={"SearchPage"}
                                     />
                                 </View>
                             );

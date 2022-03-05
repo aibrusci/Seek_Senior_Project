@@ -70,6 +70,7 @@ const SavePage: React.FunctionComponent<SavePageComponentProps> = (props) => {
                                             website={c.website}
                                             rating={c.rating}
                                             category={c.category}
+                                            pageType={"SavePage"}
                                         />
                                     </View>
                                 );

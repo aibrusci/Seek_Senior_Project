@@ -26,6 +26,7 @@ type ActivityCardType = {
     rating: [number];
     savedUsers: any;
     updateUsers: Function;
+    pageType: String;
 };
 
 const CardRow: React.FC<CardRowProps> = (props) => {
@@ -53,6 +54,7 @@ const CardRow: React.FC<CardRowProps> = (props) => {
                         updateUsers={props.updateUsers}
                         username={props.username}
                         savedUsers={card.savedUsers}
+                        pageType={card.pageType}
                     />
                 </View>
             );

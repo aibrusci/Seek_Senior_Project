@@ -6,6 +6,11 @@ import { updateEvent } from "../../src/graphql/mutations";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 import Amplify, { API, graphqlOperation, Auth } from "aws-amplify";
+import { Dimensions } from "react-native";
+const { width, height } = Dimensions.get("window");
+const CARD_HEIGHT = 200;
+const CARD_WIDTH = width * 0.8;
+const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 type ActivityCardProps = {
     id: String;
@@ -24,6 +29,7 @@ type ActivityCardProps = {
     username: string;
     updateUsers: Function;
     savedUsers: any;
+    pageType: String;
 };
 
 const ActivityCard: React.FC<ActivityCardProps> = (props) => {
@@ -54,7 +60,7 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
 
     return (
         <TouchableOpacity
-            style={styles.fullCard}
+            style={[props.pageType == "MapPage" ? styles.mapFullCard : styles.fullCard]}
             onPress={() =>
                 navigation.navigate("ActivityPage", {
                     screen: "ActivityPage",
@@ -63,15 +69,18 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
             }
         >
             <Image
-                style={styles.image}
+                style={[props.pageType == "MapPage" ? styles.mapImage : styles.image]}
                 source={{ uri: props.image[0] }}
             ></Image>
-            <View style={styles.CardFooter}>
-                <View style={styles.cardText}>
-                    <Text style={styles.activityName}>{props.title}</Text>
-                    <Text style={styles.date}>
+            <View style={styles.cardFooter}>
+                <View style={[props.pageType == "MapPage" ? styles.mapCardText : styles.cardText]}>
+                    <Text numberOfLines={1} style={[props.pageType == "MapPage" ? styles.mapActivityName : styles.activityName]}>{props.title}</Text>
+                    <Text numberOfLines={1} style={styles.date}>
                         {props.date} {props.time}
                     </Text>
+                    {props.pageType == "MapPage" ?
+                    <Text numberOfLines={2} style={styles.mapCardDescription}>{props.description}</Text>
+                    : null}
                 </View>
                 <Button
                     buttonStyle={{
@@ -115,7 +124,7 @@ const styles = StyleSheet.create({
         flexShrink: 1,
         fontFamily: "WorkSans_400Regular"
     },
-    CardFooter: {
+    cardFooter: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between"
@@ -141,6 +150,41 @@ const styles = StyleSheet.create({
     iconButton: {
         backgroundColor: "#FFF",
         color: "#fff"
-    }
+    },
+    mapFullCard: {
+        elevation: 2,
+        backgroundColor: "#FFF",
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        shadowColor: "#000",
+        shadowRadius: 5,
+        shadowOpacity: 0.3,
+        shadowOffset: { width: 2, height: -2 },
+        height: CARD_HEIGHT,
+        width: CARD_WIDTH,
+        overflow: "hidden",
+    },
+    mapCardText: {
+        fontFamily: "WorkSans_400Regular",
+        flex: 2,
+        padding: 10,
+    },
+    mapCardDescription: {
+        paddingTop: 2,
+        fontSize: 10,
+        color: "#444",
+        fontFamily: "WorkSans_400Regular"
+    },
+    mapActivityName: {
+        fontSize: 12,
+        fontWeight: "bold",
+        fontFamily: "WorkSans_400Regular"
+    },
+    mapImage: {
+        flex: 3,
+        width: "100%",
+        height: "100%",
+        alignSelf: "center",
+    },
 });
 export default ActivityCard;
