@@ -22,7 +22,7 @@ import SearchBar from "react-native-elements";
 import Tabs from "./navigation/tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import LogoIcon from "./LogoIcon.png";
-import { MainStackNavigator } from "./Navigation/Stack";
+import { MainStackNavigator } from "./navigation/Stack";
 import { useFonts, WorkSans_400Regular } from "@expo-google-fonts/work-sans";
 
 Amplify.configure({
