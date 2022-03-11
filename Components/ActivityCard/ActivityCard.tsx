@@ -53,34 +53,61 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
                 input: { id: props.id, savedUsers: currentSavedUsers }
             })
         );
-        setSaved(!saved);
+        // setSaved(!saved);
         props.updateUsers(currentSavedUsers, props.id);
-        props.savedIcon = saved;
+        // props.savedIcon = saved;
     };
 
     return (
         <TouchableOpacity
-            style={[props.pageType == "MapPage" ? styles.mapFullCard : styles.fullCard]}
+            style={[
+                props.pageType == "MapPage"
+                    ? styles.mapFullCard
+                    : styles.fullCard
+            ]}
             onPress={() =>
                 navigation.navigate("ActivityPage", {
                     screen: "ActivityPage",
-                    ...props
+                    ...props,
+                    savedIcon: props.savedUsers.includes(props.username)
                 })
             }
         >
             <Image
-                style={[props.pageType == "MapPage" ? styles.mapImage : styles.image]}
+                style={[
+                    props.pageType == "MapPage" ? styles.mapImage : styles.image
+                ]}
                 source={{ uri: props.image[0] }}
             ></Image>
             <View style={styles.cardFooter}>
-                <View style={[props.pageType == "MapPage" ? styles.mapCardText : styles.cardText]}>
-                    <Text numberOfLines={1} style={[props.pageType == "MapPage" ? styles.mapActivityName : styles.activityName]}>{props.title}</Text>
+                <View
+                    style={[
+                        props.pageType == "MapPage"
+                            ? styles.mapCardText
+                            : styles.cardText
+                    ]}
+                >
+                    <Text
+                        numberOfLines={1}
+                        style={[
+                            props.pageType == "MapPage"
+                                ? styles.mapActivityName
+                                : styles.activityName
+                        ]}
+                    >
+                        {props.title}
+                    </Text>
                     <Text numberOfLines={1} style={styles.date}>
                         {props.date} {props.time}
                     </Text>
-                    {props.pageType == "MapPage" ?
-                    <Text numberOfLines={2} style={styles.mapCardDescription}>{props.description}</Text>
-                    : null}
+                    {props.pageType == "MapPage" ? (
+                        <Text
+                            numberOfLines={2}
+                            style={styles.mapCardDescription}
+                        >
+                            {props.description}
+                        </Text>
+                    ) : null}
                 </View>
                 <Button
                     buttonStyle={{
@@ -89,7 +116,7 @@ const ActivityCard: React.FC<ActivityCardProps> = (props) => {
                     title=""
                     onPress={updateSaved}
                     icon={
-                        saved ? (
+                        props.savedUsers.includes(props.username) ? (
                             <FontAwesome
                                 name="bookmark"
                                 size={24}
@@ -162,12 +189,12 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: -2 },
         height: CARD_HEIGHT,
         width: CARD_WIDTH,
-        overflow: "hidden",
+        overflow: "hidden"
     },
     mapCardText: {
         fontFamily: "WorkSans_400Regular",
         flex: 2,
-        padding: 10,
+        padding: 10
     },
     mapCardDescription: {
         paddingTop: 2,
@@ -184,7 +211,7 @@ const styles = StyleSheet.create({
         flex: 3,
         width: "100%",
         height: "100%",
-        alignSelf: "center",
-    },
+        alignSelf: "center"
+    }
 });
 export default ActivityCard;

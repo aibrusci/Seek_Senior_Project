@@ -9,7 +9,6 @@ import SavePage from "../Pages/SavePage";
 import UserPage from "../Pages/UserPage";
 const Tab = createBottomTabNavigator();
 
-
 export default function Tabs(props: any) {
     return (
         <Tab.Navigator
@@ -26,7 +25,7 @@ export default function Tabs(props: any) {
             }}
         >
             <Tab.Screen
-                name="SearchPage"
+                name="SearchPageTab"
                 children={() => (
                     <SearchPage
                         filteredCards={props.filteredCards}

@@ -36,7 +36,7 @@ const CardRow: React.FC<CardRowProps> = (props) => {
     const _renderViews = (views: ActivityCardType[]): JSX.Element[] => {
         return views.map((card, i) => {
             return (
-                <View style={styles.cardStyle}>
+                <View style={styles.cardStyle} key={i}>
                     <ActivityCard
                         id={card.id}
                         title={card.title}
@@ -66,7 +66,7 @@ const CardRow: React.FC<CardRowProps> = (props) => {
             <Text style={styles.categoryName}>{props.category}</Text>
             <ScrollView
                 horizontal
-                pagingEnabled
+                // pagingEnabled
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
             >

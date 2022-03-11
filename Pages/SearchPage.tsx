@@ -65,7 +65,6 @@ const SearchPage: React.FunctionComponent<SearchPageComponentProps> = (
                 ></FilterRow>
                 {props.showBackArrow ? (
                     <ScrollView
-                        pagingEnabled
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
                         contentContainerStyle={{
@@ -103,9 +102,9 @@ const SearchPage: React.FunctionComponent<SearchPageComponentProps> = (
                     </ScrollView>
                 ) : (
                     <ScrollView
-                        pagingEnabled
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
+                        pagingEnabled
                     >
                         <View style={styles.card}>
                             {props.filters.map((category) => {
@@ -148,13 +147,13 @@ const SearchPage: React.FunctionComponent<SearchPageComponentProps> = (
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: "space-between",
         backgroundColor: "white",
-        maxHeight: 800
+        height: "100%"
     },
     viewContainer: {
         backgroundColor: "#fff",
-        marginLeft: 24
+        marginLeft: 24,
+        height: "100%"
     },
     card: {},
     Logo: {
