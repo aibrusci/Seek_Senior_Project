@@ -36,6 +36,8 @@ import {
     WorkSans_900Black_Italic
 } from "@expo-google-fonts/work-sans";
 import Logo from "../Components/Logo/Logo";
+import { API, graphqlOperation } from "aws-amplify";
+import { updateEvent } from "../src/graphql/mutations";
 
 type Event = {
     id: String;
@@ -51,6 +53,9 @@ type Event = {
     price: string;
     website: string;
     rating: [number];
+    username: string;
+    updateUsers: Function;
+    savedUsers: any;
 };
 
 const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
@@ -79,9 +84,23 @@ const ActivityPage: React.FC<Event> = ({ navigation, route }) => {
         WorkSans_900Black_Italic
     });
 
-    const updateSaved = (search: any) => {
-        // Will need to add post request here to save to their account later
+    const updateSaved = async (search: any) => {
+        let currentSavedUsers = route.params.savedUsers;
+
+        if (saved) {
+            const index = currentSavedUsers.indexOf(route.params.username);
+            currentSavedUsers.splice(index, 1);
+        } else {
+            currentSavedUsers.push(route.params.username);
+        }
+        const updatedEvent = await API.graphql(
+            graphqlOperation(updateEvent, {
+                input: { id: route.params.id, savedUsers: currentSavedUsers }
+            })
+        );
         setSaved(!saved);
+        route.params.updateUsers(currentSavedUsers, route.params.id);
+        route.params.savedIcon = saved;
     };
 
     const openMap = async (address: string) => {

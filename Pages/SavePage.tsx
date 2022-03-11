@@ -36,47 +36,42 @@ const SavePage: React.FunctionComponent<SavePageComponentProps> = (props) => {
                         <Text style={styles.messageOne}>No saved seeks</Text>
                     </View>
                 ) : (
-                    <View>
-                        <ScrollView
-                            pagingEnabled
-                            showsVerticalScrollIndicator={false}
-                            showsHorizontalScrollIndicator={false}
-                            contentContainerStyle={{
-                                flexDirection: "row",
-                                flexWrap: "wrap"
-                            }}
-                        >
-                            {props.filteredSavedCards.map((c: any, i) => {
-                                return (
-                                    <View style={styles.cardStyle}>
-                                        <ActivityCard
-                                            username={props.userInfo.username}
-                                            id={c.id}
-                                            title={c.title}
-                                            date={c.date}
-                                            time={c.time}
-                                            savedIcon={c.savedUsers.includes(
-                                                props.userInfo.username
-                                            )}
-                                            savedUsers={c.savedUsers}
-                                            image={c.image}
-                                            updateUsers={props.updateUsers}
-                                            description={c.description}
-                                            filterCategories={
-                                                c.filterCategories
-                                            }
-                                            location={c.location}
-                                            price={c.price}
-                                            website={c.website}
-                                            rating={c.rating}
-                                            category={c.category}
-                                            pageType={"SavePage"}
-                                        />
-                                    </View>
-                                );
-                            })}
-                        </ScrollView>
-                    </View>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{
+                            flexDirection: "row",
+                            flexWrap: "wrap"
+                        }}
+                    >
+                        {props.filteredSavedCards.map((c: any, i) => {
+                            return (
+                                <View style={styles.cardStyle} key={i}>
+                                    <ActivityCard
+                                        username={props.userInfo.username}
+                                        id={c.id}
+                                        title={c.title}
+                                        date={c.date}
+                                        time={c.time}
+                                        savedIcon={c.savedUsers.includes(
+                                            props.userInfo.username
+                                        )}
+                                        savedUsers={c.savedUsers}
+                                        image={c.image}
+                                        updateUsers={props.updateUsers}
+                                        description={c.description}
+                                        filterCategories={c.filterCategories}
+                                        location={c.location}
+                                        price={c.price}
+                                        website={c.website}
+                                        rating={c.rating}
+                                        category={c.category}
+                                        pageType={"SavePage"}
+                                    />
+                                </View>
+                            );
+                        })}
+                    </ScrollView>
                 )}
             </View>
         </SafeAreaView>
@@ -86,12 +81,13 @@ const SavePage: React.FunctionComponent<SavePageComponentProps> = (props) => {
 const styles = StyleSheet.create({
     viewContainer: {
         marginLeft: 24,
-        backgroundColor: "white"
+        backgroundColor: "white",
+        height: "100%"
     },
     container: {
         justifyContent: "space-between",
         backgroundColor: "#fff",
-        height: 800
+        height: "100%"
     },
     search: {
         marginLeft: -45,
